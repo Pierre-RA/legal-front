@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'variables';
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import '../node_modules/font-awesome/scss/font-awesome';
+
+html, body {
+  height: 100%;
+  background-color: rgb(250,250,250);
+}
+app-root {
+  height: 100%;
+}

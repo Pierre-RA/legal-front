@@ -1,0 +1,14 @@
+{
+  "title": "Legal",
+  "menu": {
+    "dashboard": "tableau de bord",
+    "overview": "aperçu"
+  },
+  "login": {
+    "connectMessage": "Se connecter à Legal",
+    "labelEmail": "Adresse email",
+    "placeholderEmail": "Adresse email",
+    "labelPassword": "Mot de passe",
+    "placeholderPassword": "Mot de passe"
+  }
+}

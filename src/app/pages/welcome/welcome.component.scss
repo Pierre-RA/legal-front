@@ -1,0 +1,24 @@
+section {
+  height: 100%;
+}
+.element1 {
+  background-color: rgb(225,245,255);
+  color: rgb(125,145,155);
+}
+.element2 {
+  background-color: rgb(255,245,225);
+  color: rgb(155,145,125);
+}
+.element3 {
+  background-color: rgb(225,255,245);
+  color: rgb(125,155,145);
+}
+.element1,
+.element2,
+.element3 {
+  padding-top: 57px;
+  h1 {
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
+    padding-top: 10px;
+  }
+}

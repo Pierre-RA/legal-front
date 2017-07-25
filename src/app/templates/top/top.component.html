@@ -1,0 +1,37 @@
+<nav ngbDropdown class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
+  <button ngbDropdownToggle class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/"><i class="fa fa-gavel" aria-hidden="true"></i> {{title}}</a>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <!-- <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Pricing</a>
+      </li> -->
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item" [hidden]="isLogged">
+        <a class="nav-link" href="/login">Se connecter</a>
+      </li>
+      <li class="nav-item" [hidden]="isLogged">
+        <a class="nav-link" href="/register">S'enregistrer</a>
+      </li>
+      <li class="nav-item dropdown" [hidden]="!isLogged">
+        <div ngbDropdown class="d-inline-block">
+          <a class="nav-link dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>{{user.name}}</a>
+          <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
+            <a class="dropdown-item" href="/profile">Profile</a>
+            <a class="dropdown-item" href="/settings">Paramètres</a>
+            <a class="dropdown-item" (click)="logout()">Se déconnecter</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
