@@ -13,6 +13,7 @@ import { PagesModule } from './pages/pages.module';
 import { TemplateModule } from './templates/template.module';
 
 import { AuthGuardService } from './auth-guard.service';
+import { AuthService } from './pages/auth.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { AuthGuardService } from './auth-guard.service';
     PagesModule,
     routing
   ],
-  providers: [AuthGuardService],
+  providers: [AuthGuardService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,14 +15,14 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: 'app/pages/dashboard/dashboard.module',
-    canActivate: [ AuthGuardService ],
+    // canActivate: [ AuthGuardService ],
     data: { requiresLogin: true }
   },
   {
     path: 'pages',
     component: PagesComponent,
     children: [
-  //     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'presentation', pathMatch: 'full' },
       { path: 'notfound', loadChildren: 'app/pages/notfound/notfound.module' },
       { path: 'presentation', loadChildren: 'app/pages/welcome/welcome.module', data: { keepRoute: true } },
       // { path: 'dashboard', loadChildren: './dashboard/dashboard.module' },

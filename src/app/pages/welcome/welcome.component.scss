@@ -1,24 +1,22 @@
-section {
-  height: 100%;
+#element-1 {
+  background-color: lavender;
 }
-.element1 {
-  background-color: rgb(225,245,255);
-  color: rgb(125,145,155);
+#element-2 {
+  background-color: bisque;
 }
-.element2 {
-  background-color: rgb(255,245,225);
-  color: rgb(155,145,125);
+#element-3 {
+  background-color: lightgrey;
 }
-.element3 {
-  background-color: rgb(225,255,245);
-  color: rgb(125,155,145);
-}
-.element1,
-.element2,
-.element3 {
-  padding-top: 57px;
+#element-1,
+#element-2,
+#element-3 {
+  padding-bottom: 57px;
+  color: rgba(0,0,0,0.5);
   h1 {
     text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
     padding-top: 10px;
   }
+}
+.span-up {
+  padding-top: 60px;
 }

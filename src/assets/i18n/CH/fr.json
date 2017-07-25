@@ -10,5 +10,9 @@
     "placeholderEmail": "Adresse email",
     "labelPassword": "Mot de passe",
     "placeholderPassword": "Mot de passe"
+  },
+  "notfound": {
+    "error404": "Erreur 404",
+    "pageNotFound": "Page non trouvée"
   }
 }
