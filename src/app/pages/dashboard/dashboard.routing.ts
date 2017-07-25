@@ -10,7 +10,9 @@ export const routes: Routes = [
     children: [{
       path: 'overview',
       loadChildren: 'app/pages/dashboard/overview/overview.module',
-      pathMatch: 'full'
+    }, {
+      path: 'contracts',
+      loadChildren: 'app/pages/dashboard/contracts/contracts.module',
     }, {
       path: '',
       redirectTo: 'overview'
