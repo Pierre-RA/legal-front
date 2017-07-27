@@ -10,4 +10,4 @@ import { routing } from './contracts.routing';
   ],
   declarations: [ContractsComponent]
 })
-export default class ContractsModule { }
+export class ContractsModule { }

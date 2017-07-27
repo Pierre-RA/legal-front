@@ -13,4 +13,4 @@ import { routing } from './overview.routing';
   ],
   declarations: [OverviewComponent]
 })
-export default class OverviewModule { }
+export class OverviewModule { }

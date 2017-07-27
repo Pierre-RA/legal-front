@@ -15,4 +15,4 @@ import { routing } from './notfound.routing';
     NotFoundComponent
   ]
 })
-export default class WelcomeModule {}
+export class NotFoundModule {}

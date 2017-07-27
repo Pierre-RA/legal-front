@@ -6,25 +6,28 @@ import { AuthGuardService } from '../auth-guard.service';
 export const routes: Routes = [
   {
     path: 'login',
-    loadChildren: 'app/pages/login/login.module'
+    loadChildren: 'app/pages/login/login.module#LoginModule'
   },
   {
     path: 'register',
-    loadChildren: 'app/pages/register/register.module'
+    loadChildren: 'app/pages/register/register.module#RegisterModule'
   },
   {
     path: 'dashboard',
-    loadChildren: 'app/pages/dashboard/dashboard.module',
+    loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule',
     // canActivate: [ AuthGuardService ],
-    data: { requiresLogin: true }
+    data: {
+      requiresLogin: true,
+      breadcrumb: 'Dashboard'
+    }
   },
   {
     path: 'pages',
     component: PagesComponent,
     children: [
       { path: '', redirectTo: 'presentation', pathMatch: 'full' },
-      { path: 'notfound', loadChildren: 'app/pages/notfound/notfound.module' },
-      { path: 'presentation', loadChildren: 'app/pages/welcome/welcome.module', data: { keepRoute: true } },
+      { path: 'notfound', loadChildren: 'app/pages/notfound/notfound.module#NotFoundModule' },
+      { path: 'presentation', loadChildren: 'app/pages/welcome/welcome.module#WelcomeModule', data: { keepRoute: true } },
       // { path: 'dashboard', loadChildren: './dashboard/dashboard.module' },
   //     { path: 'editors', loadChildren: './editors/editors.module#EditorsModule' },
   //     { path: 'components', loadChildren: './components/components.module#ComponentsModule' },

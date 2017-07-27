@@ -17,4 +17,4 @@ import { TemplateModule } from '../../templates/template.module';
     RegisterComponent
   ]
 })
-export default class RegisterModule {}
+export class RegisterModule {}

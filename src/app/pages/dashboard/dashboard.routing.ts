@@ -9,10 +9,12 @@ export const routes: Routes = [
     component: DashboardComponent,
     children: [{
       path: 'overview',
-      loadChildren: 'app/pages/dashboard/overview/overview.module',
+      loadChildren: 'app/pages/dashboard/overview/overview.module#OverviewModule',
+      data: { breadcrumb: 'Aperçu' }
     }, {
       path: 'contracts',
-      loadChildren: 'app/pages/dashboard/contracts/contracts.module',
+      loadChildren: 'app/pages/dashboard/contracts/contracts.module#ContractsModule',
+      data: { breadcrumb: 'Contrats' }
     }, {
       path: '',
       redirectTo: 'overview'

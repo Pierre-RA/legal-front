@@ -20,4 +20,4 @@ import { TemplateModule } from '../../templates/template.module';
     LoginComponent
   ]
 })
-export default class LoginModule {}
+export class LoginModule {}

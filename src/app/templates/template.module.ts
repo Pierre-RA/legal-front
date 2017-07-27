@@ -5,15 +5,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TopComponent } from './top';
 import { SideComponent } from './side';
+import { BreadcrumbComponent } from './breadcrumb';
+import { ContactComponent } from './contact';
 
 const COMPONENTS = [
   TopComponent,
   SideComponent,
+  BreadcrumbComponent,
+  ContactComponent,
 ];
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   imports: [
     RouterModule,

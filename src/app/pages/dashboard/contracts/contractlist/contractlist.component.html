@@ -1,0 +1,8 @@
+<h1>Liste des contrats</h1>
+<ul>
+  <li *ngFor="let contract of contracts">
+    <a [routerLink]="['/dashboard/contracts', contract.id]">
+      {{ contract.name }}
+    </a>
+  </li>
+</ul>
