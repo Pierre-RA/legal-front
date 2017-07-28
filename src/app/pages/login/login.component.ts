@@ -7,7 +7,8 @@ import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers: [AuthService]
 })
 export class LoginComponent implements OnInit {
 
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(values: Object): void {
     this.message = 'Login ou mot de passe incorrect.';
+    this.messageType = 'danger';
     if (this.form.valid) {
       this.login();
       this.message = 'En cours de connexion...';
@@ -42,7 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.login().subscribe(() => {
+    this.authService.login(this.form.controls['email'].value, this.form.controls['password'].value).subscribe(() => {
       if (this.authService.isLoggedIn) {
         let redirect = this.authService.redirectUrl || '/dashboard';
         this.router.navigate([redirect]);
