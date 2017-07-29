@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Http, HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { routing } from './app.routing';
 
@@ -20,6 +20,7 @@ import { AuthService } from './pages/auth.service';
     AppComponent,
   ],
   imports: [
+    HttpModule,
     BrowserModule,
     RouterModule,
     FormsModule,
@@ -27,10 +28,9 @@ import { AuthService } from './pages/auth.service';
     TemplateModule.forRoot(),
     NgbModule.forRoot(),
     PagesModule,
-    routing,
-    HttpModule
+    routing
   ],
-  providers: [AuthGuardService, AuthService, Http],
+  providers: [AuthGuardService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
