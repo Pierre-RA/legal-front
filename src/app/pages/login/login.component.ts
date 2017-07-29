@@ -26,7 +26,11 @@ export class LoginComponent implements OnInit {
     });
     this.email = this.form.controls['email'];
     this.password = this.form.controls['password'];
-    this.setMessage();
+    const msgURL = this.authService.redirectUrl || '/dashboard';
+    this.setMessage(
+      'Connexion requise pour accéder à la page ' + msgURL,
+      'danger'
+    );
     this.url = this.authService.redirectUrl || '/dashboard';
   }
 
@@ -34,34 +38,46 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(values: Object): void {
-    this.message = 'Login ou mot de passe incorrect.';
-    this.messageType = 'danger';
+    this.setMessage(
+      'Login ou mot de passe incorrect.',
+      'danger'
+    );
     if (this.form.valid) {
+      this.setMessage(
+        'En cours de connexion...',
+        'success'
+      );
       this.login();
-      this.message = 'En cours de connexion...';
-      this.messageType = 'success';
     }
   }
 
   login() {
-    this.authService.login(this.form.controls['email'].value, this.form.controls['password'].value).subscribe(() => {
-      if (this.authService.isLoggedIn) {
-        let redirect = this.authService.redirectUrl || '/dashboard';
-        this.router.navigate([redirect]);
-      }
-    });
+    this.authService
+      .login(this.form.controls['email'].value, this.form.controls['password'].value)
+      .subscribe(
+        data => {
+          if (this.authService.isLoggedIn) {
+            let redirect = this.authService.redirectUrl || '/dashboard';
+            this.router.navigate([redirect]);
+          }
+        },
+        err => {
+          this.setMessage(
+            'Connection to server failed.',
+            'danger'
+          );
+          console.error(err);
+        }
+      );
   }
 
   logout() {
     this.authService.logout();
   }
 
-  setMessage() {
-    if (this.authService.redirectUrl) {
-      this.message = 'Connexion requise pour accéder à la page ' +
-        this.authService.redirectUrl;
-      this.messageType = 'alert';
-    }
+  setMessage(message: string, type: string) {
+    this.message = message;
+    this.messageType = type;
   }
 
 }

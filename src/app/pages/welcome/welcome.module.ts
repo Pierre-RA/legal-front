@@ -17,4 +17,4 @@ import { TemplateModule } from '../../templates/template.module';
     WelcomeComponent
   ]
 })
-export default class WelcomeModule {}
+export class WelcomeModule {}

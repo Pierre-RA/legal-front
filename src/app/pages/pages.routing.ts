@@ -28,14 +28,6 @@ export const routes: Routes = [
       { path: '', redirectTo: 'presentation', pathMatch: 'full' },
       { path: 'notfound', loadChildren: 'app/pages/notfound/notfound.module#NotFoundModule' },
       { path: 'presentation', loadChildren: 'app/pages/welcome/welcome.module#WelcomeModule', data: { keepRoute: true } },
-      // { path: 'dashboard', loadChildren: './dashboard/dashboard.module' },
-  //     { path: 'editors', loadChildren: './editors/editors.module#EditorsModule' },
-  //     { path: 'components', loadChildren: './components/components.module#ComponentsModule' },
-  //     { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
-  //     { path: 'ui', loadChildren: './ui/ui.module#UiModule' },
-  //     { path: 'forms', loadChildren: './forms/forms.module#FormsModule' },
-  //     { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
-  //     { path: 'maps', loadChildren: './maps/maps.module#MapsModule' }
     ]
   }
 ];
