@@ -14,6 +14,18 @@ export class Contract {
       this.loan.isSound();
   }
 
+  getBorrower(): Person {
+    return this.borrower;
+  }
+
+  getLender(): Person {
+    return this.lender;
+  }
+
+  getLoan(): Loan {
+    return this.loan;
+  }
+
   export(): object {
     console.log(
       this.loan.hasGoal + ' ' + this.loan.goal

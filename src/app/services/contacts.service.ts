@@ -5,7 +5,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
-import { IContact } from '../logic/contact';
+import { IContact } from '../logic/contact.interface';
 
 @Injectable()
 export class ContactsService {
