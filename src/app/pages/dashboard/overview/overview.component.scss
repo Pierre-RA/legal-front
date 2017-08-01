@@ -1,0 +1,22 @@
+.bordered {
+  background-color: white;
+  padding: 20px 0px;
+  border-radius: 5px;
+  border: solid rgb(245,245,245) 1px;
+  box-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin: 10px;
+}
+
+.info {
+  text-align: center;
+  font-size: 3em;
+  color: rgba(0,0,0,0.7);
+}
+
+table thead tr th:first-child {
+  border-top-left-radius: 5px;
+}
+table thead tr th:last-child {
+  border-top-right-radius: 5px;
+}

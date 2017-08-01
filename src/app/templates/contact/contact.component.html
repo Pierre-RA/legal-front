@@ -2,16 +2,16 @@
   <div class="row">
     <div class="col-sm-6">
       AVATAR<br />
-      NAME OR REASON<br />
-      TEL<br />
-      EMAIL<br />
+      <i class="fa fa-user" aria-hidden="true"></i> {{ contactExtended.getName() }}<br />
+      <i class="fa fa-phone" aria-hidden="true"></i> {{ contactExtended.getPhone() }}<br />
+      <i class="fa fa-at" aria-hidden="true"></i> {{ contactExtended.getEmail() }}<br />
     </div>
     <div class="col-sm-6">
-      ADDRESS LINE 1<br />
-      ADDRESS LINE 2<br />
-      ADDRESS LINE 3<br />
-      POSTCODE - CITY - PROVINCE<br />
-      COUNTRY
+      <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contactExtended.getAddress().getLine1() }}<br />
+      <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contactExtended.getAddress().getLine2() }}<br />
+      <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contactExtended.getAddress().getLine3() }}<br />
+      <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contactExtended.getAddress().getPlace() }}<br />
+      <i class="fa fa-globe" aria-hidden="true"></i> {{ contactExtended.getAddress().getCountry() }}
     </div>
   </div>
 </div>

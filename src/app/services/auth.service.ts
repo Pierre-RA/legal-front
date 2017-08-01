@@ -28,12 +28,11 @@ export class AuthService {
     return this.http.post(this.url, user, options)
       .map(this.extractData)
       .catch(this.handleError);
-    // return Observable.of('true').delay(1000).do(val => this.isLoggedIn = true);
   }
 
   extractData(response: Response) {
     this.isLoggedIn = true;
-    return 'test stuff';
+    return response.json()['token'];
   }
 
   handleError(error: any): Promise<any> {

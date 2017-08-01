@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
-import { AuthService } from '../../pages/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { User } from '../../logic/user/user';
 
 @Component({

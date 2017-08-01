@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
 
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   providers: [AuthService]
@@ -26,11 +26,12 @@ export class LoginComponent implements OnInit {
     });
     this.email = this.form.controls['email'];
     this.password = this.form.controls['password'];
-    const msgURL = this.authService.redirectUrl || '/dashboard';
-    this.setMessage(
-      'Connexion requise pour accéder à la page ' + msgURL,
-      'danger'
-    );
+    if (this.authService.redirectUrl) {
+      this.setMessage(
+        'Connexion requise pour accéder à la page ' + this.authService.redirectUrl,
+        'danger'
+      );
+    }
     this.url = this.authService.redirectUrl || '/dashboard';
   }
 
@@ -56,10 +57,11 @@ export class LoginComponent implements OnInit {
       .login(this.form.controls['email'].value, this.form.controls['password'].value)
       .subscribe(
         data => {
-          if (this.authService.isLoggedIn) {
+          console.log(this.authService.isLoggedIn);
+          // if (this.authService.isLoggedIn) {
             let redirect = this.authService.redirectUrl || '/dashboard';
             this.router.navigate([redirect]);
-          }
+          // }
         },
         err => {
           this.setMessage(

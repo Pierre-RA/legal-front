@@ -21,3 +21,15 @@ html, body {
     padding-bottom: 10px;
   }
 }
+
+.fab {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 72px;
+  height: 72px;
+  button {
+    width: 72px;
+    height: 72px;
+  }
+}

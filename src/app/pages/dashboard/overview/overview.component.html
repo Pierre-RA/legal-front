@@ -1,21 +1,132 @@
 <h1 class="mt-3">Aperçu</h1>
-<div class="row">
+<p class="alert-danger alert">
+  Dashboard en cours de conception - La plupart des liens sont inactifs.
+</p>
+<div class="row bordered">
   <div class="col-md-3">
-    <h2>Contrats</h2>
-    <p>
-      12
+    <h2 class="text-center">Contrats</h2>
+    <p class="info">
+      0
     </p>
   </div>
   <div class="col-md-3">
-    <h2>Contacts</h2>
-    <p>
-      141
+    <h2 class="text-center">Contacts</h2>
+    <p class="info">
+      0
     </p>
   </div>
   <div class="col-md-3">
-    <h2>C</h2>
+    <h2 class="text-center">Templates</h2>
+    <p class="info">
+      1
+    </p>
   </div>
   <div class="col-md-3">
-    <h2>D</h2>
+    <h2 class="text-center">Utilisation</h2>
+    <p class="info">
+      33%
+    </p>
   </div>
+</div>
+
+<div class="bordered">
+  <h2>Contrats</h2>
+  <table class="table table-striped">
+    <thead class="thead-inverse">
+      <tr>
+        <th class="col-md-9">
+          Type
+        </th>
+        <th class="col-md-1">
+          Nombre
+        </th>
+        <th class="col-md-1">
+          Voir
+        </th>
+        <th class="col-md-1">
+          Créér
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Contrat de Prêt
+        </td>
+        <td class="text-right">
+          0
+        </td>
+        <td class="text-center">
+          <a routerLink="/dashboard/contracts/type/1">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </a>
+        </td>
+        <td class="text-center">
+          <a routerLink="/dashboard/contracts/add" queryParams="{type: '1'}">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="bordered">
+  <h2>Contacts</h2>
+  <table class="table table-striped">
+    <thead class="thead-inverse">
+      <tr>
+        <th class="col-md-9">
+          Type
+        </th>
+        <th class="col-md-1">
+          Nombre
+        </th>
+        <th class="col-md-1">
+          Voir
+        </th>
+        <th class="col-md-1">
+          Créér
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Personne physique
+        </td>
+        <td class="text-right">
+          0
+        </td>
+        <td class="text-center">
+          <a routerLink="/dashboard/contacts/type/physical">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </a>
+        </td>
+        <td class="text-center">
+          <a routerLink="/dashboard/contacts/add" queryParams="{type: 'physical'}">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Personne moral
+        </td>
+        <td class="text-right">
+          0
+        </td>
+        <td class="text-center">
+          <a routerLink="/dashboard/contacts/type/moral">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </a>
+        </td>
+        <td class="text-center">
+          <a routerLink="/dashboard/contacts/add" queryParams="{type: 'moral'}">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

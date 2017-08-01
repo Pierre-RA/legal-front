@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { IContact } from '../../logic/contact.interface';
+import Contact from '../../logic/contact';
 
 @Component({
   selector: 'template-contact',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactComponent implements OnInit {
 
-  constructor() { }
+  @Input() contact: IContact;
+  contactExtended: Contact;
+
+  constructor() {}
 
   ngOnInit() {
+    this.contactExtended = new Contact().deserialize(this.contact);
   }
 
 }

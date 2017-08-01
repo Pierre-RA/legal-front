@@ -2,4 +2,11 @@
 <p>
   contract id: {{id}}
 </p>
-<template-contact></template-contact>
+
+<h2>Emprunteur</h2>
+<template-contact [contact]="contract.borrower"></template-contact>
+
+<h2>Prêteur</h2>
+<template-contact [contact]="contract.lender"></template-contact>
+
+<h2>Prêt</h2>

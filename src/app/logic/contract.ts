@@ -1,7 +1,12 @@
+import { Serializable } from './serialize';
+
 export class Contract {
-  borrower: Person;
-  lender: Person;
-  loan: Loan;
+
+  constructor(
+    private borrower: Person,
+    private lender: Person,
+    private loan: Loan
+  ) { }
 
   isSound(): boolean {
     return this.borrower.isSound() &&
@@ -24,19 +29,18 @@ export class Contract {
   }
 }
 
-export class Loan {
-  currency: string;
-  amount: number;
-  interest: number;
+export class Loan implements Serializable<Loan> {
   goal: string;
   hasGoal: boolean;
   hasLent: boolean;
   dateLent: Date;
 
-  constructor(currency: string, amount: number, interest: number, goal?: string) {
-    this.currency = currency;
-    this.amount = amount;
-    this.interest = interest;
+  constructor(
+    private currency?: string,
+    private amount?: number,
+    private interest?: number,
+    goal?: string
+  ) {
     this.hasGoal = false;
     if (goal) {
       this.goal = goal;
@@ -44,8 +48,19 @@ export class Loan {
     }
   }
 
+  deserialize(input: any) {
+    this.currency = input.currency;
+    this.amount = input.amount;
+    this.interest = input.interest;
+    this.hasGoal = input.hasGoal;
+    this.goal = input.goal || '';
+    this.hasLent = input.hasLent;
+    this.dateLent = input.dateLent;
+    return this;
+  }
+
   // TODO: use moment for dateLent
-  formatDate(key) {
+  formatDate(key: string) {
     if (key == "dateLent") {
       return this.dateLent
     }
@@ -56,23 +71,64 @@ export class Loan {
   }
 }
 
-interface Person {
-  getTitle(): string;
-  getAddress(): string;
-  isSound(): boolean;
+export abstract class Person implements Serializable<Person> {
+  constructor(
+    protected address: Address,
+    protected phone: string,
+    protected email: string
+  ) {}
+
+  deserialize(input: any) {
+    this.address = new Address().deserialize(input.address);
+    this.phone = input.phone;
+    this.email = input.email;
+    return this;
+  }
+
+  getTitle(): string {
+    return '';
+  };
+
+  getName(): string {
+    return '';
+  };
+
+  getAddress(): Address {
+    return this.address;
+  };
+
+  getPhone(): string {
+    return this.phone;
+  }
+
+  getEmail(): string {
+    return this.email;
+  }
+
+  isSound(): boolean {
+    return false;
+  };
 }
 
-export class PhysicalPerson implements Person {
-  firstName: string;
-  lastName: string;
-  isMale: boolean;
-  address: string;
+export class PhysicalPerson extends Person implements Serializable<PhysicalPerson> {
 
-  constructor(firstName: string, lastName: string, isMale: boolean, address: string) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.isMale = isMale;
-    this.address = address;
+  constructor(
+    private firstName: string,
+    private lastName: string,
+    private isMale: boolean,
+    protected address: Address,
+    protected phone: string,
+    protected email: string
+  ) {
+    super(address, phone, email);
+  }
+
+  deserialize(input: any) {
+    super.deserialize(input);
+    this.firstName = input.firstName;
+    this.lastName = input.lastName;
+    this.isMale = input.isMale;
+    return this;
   }
 
   getCivility(): string {
@@ -91,34 +147,40 @@ export class PhysicalPerson implements Person {
 
   getTitle(): string {
     return this.getCivility() + ' ' +
-      this.firstName + ' ' + this.lastName + ' ' +
+      this.getName() + ' ' +
       this.getAddressPrefix() + ' ' + this.address;
   }
 
-  getAddress(): string {
-    return this.address;
-  }
+  v
 
   isSound(): boolean {
     return true;
   }
 }
 
-export class MoralPerson implements Person {
-  reason: string;
-  address: string;
+export class MoralPerson extends Person implements Serializable<MoralPerson> {
 
-  constructor(reason: string, address: string) {
-    this.reason = reason;
-    this.address = address;
+  constructor(
+    private reason: string,
+    protected address: Address,
+    protected phone: string,
+    protected email: string
+  ) {
+    super(address, phone, email);
+  }
+
+  deserialize(input: any) {
+    super.deserialize(input);
+    this.reason = input.reason;
+    return this;
   }
 
   getTitle(): string {
     return this.reason + ' sise à ' + this.address;
   }
 
-  getAddress(): string {
-    return this.address;
+  getName(): string {
+    return this.reason;
   }
 
   isSound(): boolean {
@@ -126,12 +188,75 @@ export class MoralPerson implements Person {
   }
 }
 
-export class Address {
-  line1: string;
-  line2: string;
-  line3: string;
-  postCode: string;
-  city: string;
-  province: string;
-  country: string;
+export class Address implements Serializable<Address> {
+
+  constructor(
+    private line1?: string,
+    private line2?: string,
+    private line3?: string,
+    private postCode?: string,
+    private city?: string,
+    private province?: string,
+    private country?: string,
+  ) { }
+
+  deserialize(input: any) {
+    this.line1 = input.line1;
+    this.line2 = input.line2;
+    this.line3 = input.line3;
+    this.postCode = input.postCode;
+    this.city = input.city;
+    this.province = input.province;
+    this.country = input.country;
+    return this;
+  }
+
+  getLine1() {
+    return this.line1;
+  }
+
+  getLine2() {
+    return this.line2;
+  }
+
+  getLine3() {
+    return this.line3;
+  }
+
+  getPostCode() {
+    return this.postCode;
+  }
+
+  getCity() {
+    return this.city;
+  }
+
+  getProvince() {
+    return this.province;
+  }
+
+  getCountry() {
+    return this.country;
+  }
+
+  getPlace() {
+    let result: string;
+    result = '';
+    result += this.postCode ? this.postCode : '';
+    result += this.city ? ' - ' + this.city : '';
+    result += this.province ? ' - ' + this.province : '';
+  }
+
+  toString(): string {
+    let result: string;
+    result = '';
+    result += this.line1 ? this.line1 : '';
+    result += this.line2 ? ', ' + this.line2 : '';
+    result += this.line3 ? ', ' + this.line3 : '';
+    result += this.postCode ? ', ' + this.postCode : '';
+    result += this.city ? ', ' + this.city : '';
+    result += this.province ? ', ' + this.province : '';
+    result += this.country ? ', ' + this.country : '';
+    return result;
+  }
 }

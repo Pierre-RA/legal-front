@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,8 +13,10 @@ import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 import { TemplateModule } from './templates/template.module';
 
-import { AuthGuardService } from './auth-guard.service';
-import { AuthService } from './pages/auth.service';
+import { AuthGuardService } from './services/auth-guard.service';
+import { AuthService } from './services/auth.service';
+import { ContractsService } from './services/contracts.service';
+import { ContactsService } from './services/contacts.service';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,7 @@ import { AuthService } from './pages/auth.service';
   imports: [
     HttpModule,
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
@@ -30,7 +34,7 @@ import { AuthService } from './pages/auth.service';
     PagesModule,
     routing
   ],
-  providers: [AuthGuardService, AuthService],
+  providers: [AuthGuardService, AuthService, ContractsService, ContactsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

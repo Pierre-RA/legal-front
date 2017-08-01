@@ -16,6 +16,10 @@ export const routes: Routes = [
       loadChildren: 'app/pages/dashboard/contracts/contracts.module#ContractsModule',
       data: { breadcrumb: 'Contrats' }
     }, {
+      path: 'contacts',
+      loadChildren: 'app/pages/dashboard/contacts/contacts.module#ContactsModule',
+      data: { breadcrumb: 'Contacts' }
+    }, {
       path: '',
       redirectTo: 'overview'
     }]
