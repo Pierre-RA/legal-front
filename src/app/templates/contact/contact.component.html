@@ -1,10 +1,19 @@
-<div class="contact">
+<div class="contact {{ contactExtended.getType()}}">
   <div class="row">
     <div class="col-sm-6">
-      AVATAR<br />
-      <i class="fa fa-user" aria-hidden="true"></i> {{ contactExtended.getName() }}<br />
-      <i class="fa fa-phone" aria-hidden="true"></i> {{ contactExtended.getPhone() }}<br />
-      <i class="fa fa-at" aria-hidden="true"></i> {{ contactExtended.getEmail() }}<br />
+      <h4>
+        <i class="fa fa-user-circle" aria-hidden="true"></i> {{ contactExtended.getName() }}
+      </h4>
+      <i class="fa fa-fw fa-phone" aria-hidden="true"></i> {{ contactExtended.getPhone() }}<br />
+      <i class="fa fa-fw fa-at" aria-hidden="true"></i> {{ contactExtended.getEmail() }}<br />
+      <span *ngIf="contactExtended.getType() === 'physical'">
+        <i class="fa fa-fw fa-user" aria-hidden="true"></i>
+        Personne physique
+      </span>
+      <span *ngIf="contactExtended.getType() === 'moral'">
+        <i class="fa fa-fw fa-university" aria-hidden="true"></i>
+        Personne morale
+      </span>
     </div>
     <div class="col-sm-6">
       <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contactExtended.getAddress().getLine1() }}<br />
@@ -14,4 +23,5 @@
       <i class="fa fa-globe" aria-hidden="true"></i> {{ contactExtended.getAddress().getCountry() }}
     </div>
   </div>
+  <div class="ribbon"></div>
 </div>

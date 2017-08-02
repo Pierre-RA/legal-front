@@ -64,6 +64,10 @@ export default class Contact implements IContact, Serializable<Contact> {
   getEmail(): String {
     return this.email;
   }
+
+  getType(): String {
+    return this.type;
+  }
 }
 
 export class Address implements Serializable<Address> {
