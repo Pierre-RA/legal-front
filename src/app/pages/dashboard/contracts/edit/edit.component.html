@@ -1,0 +1,6 @@
+<h1 *ngIf="!edit">Ajouter un nouveau contrat</h1>
+<h1 *ngIf="edit">Édition du contrat</h1>
+
+<div class="alert alert-{{messageType}}" *ngIf="message">
+  {{message}}
+</div>

@@ -6,7 +6,7 @@
   <div class="col-md-3">
     <h2 class="text-center">Contrats</h2>
     <p class="info">
-      0
+      {{contracts}}
     </p>
   </div>
   <div class="col-md-3">
@@ -18,7 +18,7 @@
   <div class="col-md-3">
     <h2 class="text-center">Templates</h2>
     <p class="info">
-      1
+      {{contractsType?.length || 0}}
     </p>
   </div>
   <div class="col-md-3">
@@ -54,15 +54,15 @@
           Contrat de Prêt
         </td>
         <td class="text-right">
-          0
+          {{contractsType[0]}}
         </td>
         <td class="text-center">
-          <a routerLink="/dashboard/contracts/type/1">
+          <a routerLink="/dashboard/contracts/" [queryParams]="{type: 1}">
             <i class="fa fa-eye" aria-hidden="true"></i>
           </a>
         </td>
         <td class="text-center">
-          <a routerLink="/dashboard/contracts/add" queryParams="{type: '1'}">
+          <a routerLink="/dashboard/contracts/add" [queryParams]="{type: '1'}">
             <i class="fa fa-plus" aria-hidden="true"></i>
           </a>
         </td>

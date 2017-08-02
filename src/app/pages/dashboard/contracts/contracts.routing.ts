@@ -12,6 +12,14 @@ export const routes: Routes = [
       loadChildren: 'app/pages/dashboard/contracts/contractlist/contractlist.module#ContractlistModule',
       data: { breadcrumb: 'Liste' }
     }, {
+      path: 'add',
+      loadChildren: 'app/pages/dashboard/contracts/edit/edit.module#EditModule',
+      data: { breadcrumb: 'Nouveau', edit: 'false' }
+    }, {
+      path: 'edit/:id',
+      loadChildren: 'app/pages/dashboard/contracts/edit/edit.module#EditModule',
+      data: { breadcrumb: 'Nouveau', edit: 'true' }
+    }, {
       path: ':id',
       loadChildren: 'app/pages/dashboard/contracts/contract/contract.module#ContractModule',
       data: { breadcrumb: 'Contrat' }

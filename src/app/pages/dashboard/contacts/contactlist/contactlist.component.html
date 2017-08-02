@@ -9,3 +9,9 @@
 <div *ngFor="let item of list">
   <template-contact [contact]="item"></template-contact>
 </div>
+<div class="row justify-content-md-center">
+  <div class="col-sm-6">
+    <div *ngIf="load" class="alert alert-warning">Liste de contacts en cours de récupération...</div>
+    <div *ngIf="noList" class="alert alert-danger">Pas de contacts</div>
+  </div>
+</div>

@@ -17,6 +17,7 @@ export class EditComponent implements OnInit {
   edit: boolean;
   message: string;
   messageType: string;
+  id: string;
 
   constructor(
     private fb: FormBuilder,
@@ -42,9 +43,10 @@ export class EditComponent implements OnInit {
         country: ''
       }
     };
-    this.edit = this.activatedRoute.snapshot.data['edit'] || false;
+    this.edit = this.activatedRoute.snapshot.data['edit'] == 'true';
     if (this.edit) {
-      this.contactsService.findOne(this.activatedRoute.snapshot.params['id'])
+      this.id = this.activatedRoute.snapshot.params['id'];
+      this.contactsService.findOne(this.id)
         .subscribe(data => {
           this.editForm.patchValue(data);
           this.onContactTypeChange(data.type);
@@ -87,7 +89,17 @@ export class EditComponent implements OnInit {
   }
 
   editContact(value) {
-    console.log('edit');
+    this.contactsService
+      .update(value, this.id)
+      .subscribe(data => {
+        console.log(data);
+        this.router.navigate(['/dashboard/contacts/', data.getId()]);
+      }, err => {
+        this.setMessage(
+          'Impossible de créér ce contact pour l\'instant',
+          'danger'
+        );
+      });
   }
 
   addContact(value) {
