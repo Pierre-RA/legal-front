@@ -12,7 +12,7 @@
   <div class="col-md-3">
     <h2 class="text-center">Contacts</h2>
     <p class="info">
-      0
+      {{contacts}}
     </p>
   </div>
   <div class="col-md-3">
@@ -96,15 +96,15 @@
           Personne physique
         </td>
         <td class="text-right">
-          0
+          {{physicalContacts}}
         </td>
         <td class="text-center">
-          <a routerLink="/dashboard/contacts/type/physical">
+          <a routerLink="/dashboard/contacts" [queryParams]="{type: 'physical'}">
             <i class="fa fa-eye" aria-hidden="true"></i>
           </a>
         </td>
         <td class="text-center">
-          <a routerLink="/dashboard/contacts/add" queryParams="{type: 'physical'}">
+          <a routerLink="/dashboard/contacts/add" [queryParams]="{type: 'physical'}">
             <i class="fa fa-plus" aria-hidden="true"></i>
           </a>
         </td>
@@ -114,15 +114,15 @@
           Personne moral
         </td>
         <td class="text-right">
-          0
+          {{moralContacts}}
         </td>
         <td class="text-center">
-          <a routerLink="/dashboard/contacts/type/moral">
+          <a routerLink="/dashboard/contacts" [queryParams]="{type: 'moral'}">
             <i class="fa fa-eye" aria-hidden="true"></i>
           </a>
         </td>
         <td class="text-center">
-          <a routerLink="/dashboard/contacts/add" queryParams="{type: 'moral'}">
+          <a [routerLink]="['/dashboard/contacts/add']" [queryParams]="{type: 'moral'}">
             <i class="fa fa-plus" aria-hidden="true"></i>
           </a>
         </td>

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
 import { IContact } from '../logic/contact.interface';
+import Contact from '../logic/contact';
 
 @Injectable()
 export class ContactsService {
@@ -15,8 +16,6 @@ export class ContactsService {
   constructor(private http: Http) { }
 
   findAll(): Observable<Array<IContact>> {
-    // let headers = new Headers({ 'Content-Type': 'application/json' });
-    // let options = new RequestOptions({ headers: headers });
     return this.http.get(this.url)
       .map(this.extractData)
       .catch(this.handleError);
@@ -28,19 +27,20 @@ export class ContactsService {
       .catch(this.handleError);
   }
 
-  count(): Observable<Number> {
-    return this.http.get(this.url + '/count')
-      .map(this.extractData)
+  count(type?: string): Observable<Number> {
+    let param = type ? '/' + type : '';
+    return this.http.get(this.url + '/count' + param)
+      .map(this.extractCount)
       .catch(this.handleError);
   }
 
-  create(contact: IContact): Observable<String> {
+  create(contact: IContact): Observable<Contact> {
     return this.http.post(this.url, contact)
-      .map(this.extractData)
+      .map(this.extractContact)
       .catch(this.handleError);
   }
 
-  update(contact: IContact, id: string): Observable<String> {
+  update(contact: IContact, id: string): Observable<Contact> {
     return this.http.put(this.url + '/' + id, contact)
       .map(this.extractData)
       .catch(this.handleError);
@@ -54,6 +54,14 @@ export class ContactsService {
 
   extractData(response: Response) {
     return response.json();
+  }
+
+  extractContact(response: Response) {
+    return new Contact().deserialize(response.json());
+  }
+
+  extractCount(response: Response) {
+    return response.json().count;
   }
 
   handleError(error: any): Promise<any> {

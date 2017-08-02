@@ -12,17 +12,17 @@ export const routes: Routes = [
       loadChildren: 'app/pages/dashboard/contacts/contactlist/contactlist.module#ContactlistModule',
       data: { breadcrumb: 'Liste' }
     }, {
-    //   path: ':id',
-    //   loadChildren: 'app/pages/dashboard/contacts/contact/contact.module#ContactModule',
-    //   data: { breadcrumb: 'Contact' }
-    // }, {
       path: 'add',
       loadChildren: 'app/pages/dashboard/contacts/edit/edit.module#EditModule',
-      data: { breadcrumb: 'Nouveau', edit: false }
+      data: { breadcrumb: 'Nouveau', edit: 'false' }
     }, {
       path: 'edit/:id',
       loadChildren: 'app/pages/dashboard/contacts/edit/edit.module#EditModule',
-      data: { breadcrumb: 'Nouveau', edit: true }
+      data: { breadcrumb: 'Nouveau', edit: 'true' }
+    }, {
+      path: ':id',
+      loadChildren: 'app/pages/dashboard/contacts/contact/contact.module#ContactModule',
+      data: { breadcrumb: 'Contact' }
     }, {
       path: '',
       redirectTo: 'list',

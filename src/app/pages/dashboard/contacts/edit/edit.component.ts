@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { IContact } from '../../../../logic/contact.interface';
 import { ContactsService } from '../../../../services/contacts.service';
@@ -17,9 +18,14 @@ export class EditComponent implements OnInit {
   message: string;
   messageType: string;
 
-  constructor(private fb: FormBuilder, private contactsService: ContactsService) {
+  constructor(
+    private fb: FormBuilder,
+    private contactsService: ContactsService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
     this.contact = {
-      type: 'physical',
+      type: this.activatedRoute.snapshot.queryParams['type'] || 'physical',
       email: '',
       phone: '',
       firstName: '',
@@ -36,7 +42,16 @@ export class EditComponent implements OnInit {
         country: ''
       }
     };
-    this.edit = false;
+    this.edit = this.activatedRoute.snapshot.data['edit'] || false;
+    if (this.edit) {
+      this.contactsService.findOne(this.activatedRoute.snapshot.params['id'])
+        .subscribe(data => {
+          this.editForm.patchValue(data);
+          this.onContactTypeChange(data.type);
+        }, err => {
+          console.error(err);
+        });
+    }
   }
 
   ngOnInit() {
@@ -80,6 +95,7 @@ export class EditComponent implements OnInit {
       .create(value)
       .subscribe(data => {
         console.log(data);
+        this.router.navigate(['/dashboard/contacts/', data.getId()]);
       }, err => {
         this.setMessage(
           'Impossible de créér ce contact pour l\'instant',
