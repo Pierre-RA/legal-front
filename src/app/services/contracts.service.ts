@@ -5,6 +5,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
+import { IContract } from '../logic/contract.interface';
 import { Contract } from '../logic/contract';
 
 @Injectable()
@@ -14,9 +15,7 @@ export class ContractsService {
 
   constructor(private http: Http) { }
 
-  findAll(): Observable<Array<Contract>> {
-    // let headers = new Headers({ 'Content-Type': 'application/json' });
-    // let options = new RequestOptions({ headers: headers });
+  findAll(): Observable<Array<IContract>> {
     return this.http.get(this.url)
       .map(this.extractData)
       .catch(this.handleError);
@@ -28,21 +27,22 @@ export class ContractsService {
       .catch(this.handleError);
   }
 
-  count(): Observable<Number> {
-    return this.http.get(this.url + '/count')
-      .map(this.extractData)
+  count(type?: number): Observable<Number> {
+    let param = type ? '/' + type : '';
+    return this.http.get(this.url + '/count' + param)
+      .map(this.extractCount)
       .catch(this.handleError);
   }
 
-  create(): Observable<String> {
-    return this.http.post(this.url, {})
-      .map(this.extractData)
+  create(contract: IContract): Observable<Contract> {
+    return this.http.post(this.url, contract)
+      .map(this.extractContract)
       .catch(this.handleError);
   }
 
-  update(contract: Contract, id: string): Observable<String> {
+  update(contract: IContract, id: string): Observable<Contract> {
     return this.http.put(this.url + '/' + id, contract)
-      .map(this.extractData)
+      .map(this.extractContract)
       .catch(this.handleError);
   }
 
@@ -54,6 +54,14 @@ export class ContractsService {
 
   extractData(response: Response) {
     return response.json();
+  }
+
+  extractContract(response: Response) {
+    return new Contract().deserialize(response.json());
+  }
+
+  extractCount(response: Response) {
+    return response.json().count;
   }
 
   handleError(error: any): Promise<any> {
