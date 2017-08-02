@@ -20,7 +20,7 @@ export class ContactComponent implements OnInit {
     this.contactExtended = new Contact().deserialize(this.contact);
   }
 
-  goToContact(id: string) {
+  goToContact(id: String) {
     this.router.navigate(['/dashboard/contacts/', id]);
   }
 
