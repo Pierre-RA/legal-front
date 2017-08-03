@@ -4,3 +4,87 @@
 <div class="alert alert-{{messageType}}" *ngIf="message">
   {{message}}
 </div>
+
+<form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
+  <div class="row justify-content-md-center">
+    <div class="col-md-10">
+      <label for="title">Nom du dossier</label>
+      <input type="text" class="form-control" id="title"
+        placeholder="Nom du dossier"
+        name="title"
+        formControlName="title">
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <div class="card">
+        <h2 class="text-center">Prêteur</h2>
+        <template-contact [contact]="lender" *ngIf="lender"></template-contact>
+        <p *ngIf="!lender" class="text-center">
+          <button class="btn btn-primary" type="button" (click)="open(content, 'lender')">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Ajouter
+          </button>
+        </p>
+        <p *ngIf="lender" class="text-center">
+          <button class="btn btn-primary" type="button" (click)="open(content, 'lender')">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            Changer
+          </button>
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <h2 class="text-center">Emprunteur</h2>
+        <template-contact [contact]="borrower" *ngIf="borrower"></template-contact>
+        <p *ngIf="!borrower" class="text-center">
+          <button class="btn btn-primary" type="button" (click)="open(content, 'borrower')">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Ajouter
+          </button>
+        </p>
+        <p *ngIf="borrower" class="text-center">
+          <button class="btn btn-primary" type="button" (click)="open(content, 'borrower')">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            Changer
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="card">
+        <h2>Prêt</h2>
+        ...
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary" *ngIf="!edit" [disabled]="!editForm.valid">Ajouter</button>
+      <button type="submit" class="btn btn-primary" *ngIf="edit" [disabled]="!editForm.valid">Mettre à jour</button>
+    </div>
+  </div>
+</form>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Ajouter un prêteur</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngFor="let contact of contacts">
+      <template-contact [contact]="contact" (click)="c(contact)"></template-contact>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

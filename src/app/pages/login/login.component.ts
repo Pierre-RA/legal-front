@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth.service';
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [AuthService]
 })
 export class LoginComponent implements OnInit {
 
@@ -57,11 +56,9 @@ export class LoginComponent implements OnInit {
       .login(this.form.controls['email'].value, this.form.controls['password'].value)
       .subscribe(
         data => {
-          console.log(this.authService.isLoggedIn);
-          // if (this.authService.isLoggedIn) {
-            let redirect = this.authService.redirectUrl || '/dashboard';
-            this.router.navigate([redirect]);
-          // }
+          this.authService.setToken(data);
+          let redirect = this.authService.redirectUrl || '/dashboard';
+          this.router.navigate([redirect]);
         },
         err => {
           this.setMessage(

@@ -22,13 +22,23 @@
 }
 
 .moral {
+  .fa-university {
+    color: goldenrod;
+  }
   .ribbon {
     background-color: gold;
   }
 }
 
 .physical {
+  .fa-user {
+    color: navy;
+  }
   .ribbon {
     background-color: navy;
   }
+}
+
+.selected-grey {
+  background-color: rgba(50,50,150,0.1);
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -17,9 +17,14 @@ export class TopComponent implements OnInit {
   user: User;
   isLogged: boolean;
 
-  constructor(public authService: AuthService, private router: Router, config: NgbDropdownConfig) {
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    config: NgbDropdownConfig,
+    private zone: NgZone
+  ) {
     this.title = 'Legal';
-    this.isLogged = this.authService.isLoggedIn;
+    this.isLogged = this.authService.isLoggedIn();
     this.user = new User('Pierre Repetto-Andipatin');
   }
 

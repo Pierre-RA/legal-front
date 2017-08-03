@@ -22,8 +22,10 @@
   <tbody>
     <tr *ngFor="let contract of contracts">
       <td>
+        {{contract.getType()}}
       </td>
-      <td class="text-right">
+      <td class="text-left">
+        {{contract.getTitle()}}
       </td>
       <td class="text-center">
         <a [routerLink]="['/dashboard/contracts/', contract.getId()]">

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { EditComponent } from './edit.component';
 import { routing } from './edit.routing';
+import { TemplateModule } from '../../../../templates/template.module';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { routing } from './edit.routing';
     routing,
     FormsModule,
     ReactiveFormsModule,
+    TemplateModule,
   ],
   declarations: [EditComponent]
 })

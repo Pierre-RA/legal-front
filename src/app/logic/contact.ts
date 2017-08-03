@@ -2,7 +2,7 @@ import { Serializable } from './serialize';
 import { IContact } from './contact.interface';
 
 export default class Contact implements IContact, Serializable<Contact> {
-  id: String;
+  _id: String;
   type: String;
   email: String;
   phone: String;
@@ -14,7 +14,7 @@ export default class Contact implements IContact, Serializable<Contact> {
   constructor() {}
 
   deserialize(input: any): this {
-    this.id = input._id;
+    this._id = input._id;
     this.address = new Address().deserialize(input.address);
     this.phone = input.phone;
     this.email = input.email;
@@ -72,7 +72,7 @@ export default class Contact implements IContact, Serializable<Contact> {
   }
 
   getId(): String {
-    return this.id;
+    return this._id;
   }
 }
 

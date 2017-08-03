@@ -1,5 +1,6 @@
 import { Serializable } from './serialize';
-import { IContract, ILoan } from './contract.interface';
+import { IContract } from './contract.interface';
+import { Loan } from './loan';
 import Contact from './contact';
 
 export class Contract implements IContract {
@@ -8,14 +9,17 @@ export class Contract implements IContract {
   lender: Contact;
   loan: Loan;
   type: Number;
+  title: String;
 
   constructor() {}
 
   deserialize(input: any): this {
-    this.id = input.id;
+    this.id = input._id;
     this.borrower = new Contact().deserialize(input.borrower);
     this.lender = new Contact().deserialize(input.lender);
     this.loan = new Loan().deserialize(input.loan);
+    this.title = input.title;
+    this.type = input.type;
     return this;
   }
 
@@ -31,8 +35,16 @@ export class Contract implements IContract {
     return this.loan;
   }
 
-  getType(): Number {
-    return this.type;
+  getType(): String {
+    return this.type == 0 ? 'Prêt' : new String(this.type);
+  }
+
+  getTitle(): String {
+    return this.title;
+  }
+
+  getId(): String {
+    return this.id;
   }
 
   export(): object {
@@ -43,36 +55,6 @@ export class Contract implements IContract {
       goal: this.loan.goal,
       hasLent: this.loan.hasLent,
       dateLent: this.loan.formatDate("dateLent")
-    }
-  }
-}
-
-export class Loan implements ILoan, Serializable<Loan> {
-  goal: String;
-  hasGoal: Boolean;
-  hasLent: Boolean;
-  dateLent: Date;
-  currency: String;
-  amount: Number;
-  interest: Number;
-
-  constructor() {}
-
-  deserialize(input: any) {
-    this.currency = input.currency;
-    this.amount = input.amount;
-    this.interest = input.interest;
-    this.hasGoal = input.hasGoal;
-    this.goal = input.goal || '';
-    this.hasLent = input.hasLent;
-    this.dateLent = input.dateLent;
-    return this;
-  }
-
-  // TODO: use moment for dateLent
-  formatDate(key: string) {
-    if (key == "dateLent") {
-      return this.dateLent
     }
   }
 }

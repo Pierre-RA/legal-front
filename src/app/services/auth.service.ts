@@ -3,20 +3,20 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs';
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/toPromise';
-// import 'rxjs/add/operator/delay';
-// import 'rxjs/add/operator/do';
 import 'rxjs/Rx';
 
 @Injectable()
 export class AuthService {
 
   url = 'https://api-legal.herokuapp.com/login';
-  isLoggedIn = false;
   redirectUrl: string;
+  token: string;
+  loggedIn: boolean;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+    this.token = '';
+    this.loggedIn = false;
+  }
 
   login(email: string, password: string): Observable<string> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -31,7 +31,6 @@ export class AuthService {
   }
 
   extractData(response: Response) {
-    this.isLoggedIn = true;
     return response.json()['token'];
   }
 
@@ -40,8 +39,18 @@ export class AuthService {
     return Promise.reject(error.message || error);
   }
 
+  setToken(token: string): void {
+    this.loggedIn = true;
+    this.token = token;
+  }
+
   logout(): void {
-    this.isLoggedIn = false;
+    this.loggedIn = false;
+    this.token = '';
+  }
+
+  isLoggedIn(): boolean {
+    return this.loggedIn;
   }
 
 }

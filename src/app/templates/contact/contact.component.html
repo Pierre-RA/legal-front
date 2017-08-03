@@ -1,9 +1,13 @@
-<div class="contact {{ contactExtended.getType()}}" (click)="goToContact(contactExtended.getId())">
+<div class="contact {{ contactExtended.getType()}} {{selectedClass}}" (click)="onClick()">
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <h4>
         <i class="fa fa-user-circle" aria-hidden="true"></i> {{ contactExtended.getName() }}
       </h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
       <i class="fa fa-fw fa-phone" aria-hidden="true"></i> {{ contactExtended.getPhone() }}<br />
       <i class="fa fa-fw fa-at" aria-hidden="true"></i> {{ contactExtended.getEmail() }}<br />
       <span *ngIf="contactExtended.getType() === 'physical'">

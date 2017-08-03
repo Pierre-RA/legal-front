@@ -1,12 +1,14 @@
-<h1>Contrat</h1>
-<p>
-  contract id: {{id}}
-</p>
+<h1 *ngIf="contract">{{contract.getTitle()}}</h1>
 
 <h2>Emprunteur</h2>
-<template-contact [contact]="contract.getBorrower()"></template-contact>
+<template-contact [contact]="contract.getBorrower()" *ngIf="contract"></template-contact>
 
 <h2>Prêteur</h2>
-<template-contact [contact]="contract.getLender()"></template-contact>
+<template-contact [contact]="contract.getLender()" *ngIf="contract"></template-contact>
 
 <h2>Prêt</h2>
+
+<div class="card" *ngIf="contract">
+  {{contract.loan.amount}} {{contract.loan.currency}}
+  à {{contract.loan.interest}}%
+</div>

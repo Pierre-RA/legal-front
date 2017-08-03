@@ -26,6 +26,7 @@ export class EditComponent implements OnInit {
     private router: Router
   ) {
     this.contact = {
+      _id: '',
       type: this.activatedRoute.snapshot.queryParams['type'] || 'physical',
       email: '',
       phone: '',
@@ -92,7 +93,6 @@ export class EditComponent implements OnInit {
     this.contactsService
       .update(value, this.id)
       .subscribe(data => {
-        console.log(data);
         this.router.navigate(['/dashboard/contacts/', data.getId()]);
       }, err => {
         this.setMessage(
@@ -106,7 +106,6 @@ export class EditComponent implements OnInit {
     this.contactsService
       .create(value)
       .subscribe(data => {
-        console.log(data);
         this.router.navigate(['/dashboard/contacts/', data.getId()]);
       }, err => {
         this.setMessage(

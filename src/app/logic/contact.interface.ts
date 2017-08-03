@@ -1,4 +1,5 @@
 export interface IContact {
+  _id: String,
   type: String,
   email: String,
   phone: String,
