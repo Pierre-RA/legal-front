@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { IContact } from '../../logic/contact.interface';
@@ -23,6 +23,16 @@ export class ContactComponent implements OnInit {
 
   ngOnInit() {
     this.contactExtended = new Contact().deserialize(this.contact);
+  }
+
+  ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+    for (let propName in changes) {
+      let changedProp = changes[propName];
+      if (!changedProp.isFirstChange()) {
+        this.contact = changedProp.currentValue;
+        this.contactExtended = new Contact().deserialize(this.contact);
+      }
+    }
   }
 
   onClick() {

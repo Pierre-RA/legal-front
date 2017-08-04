@@ -12,3 +12,14 @@
   {{contract.loan.amount}} {{contract.loan.currency}}
   à {{contract.loan.interest}}%
 </div>
+
+<div class="top-bar" *ngIf="contract">
+  <a class="btn btn-warning" [routerLink]="['/dashboard/contracts/edit', contract.getId()]">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+    Modifier
+  </a>
+  <a class="btn btn-danger" routerLink="/">
+    <i class="fa fa-times" aria-hidden="true"></i>
+    Effacer
+  </a>
+</div>

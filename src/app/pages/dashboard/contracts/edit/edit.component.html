@@ -20,14 +20,14 @@
     <div class="col-md-6">
       <div class="card">
         <h2 class="text-center">Prêteur</h2>
-        <template-contact [contact]="lender" *ngIf="lender"></template-contact>
-        <p *ngIf="!lender" class="text-center">
+        <template-contact [(contact)]="contract.lender" *ngIf="contract.lender"></template-contact>
+        <p *ngIf="!contract.lender" class="text-center">
           <button class="btn btn-primary" type="button" (click)="open(content, 'lender')">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Ajouter
           </button>
         </p>
-        <p *ngIf="lender" class="text-center">
+        <p *ngIf="contract.lender" class="text-center">
           <button class="btn btn-primary" type="button" (click)="open(content, 'lender')">
             <i class="fa fa-pencil" aria-hidden="true"></i>
             Changer
@@ -38,14 +38,14 @@
     <div class="col-md-6">
       <div class="card">
         <h2 class="text-center">Emprunteur</h2>
-        <template-contact [contact]="borrower" *ngIf="borrower"></template-contact>
-        <p *ngIf="!borrower" class="text-center">
+        <template-contact [(contact)]="contract.borrower" *ngIf="contract.borrower"></template-contact>
+        <p *ngIf="!contract.borrower" class="text-center">
           <button class="btn btn-primary" type="button" (click)="open(content, 'borrower')">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Ajouter
           </button>
         </p>
-        <p *ngIf="borrower" class="text-center">
+        <p *ngIf="contract.borrower" class="text-center">
           <button class="btn btn-primary" type="button" (click)="open(content, 'borrower')">
             <i class="fa fa-pencil" aria-hidden="true"></i>
             Changer

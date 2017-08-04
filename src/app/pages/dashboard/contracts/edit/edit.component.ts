@@ -18,8 +18,6 @@ export class EditComponent implements OnInit {
 
   editForm: FormGroup;
   contract: IContract;
-  borrower: IContact;
-  lender: IContact;
   edit: boolean;
   message: string;
   messageType: string;
@@ -53,6 +51,8 @@ export class EditComponent implements OnInit {
       this.contractsService.findOne(this.id)
         .subscribe(data => {
           this.editForm.patchValue(data);
+          this.contract.borrower = data.borrower;
+          this.contract.lender = data.lender;
         }, err => {
           console.error(err);
         });
@@ -113,13 +113,13 @@ export class EditComponent implements OnInit {
   open(content, type) {
     this.modalService.open(content).result.then((result) => {
       if (type == 'borrower') {
-        this.borrower = result;
+        this.contract.borrower = result;
         this.editForm.patchValue({
           borrower: result,
         });
       }
       if (type == 'lender') {
-        this.lender = result;
+        this.contract.lender = result;
         this.editForm.patchValue({
           lender: result,
         });
