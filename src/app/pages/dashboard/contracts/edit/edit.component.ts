@@ -132,6 +132,7 @@ export class EditComponent implements OnInit {
 
   editContract(value) {
     value.loan.hasGoal = value.loan.goal ? true : false;
+    console.log(value);
     this.contractsService
       .update(value, this.id)
       .subscribe(data => {
