@@ -9,8 +9,16 @@
 <h2>Prêt</h2>
 
 <div class="card" *ngIf="contract">
-  {{contract.loan.amount}} {{contract.loan.currency}}
-  à {{contract.loan.interest}}%
+  <p *ngIf="contract.loan.hasGoal">
+    <span>Objectif du prêt:</span> {{contract.loan.goal}}
+  </p>
+  <p>
+    <span>Montant du prêt:</span> {{contract.loan.amount}} {{contract.loan.getCurrency()}}
+    à {{contract.loan.interest}}%
+  </p>
+  <p>
+    <span>Remboursement le:</span>
+  </p>
 </div>
 
 <div class="top-bar" *ngIf="contract">

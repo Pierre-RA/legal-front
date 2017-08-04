@@ -1,5 +1,6 @@
 import { ILoan } from './loan.interface';
 import { Serializable } from './serialize';
+import { currencies } from './currencies';
 
 export class Loan implements ILoan, Serializable<Loan> {
   goal: String;
@@ -28,5 +29,15 @@ export class Loan implements ILoan, Serializable<Loan> {
     if (key == "dateLent") {
       return this.dateLent
     }
+  }
+
+  getCurrency() {
+    let result = 's';
+    currencies.forEach(currency => {
+      if (currency.code == this.currency) {
+        result = currency.plural;
+      }
+    });
+    return result;
   }
 }

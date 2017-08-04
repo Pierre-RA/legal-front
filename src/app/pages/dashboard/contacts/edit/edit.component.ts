@@ -85,15 +85,16 @@ export class EditComponent implements OnInit {
   onSubmit(value) {
     if (this.edit) {
       this.editContact(value);
+    } else {
+      this.addContact(value);
     }
-    this.addContact(value);
   }
 
   editContact(value) {
     this.contactsService
       .update(value, this.id)
       .subscribe(data => {
-        this.router.navigate(['/dashboard/contacts/', data.getId()]);
+        this.router.navigate(['/dashboard/contacts/', this.id]);
       }, err => {
         this.setMessage(
           'Impossible de créér ce contact pour l\'instant',

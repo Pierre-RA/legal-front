@@ -72,8 +72,6 @@ export class ContractsService {
 
   extractFile(response: Response) {
     return response.blob();
-    // return new Blob([response.blob()], {
-    //   type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
   }
 
   handleError(error: any): Promise<any> {

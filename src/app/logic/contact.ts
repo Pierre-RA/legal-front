@@ -133,6 +133,7 @@ export class Address implements Serializable<Address> {
     result += this.postCode ? this.postCode : '';
     result += this.city ? ' - ' + this.city : '';
     result += this.province ? ' - ' + this.province : '';
+    return result;
   }
 
   toString(): string {

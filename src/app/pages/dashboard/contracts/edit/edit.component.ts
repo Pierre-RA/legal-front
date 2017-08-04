@@ -89,8 +89,9 @@ export class EditComponent implements OnInit {
   onSubmit(value) {
     if (this.edit) {
       this.editContract(value);
+    } else {
+      this.addContract(value);
     }
-    this.addContract(value);
   }
 
   addContract(value) {
@@ -111,7 +112,7 @@ export class EditComponent implements OnInit {
     this.contractsService
       .update(value, this.id)
       .subscribe(data => {
-        this.router.navigate(['/dashboard/contracts/', data.getId()]);
+        this.router.navigate(['/dashboard/contracts/', this.id]);
       }, err => {
         this.setMessage(
           'Impossible de créér ce contrat pour l\'instant',
