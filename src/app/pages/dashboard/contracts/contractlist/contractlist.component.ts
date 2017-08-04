@@ -38,4 +38,18 @@ export class ContractlistComponent implements OnInit {
   ngOnInit() {
   }
 
+  export(id: string) {
+    this.contractsService
+      .export(id)
+      .subscribe(
+        data => {
+          let url = window.URL.createObjectURL(data);
+          window.location.assign(url);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
+import { Headers, RequestOptions, ResponseContentType } from '@angular/http';
 
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
@@ -52,6 +52,12 @@ export class ContractsService {
       .catch(this.handleError);
   }
 
+  export(id: string): Observable<Blob> {
+    return this.http.get(this.url + '/export/' + id, {responseType: ResponseContentType.Blob})
+      .map(this.extractFile)
+      .catch(this.handleError);
+  }
+
   extractData(response: Response) {
     return response.json();
   }
@@ -62,6 +68,10 @@ export class ContractsService {
 
   extractCount(response: Response) {
     return response.json().count;
+  }
+
+  extractFile(response: Response) {
+    return new Blob([response.blob()], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
   }
 
   handleError(error: any): Promise<any> {
