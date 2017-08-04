@@ -38,7 +38,7 @@
         </a>
       </td>
       <td class="text-center">
-        <a [routerLink]="['/dashboard/contracts']" (click)="export(contract.getId())">
+        <a [routerLink]="['/dashboard/contracts/']" (click)="export(contract.getId(), contract.getExportTitle())">
           <i class="fa fa-file-word-o" aria-hidden="true"></i>
         </a>
       </td>

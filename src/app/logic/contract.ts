@@ -43,6 +43,10 @@ export class Contract implements IContract {
     return this.title;
   }
 
+  getExportTitle(): String {
+    return this.title + '.docx';
+  }
+
   getId(): String {
     return this.id;
   }

@@ -60,21 +60,42 @@
       <div class="card" formGroupName="loan">
         <h2>Prêt</h2>
         <div class="form-group row">
-          <div class="col-md-6">
+          <div class="col-md-12">
+            <label for="amount">But du prêt</label>
+            <input type="text" class="form-control" id="goal"
+              placeholder="But du prêt (optionnel)"
+              name="goal"
+              formControlName="goal">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-4">
+            <label for="currency">Monnaie</label>
+            <select class="form-control" id="currency"
+              name="currency"
+              formControlName="currency">
+              <option *ngFor="let currency of currencies" [value]="currency.code">{{currency.plural}} ({{currency.code}})</option>
+            </select>
+          </div>
+          <div class="col-md-4">
             <label for="amount">Montant</label>
-            <input type="text" class="form-control" id="amount"
+            <input type="number" class="form-control" id="amount"
               placeholder="Montant"
               name="amount"
               formControlName="amount">
           </div>
-          <div class="col-md-6">
-            <label for="currency">Monnaie</label>
-            <input type="text" class="form-control" id="currency"
-              placeholder="Monnaie"
-              name="currency"
-              formControlName="currency">
+          <div class="col-md-4">
+            <label for="interest">Intérêt</label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="interest"
+                placeholder="Intérêt"
+                name="interest"
+                formControlName="interest">
+              <div class="input-group-addon">%</div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

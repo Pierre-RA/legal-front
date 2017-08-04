@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { saveAs as importedSaveAs } from 'file-saver';
 
 import { IContract } from '../../../../logic/contract.interface';
 import { Contract } from '../../../../logic/contract';
@@ -38,13 +39,12 @@ export class ContractlistComponent implements OnInit {
   ngOnInit() {
   }
 
-  export(id: string) {
+  export(id: string, title: string) {
     this.contractsService
       .export(id)
       .subscribe(
         data => {
-          let url = window.URL.createObjectURL(data);
-          window.location.assign(url);
+          importedSaveAs(data, title);
         },
         err => {
           console.log(err);

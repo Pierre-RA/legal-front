@@ -8,6 +8,7 @@ import { ContactsService } from '../../../../services/contacts.service';
 import { IContract } from '../../../../logic/contract.interface';
 import { ContractsService } from '../../../../services/contracts.service';
 import { ILoan } from '../../../../logic/loan.interface';
+import { currencies } from '../../../../logic/currencies';
 
 @Component({
   selector: 'app-edit',
@@ -23,6 +24,7 @@ export class EditComponent implements OnInit {
   messageType: string;
   id: string;
   contacts: Array<IContact>;
+  currencies = currencies;
 
   constructor(
     private fb: FormBuilder,
@@ -39,7 +41,7 @@ export class EditComponent implements OnInit {
       lender: null,
       loan: {
         amount: null,
-        currency: '',
+        currency: 'CHF',
         goal: '',
         hasGoal: null,
         hasLent: null,
@@ -75,8 +77,11 @@ export class EditComponent implements OnInit {
       borrower: [this.contract.borrower, Validators.required],
       lender: [this.contract.lender, Validators.required],
       loan: this.fb.group({
-        amount: [this.contract.loan.amount],
-        currency: [this.contract.loan.currency],
+        amount: [this.contract.loan.amount, Validators.required],
+        currency: [this.contract.loan.currency, Validators.required],
+        interest: [this.contract.loan.interest, Validators.required],
+        goal: [this.contract.loan.goal],
+        hasGoal: [this.contract.loan.hasGoal],
       }),
     });
   }
@@ -89,25 +94,18 @@ export class EditComponent implements OnInit {
   }
 
   addContract(value) {
-    value.loan = {
-      goal: 's',
-      hasGoal: true,
-      hasLent: true,
-      dateLent: new Date().getDate(),
-      currency: 'EUR',
-      amount: 12000,
-      interest: 3.4
-    };
-    this.contractsService
-      .create(value)
-      .subscribe(data => {
-        this.router.navigate(['/dashboard/contracts/', data.getId()]);
-      }, err => {
-        this.setMessage(
-          'Impossible de créér ce contrat pour l\'instant',
-          'danger'
-        );
-      });
+    value.loan.hasGoal = value.loan.goal ? true : false;
+    console.log(value);
+    // this.contractsService
+    //   .create(value)
+    //   .subscribe(data => {
+    //     this.router.navigate(['/dashboard/contracts/', data.getId()]);
+    //   }, err => {
+    //     this.setMessage(
+    //       'Impossible de créér ce contrat pour l\'instant',
+    //       'danger'
+    //     );
+    //   });
   }
 
   editContract(value) {
