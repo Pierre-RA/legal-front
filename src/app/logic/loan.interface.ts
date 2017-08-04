@@ -6,4 +6,6 @@ export interface ILoan {
   currency: String;
   amount: Number;
   interest: Number;
+  datePayoff: Date;
+  amountPayoff: number;
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 
 import { IContact } from '../../../../logic/contact.interface';
 import { ContactsService } from '../../../../services/contacts.service';
@@ -10,10 +10,28 @@ import { ContractsService } from '../../../../services/contracts.service';
 import { ILoan } from '../../../../logic/loan.interface';
 import { currencies } from '../../../../logic/currencies';
 
+// @Injectable()
+// export class CustomDatePickerI18n extends NgbDatepickerI18n {
+//   constructor(private _i18n: I18n) {
+//     super();
+//   }
+//
+//   getWeekdayShortName(weekday: number): string {
+//     return I18N_VALUES[this._i18n.language].weekdays[weekday - 1];
+//   }
+//   getMonthShortName(month: number): string {
+//     return I18N_VALUES[this._i18n.language].months[month - 1];
+//   }
+//   getMonthFullName(month: number): string {
+//     return this.getMonthShortName(month);
+//   }
+// }
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  styleUrls: ['./edit.component.scss'],
+  // providers: [{provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}],
 })
 export class EditComponent implements OnInit {
 
@@ -47,6 +65,8 @@ export class EditComponent implements OnInit {
         hasLent: null,
         dateLent: null,
         interest: null,
+        datePayoff: new Date(),
+        amountPayoff: null,
       },
     }
     this.contactsService.findAll()
@@ -82,6 +102,8 @@ export class EditComponent implements OnInit {
         interest: [this.contract.loan.interest, Validators.required],
         goal: [this.contract.loan.goal],
         hasGoal: [this.contract.loan.hasGoal],
+        datePayoff: [this.contract.loan.datePayoff],
+        amountPayoff: [this.contract.loan.amountPayoff],
       }),
     });
   }

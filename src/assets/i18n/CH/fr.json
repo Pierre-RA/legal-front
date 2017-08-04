@@ -14,5 +14,7 @@
   "notfound": {
     "error404": "Erreur 404",
     "pageNotFound": "Page non trouvée"
-  }
+  },
+  "weekdays": ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
+  "months": ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Aou", "Sep", "Oct", "Nov", "Déc"]
 }

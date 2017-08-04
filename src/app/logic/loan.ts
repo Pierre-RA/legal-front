@@ -10,6 +10,8 @@ export class Loan implements ILoan, Serializable<Loan> {
   currency: String;
   amount: Number;
   interest: Number;
+  datePayoff: Date;
+  amountPayoff: number;
 
   constructor() {}
 
@@ -21,6 +23,8 @@ export class Loan implements ILoan, Serializable<Loan> {
     this.goal = input.goal || '';
     this.hasLent = input.hasLent;
     this.dateLent = input.dateLent;
+    this.datePayoff = input.datePayoff;
+    this.amountPayoff = input.amountPayoff;
     return this;
   }
 
