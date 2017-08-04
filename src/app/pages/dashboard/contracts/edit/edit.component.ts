@@ -95,17 +95,16 @@ export class EditComponent implements OnInit {
 
   addContract(value) {
     value.loan.hasGoal = value.loan.goal ? true : false;
-    console.log(value);
-    // this.contractsService
-    //   .create(value)
-    //   .subscribe(data => {
-    //     this.router.navigate(['/dashboard/contracts/', data.getId()]);
-    //   }, err => {
-    //     this.setMessage(
-    //       'Impossible de créér ce contrat pour l\'instant',
-    //       'danger'
-    //     );
-    //   });
+    this.contractsService
+      .create(value)
+      .subscribe(data => {
+        this.router.navigate(['/dashboard/contracts/', data.getId()]);
+      }, err => {
+        this.setMessage(
+          'Impossible de créér ce contrat pour l\'instant',
+          'danger'
+        );
+      });
   }
 
   editContract(value) {
