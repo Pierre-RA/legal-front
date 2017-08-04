@@ -22,6 +22,7 @@ export class ContractComponent implements OnInit {
     this.contractsService.findOne(this.id)
       .subscribe(data => {
         this.contract = new Contract().deserialize(data);
+        console.log(this.contract);
       }, err => {
         console.error(err);
       });

@@ -10,14 +10,14 @@
 
 <div class="card" *ngIf="contract">
   <p *ngIf="contract.loan.hasGoal">
-    <span>Objectif du prêt:</span> {{contract.loan.goal}}
+    <strong>Objectif du prêt:</strong> {{contract.loan.goal}}
   </p>
   <p>
-    <span>Montant du prêt:</span> {{contract.loan.amount}} {{contract.loan.getCurrency()}}
+    <strong>Montant du prêt:</strong> {{contract.loan.amount}} {{contract.loan.getCurrency()}}
     à {{contract.loan.interest}}%
   </p>
   <p>
-    <span>Remboursement le:</span>
+    <strong>Remboursement le:</strong>
   </p>
 </div>
 
@@ -26,7 +26,7 @@
     <i class="fa fa-pencil" aria-hidden="true"></i>
     Modifier
   </a>
-  <a class="btn btn-danger" routerLink="/">
+  <a class="btn btn-danger disabled" [routerLink]="['/dashboard/contracts/', contract.getId()]" disabled>
     <i class="fa fa-times" aria-hidden="true"></i>
     Effacer
   </a>
