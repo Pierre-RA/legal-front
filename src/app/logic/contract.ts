@@ -46,15 +46,4 @@ export class Contract implements IContract {
   getId(): String {
     return this.id;
   }
-
-  export(): object {
-    return {
-      borrower: this.borrower.getTitle(),
-      lender: this.lender.getTitle(),
-      hasGoal: this.loan.hasGoal,
-      goal: this.loan.goal,
-      hasLent: this.loan.hasLent,
-      dateLent: this.loan.formatDate("dateLent")
-    }
-  }
 }

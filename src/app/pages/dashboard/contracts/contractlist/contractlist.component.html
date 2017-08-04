@@ -15,7 +15,10 @@
         Nom du contrat
       </th>
       <th class="col-md-1">
-        Voir
+        Éditer
+      </th>
+      <th>
+        Exporter
       </th>
     </tr>
   </thead>
@@ -25,11 +28,18 @@
         {{contract.getType()}}
       </td>
       <td class="text-left">
-        {{contract.getTitle()}}
+        <a [routerLink]="['/dashboard/contracts/', contract.getId()]">
+          {{contract.getTitle()}}
+        </a>
       </td>
       <td class="text-center">
-        <a [routerLink]="['/dashboard/contracts/', contract.getId()]">
-          <i class="fa fa-eye" aria-hidden="true"></i>
+        <a [routerLink]="['/dashboard/contracts/edit/', contract.getId()]">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </a>
+      </td>
+      <td class="text-center">
+        <a [routerLink]="['/']">
+          <i class="fa fa-file-word-o" aria-hidden="true"></i>
         </a>
       </td>
     </tr>

@@ -37,7 +37,15 @@ export class EditComponent implements OnInit {
       title: '',
       borrower: null,
       lender: null,
-      loan: null,
+      loan: {
+        amount: null,
+        currency: '',
+        goal: '',
+        hasGoal: null,
+        hasLent: null,
+        dateLent: null,
+        interest: null,
+      },
     }
     this.contactsService.findAll()
       .subscribe(data => {
@@ -53,6 +61,7 @@ export class EditComponent implements OnInit {
           this.editForm.patchValue(data);
           this.contract.borrower = data.borrower;
           this.contract.lender = data.lender;
+          this.contract.loan = data.loan;
         }, err => {
           console.error(err);
         });
@@ -62,9 +71,13 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     this.editForm = this.fb.group({
       type: [this.contract.type, Validators.required],
-      title: [this.contract.title],
+      title: [this.contract.title, Validators.required],
       borrower: [this.contract.borrower, Validators.required],
       lender: [this.contract.lender, Validators.required],
+      loan: this.fb.group({
+        amount: [this.contract.loan.amount],
+        currency: [this.contract.loan.currency],
+      }),
     });
   }
 

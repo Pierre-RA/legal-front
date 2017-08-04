@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, fb: FormBuilder, public authService: AuthService) {
     this.form = fb.group({
-      'email': ['pierre@anthillsolutions.ch', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'password': ['bull', Validators.compose([Validators.required, Validators.minLength(4)])]
+      'email': ['test@legal.ch', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
     });
     this.email = this.form.controls['email'];
     this.password = this.form.controls['password'];
