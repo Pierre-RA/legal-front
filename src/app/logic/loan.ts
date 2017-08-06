@@ -3,14 +3,13 @@ import { Serializable } from './serialize';
 import { currencies } from './currencies';
 
 export class Loan implements ILoan, Serializable<Loan> {
-  goal: String;
-  hasGoal: Boolean;
-  hasLent: Boolean;
-  dateLent: Date;
-  currency: String;
-  amount: Number;
-  interest: Number;
-  datePayoff: Date;
+  goal: string;
+  hasGoal: boolean;
+  hasLent: boolean;
+  currency: string;
+  amount: number;
+  interest: number;
+  datePayoff: string;
   amountPayoff: number;
 
   constructor() {}
@@ -22,7 +21,6 @@ export class Loan implements ILoan, Serializable<Loan> {
     this.hasGoal = input.hasGoal;
     this.goal = input.goal || '';
     this.hasLent = input.hasLent;
-    this.dateLent = input.dateLent;
     this.datePayoff = input.datePayoff;
     this.amountPayoff = input.amountPayoff;
     return this;
@@ -30,9 +28,9 @@ export class Loan implements ILoan, Serializable<Loan> {
 
   // TODO: use moment for dateLent
   formatDate(key: string) {
-    if (key == "dateLent") {
-      return this.dateLent
-    }
+    // if (key == "dateLent") {
+    //   return this.dateLent
+    // }
   }
 
   getCurrency() {

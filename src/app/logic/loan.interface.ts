@@ -1,11 +1,10 @@
 export interface ILoan {
-  goal: String;
-  hasGoal: Boolean;
-  hasLent: Boolean;
-  dateLent: Date;
-  currency: String;
-  amount: Number;
-  interest: Number;
-  datePayoff: Date;
+  goal: string;
+  hasGoal: boolean;
+  hasLent: boolean;
+  currency: string;
+  amount: number;
+  interest: number;
+  datePayoff: string;
   amountPayoff: number;
 }

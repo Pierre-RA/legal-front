@@ -1,8 +1,9 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NgbModal, ModalDismissReasons, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbDatepickerI18n, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
+import { MyNgbDateParserFormatter } from '../../../../logic/dateparser';
 import { IContact } from '../../../../logic/contact.interface';
 import { ContactsService } from '../../../../services/contacts.service';
 import { IContract } from '../../../../logic/contract.interface';
@@ -50,7 +51,8 @@ export class EditComponent implements OnInit {
     private contactsService: ContactsService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private ngbDateParserFormatter: NgbDateParserFormatter
   ) {
     this.contract = {
       type: 0,
@@ -63,9 +65,8 @@ export class EditComponent implements OnInit {
         goal: '',
         hasGoal: null,
         hasLent: null,
-        dateLent: null,
         interest: null,
-        datePayoff: new Date(),
+        datePayoff: '',
         amountPayoff: null,
       },
     }
@@ -102,7 +103,9 @@ export class EditComponent implements OnInit {
         interest: [this.contract.loan.interest, Validators.required],
         goal: [this.contract.loan.goal],
         hasGoal: [this.contract.loan.hasGoal],
-        datePayoff: [this.contract.loan.datePayoff],
+        datePayoff: [
+          this.ngbDateParserFormatter.parse(this.contract.loan.datePayoff)
+        ],
         amountPayoff: [this.contract.loan.amountPayoff],
       }),
     });
@@ -118,6 +121,8 @@ export class EditComponent implements OnInit {
 
   addContract(value) {
     value.loan.hasGoal = value.loan.goal ? true : false;
+    value.loan.datePayoff =
+      this.ngbDateParserFormatter.format(value.loan.datePayoff);
     this.contractsService
       .create(value)
       .subscribe(data => {
@@ -132,7 +137,8 @@ export class EditComponent implements OnInit {
 
   editContract(value) {
     value.loan.hasGoal = value.loan.goal ? true : false;
-    console.log(value);
+    value.loan.datePayoff =
+      this.ngbDateParserFormatter.format(value.loan.datePayoff);
     this.contractsService
       .update(value, this.id)
       .subscribe(data => {
