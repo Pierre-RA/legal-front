@@ -6,7 +6,7 @@ import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { EditComponent } from './edit.component';
 import { routing } from './edit.routing';
 import { TemplateModule } from '../../../../templates/template.module';
-import { MyNgbDateParserFormatter } from '../../../../logic/dateparser';
+import { CustomDateParserFormatter } from '../../../../logic/dateparser';
 
 @NgModule({
   imports: [
@@ -18,13 +18,5 @@ import { MyNgbDateParserFormatter } from '../../../../logic/dateparser';
     NgbModule,
   ],
   declarations: [EditComponent],
-  providers: [{
-    provide: NgbDateParserFormatter,
-    useFactory: lambda,
-  }],
 })
 export class EditModule { }
-
-function lambda() {
-  return new MyNgbDateParserFormatter('longDate');
-}

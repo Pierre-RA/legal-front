@@ -2,8 +2,9 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbDatepickerI18n, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 
-import { MyNgbDateParserFormatter } from '../../../../logic/dateparser';
+import { CustomDateParserFormatter } from '../../../../logic/dateparser';
 import { IContact } from '../../../../logic/contact.interface';
 import { ContactsService } from '../../../../services/contacts.service';
 import { IContract } from '../../../../logic/contract.interface';
@@ -32,6 +33,7 @@ import { currencies } from '../../../../logic/currencies';
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
+  providers: [{provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}]
   // providers: [{provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}],
 })
 export class EditComponent implements OnInit {
@@ -81,7 +83,9 @@ export class EditComponent implements OnInit {
       this.id = this.activatedRoute.snapshot.params['id'];
       this.contractsService.findOne(this.id)
         .subscribe(data => {
-          this.editForm.patchValue(data);
+          let tmp: any = data;
+          tmp.loan.datePayoff = this.ngbDateParserFormatter.parse(data.loan.datePayoff);
+          this.editForm.patchValue(tmp);
           this.contract.borrower = data.borrower;
           this.contract.lender = data.lender;
           this.contract.loan = data.loan;

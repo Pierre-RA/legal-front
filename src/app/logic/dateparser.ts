@@ -1,43 +1,37 @@
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { Injectable } from "@angular/core";
 
-export class MyNgbDateParserFormatter extends NgbDateParserFormatter {
+// @Injectable()
+export class CustomDateParserFormatter extends NgbDateParserFormatter {
   datePipe = new DatePipe('en-US');
-  constructor(
-    private dateFormatString: string
-  ) {
-    super();
-  }
+
   format(date: NgbDateStruct): string {
     if (date === null) {
       return '';
     }
     try {
-      return this.datePipe.transform(new Date(date.year, date.month - 1, date.day), this.dateFormatString);
+      return this.datePipe.transform(new Date(date.year, date.month - 1, date.day), 'longDate');
     } catch (e) {
       return '';
     }
   }
-  formatForServer(date: NgbDateStruct): string {
-    if (date === null) {
-      return '';
-    }
-    try {
-      return this.datePipe.transform(new Date(date.year, date.month - 1, date.day), 'y-MM-dd');
-    } catch (e) {
-      return '';
-    }
-  }
+
   parse(value: string): NgbDateStruct {
     let returnVal: NgbDateStruct;
     if (!value) {
       returnVal = null;
     } else {
       try {
-        console.log(value);
-        let dateParts = this.datePipe.transform(value, 'M-d-y').split('-');
-        returnVal = { year: parseInt(dateParts[2]), month: parseInt(dateParts[0]), day: parseInt(dateParts[1]) };
+        let tmp = value.split('T');
+        tmp = tmp[0].split('-');
+        returnVal = {
+          year: parseInt(tmp[0]),
+          month: parseInt(tmp[1]),
+          day: parseInt(tmp[2]),
+        };
       } catch (e) {
+        console.log(e);
         returnVal = null;
       }
     }
