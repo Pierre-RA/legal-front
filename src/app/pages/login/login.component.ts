@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
+import { mockupUser } from '../../logic/user/mockupuser';
 
 @Component({
   selector: 'login',
@@ -19,8 +20,9 @@ export class LoginComponent implements OnInit {
   url: string;
 
   constructor(private router: Router, fb: FormBuilder, public authService: AuthService) {
+    let user = mockupUser;
     this.form = fb.group({
-      'email': ['test@legal.ch', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'email': [user.email, Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
     });
     this.email = this.form.controls['email'];

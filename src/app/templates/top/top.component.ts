@@ -4,6 +4,7 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../logic/user/user';
+import { mockupUser } from '../../logic/user/mockupuser';
 
 @Component({
   selector: 'template-top',
@@ -25,7 +26,7 @@ export class TopComponent implements OnInit {
   ) {
     this.title = 'Legal';
     this.isLogged = this.authService.isLoggedIn();
-    this.user = new User('Pierre Repetto-Andipatin');
+    this.user = mockupUser;
   }
 
   ngOnInit() {

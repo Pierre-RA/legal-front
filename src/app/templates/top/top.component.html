@@ -18,7 +18,7 @@
       </li>
       <li class="nav-item dropdown" *ngIf="isLogged">
         <div ngbDropdown class="d-inline-block">
-          <a class="nav-link dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>Pierre Repetto-Andipatin</a>
+          <a class="nav-link dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>{{user.name}}</a>
           <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
             <a class="dropdown-item" routerLink="/dashboard/profile">Profile</a>
             <a class="dropdown-item" routerLink="/dashboard/settings">Paramètres</a>
