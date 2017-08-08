@@ -26,6 +26,13 @@ export class AuthGuardService implements CanActivate {
       return true;
     }
 
+    // TODO: add server verification
+    if (window.localStorage.getItem('token')) {
+      this.isLogged = true;
+      this.authService.loggedIn = true;
+      return true;
+    }
+
     this.authService.redirectUrl = url;
     this.router.navigate(['/login']);
 

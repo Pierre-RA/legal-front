@@ -30,6 +30,14 @@ export class AuthService {
       .catch(this.handleError);
   }
 
+  isTokenValid(token: string): Observable<boolean> {
+    return this.http.post(this.url, token)
+      .map(data => {
+        console.log(data);
+      })
+      .catch(this.handleError);
+  }
+
   extractData(response: Response) {
     return response.json()['token'];
   }
@@ -42,6 +50,7 @@ export class AuthService {
   setToken(token: string): void {
     this.loggedIn = true;
     this.token = token;
+    window.localStorage.setItem('token', token);
   }
 
   logout(): void {

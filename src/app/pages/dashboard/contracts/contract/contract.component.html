@@ -7,7 +7,6 @@
 <template-contact [contact]="contract.getLender()" *ngIf="contract"></template-contact>
 
 <h2>Prêt</h2>
-
 <div class="card" *ngIf="contract">
   <p *ngIf="contract.loan.hasGoal">
     <strong>Objectif du prêt:</strong> {{contract.loan.goal}}
@@ -18,6 +17,16 @@
   </p>
   <p>
     <strong>Remboursement le:</strong> {{contract.loan.datePayoff | date:['longDate']}}
+  </p>
+</div>
+
+<h2>Lieu et date</h2>
+<div class="card" *ngIf="contract">
+  <p *ngIf="contract.place">
+    <strong>Lieu:</strong> {{contract.place}}
+  </p>
+  <p *ngIf="contract.date">
+    <strong>Date:</strong> {{contract.date}}
   </p>
 </div>
 
