@@ -22,7 +22,11 @@ export const routes: Routes = [
     }, {
       path: 'profile',
       loadChildren: 'app/pages/dashboard/profile/profile.module#ProfileModule',
-      data: { breadcrumb: 'Contacts' }
+      data: { breadcrumb: 'Profile' }
+    }, {
+      path: 'settings',
+      loadChildren: 'app/pages/dashboard/settings/settings.module#SettingsModule',
+      data: { breadcrumb: 'Settings' }
     }, {
       path: '',
       redirectTo: 'overview'
