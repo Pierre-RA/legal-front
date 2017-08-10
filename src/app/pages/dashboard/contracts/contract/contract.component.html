@@ -20,14 +20,16 @@
   </p>
 </div>
 
-<h2>Lieu et date</h2>
-<div class="card" *ngIf="contract">
-  <p *ngIf="contract.place">
-    <strong>Lieu:</strong> {{contract.place}}
-  </p>
-  <p *ngIf="contract.date">
-    <strong>Date:</strong> {{contract.date}}
-  </p>
+<div *ngIf="contract && contract.place && contract.date">
+  <h2>Lieu et date</h2>
+  <div class="card" *ngIf="contract">
+    <p *ngIf="contract.place">
+      <strong>Lieu:</strong> {{contract.place}}
+    </p>
+    <p *ngIf="contract.date">
+      <strong>Date:</strong> {{contract.date}}
+    </p>
+  </div>
 </div>
 
 <div class="top-bar" *ngIf="contract">

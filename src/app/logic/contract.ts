@@ -14,10 +14,16 @@ export class Contract implements IContract {
   constructor() {}
 
   deserialize(input: any): this {
-    this.id = input._id;
-    this.borrower = new Contact().deserialize(input.borrower);
-    this.lender = new Contact().deserialize(input.lender);
-    this.loan = new Loan().deserialize(input.loan);
+    this.id = input._id || null;
+    if (input.borrower) {
+      this.borrower = new Contact().deserialize(input.borrower);
+    }
+    if (input.lender) {
+      this.lender = new Contact().deserialize(input.lender);
+    }
+    if (input.loan) {
+      this.loan = new Loan().deserialize(input.loan);
+    }
     this.title = input.title;
     this.type = input.type;
     return this;

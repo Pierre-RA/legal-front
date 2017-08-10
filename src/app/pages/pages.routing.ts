@@ -15,7 +15,8 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule',
-    canActivate: [ AuthGuardService ],
+    // canActivate: [ AuthGuardService ],
+    canActivateChild: [ AuthGuardService ],
     data: {
       requiresLogin: true,
       breadcrumb: 'Dashboard'

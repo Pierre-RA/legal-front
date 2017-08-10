@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbDatepickerI18n, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
@@ -8,8 +8,9 @@ import { CustomDateParserFormatter } from '../../../../logic/dateparser';
 import { IContact } from '../../../../logic/contact.interface';
 import { ContactsService } from '../../../../services/contacts.service';
 import { IContract } from '../../../../logic/contract.interface';
+import { Contract } from '../../../../logic/contract';
 import { ContractsService } from '../../../../services/contracts.service';
-import { ILoan } from '../../../../logic/loan.interface';
+import { ILoan, IPayoff } from '../../../../logic/loan.interface';
 import { currencies } from '../../../../logic/currencies';
 
 // @Injectable()
@@ -56,22 +57,7 @@ export class EditComponent implements OnInit {
     private modalService: NgbModal,
     private ngbDateParserFormatter: NgbDateParserFormatter
   ) {
-    this.contract = {
-      type: 0,
-      title: '',
-      borrower: null,
-      lender: null,
-      loan: {
-        amount: null,
-        currency: 'CHF',
-        goal: '',
-        hasGoal: null,
-        hasLent: null,
-        interest: null,
-        datePayoff: '',
-        amountPayoff: null,
-      },
-    }
+    this.contract = this.getDefaultContract();
     this.contactsService.findAll()
       .subscribe(data => {
         this.contacts = data;
@@ -84,7 +70,7 @@ export class EditComponent implements OnInit {
       this.contractsService.findOne(this.id)
         .subscribe(data => {
           let tmp: any = data;
-          tmp.loan.datePayoff = this.ngbDateParserFormatter.parse(data.loan.datePayoff);
+          // tmp.loan.datePayoff = this.ngbDateParserFormatter.parse(data.loan.datePayoff);
           this.editForm.patchValue(tmp);
           this.contract.borrower = data.borrower;
           this.contract.lender = data.lender;
@@ -96,22 +82,10 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editForm = this.fb.group({
-      type: [this.contract.type, Validators.required],
-      title: [this.contract.title, Validators.required],
-      borrower: [this.contract.borrower, Validators.required],
-      lender: [this.contract.lender, Validators.required],
-      loan: this.fb.group({
-        amount: [this.contract.loan.amount, Validators.required],
-        currency: [this.contract.loan.currency, Validators.required],
-        interest: [this.contract.loan.interest, Validators.required],
-        goal: [this.contract.loan.goal],
-        hasGoal: [this.contract.loan.hasGoal],
-        datePayoff: [
-          this.ngbDateParserFormatter.parse(this.contract.loan.datePayoff)
-        ],
-        amountPayoff: [this.contract.loan.amountPayoff],
-      }),
+    // Build form
+    this.buildForm();
+    this.editForm.controls['loan']['controls']['amount'].valueChanges.subscribe(value => {
+      this.addOrEdit(value);
     });
   }
 
@@ -171,6 +145,78 @@ export class EditComponent implements OnInit {
       }
     }, (reason) => {
       console.log('dismissed.');
+    });
+  }
+
+  getDefaultContract(): Contract {
+    return new Contract().deserialize({
+      type: 0,
+      title: '',
+      borrower: null,
+      lender: null,
+      loan: {
+        amount: null,
+        currency: 'CHF',
+        goal: '',
+        hasGoal: null,
+        hasLent: null,
+        interest: null,
+        payoff: [],
+      },
+    });
+  }
+
+  buildForm(): void {
+    this.editForm = this.fb.group({
+      type: [this.contract.type, Validators.required],
+      title: [this.contract.title, Validators.required],
+      borrower: [this.contract.borrower, Validators.required],
+      lender: [this.contract.lender, Validators.required],
+      loan: this.fb.group({
+        amount: [this.contract.loan.amount, Validators.required],
+        currency: [this.contract.loan.currency, Validators.required],
+        interest: [this.contract.loan.interest, Validators.required],
+        goal: [this.contract.loan.goal],
+        hasGoal: [this.contract.loan.hasGoal],
+        payoff: this.fb.array([]),
+        // datePayoff: [
+        //   this.ngbDateParserFormatter.parse(this.contract.loan.datePayoff)
+        // ],
+      }),
+    });
+    this.setPayoffs();
+  }
+
+  addOrEdit(value): void {
+    if (this.contract.loan.payoff.length == 0) {
+      this.contract.loan.payoff.push({
+        date: null,
+        amount: value
+      });
+      const control = <FormArray>this.editForm.controls['loan'].get('payoff');
+      control.push(this.fb.group({
+        amount: value,
+        date: null,
+      }));
+    } else {
+      let last = this.contract.loan.payoff.length - 1;
+      this.contract.loan.payoff[last].amount = value;
+      const control = <FormArray>this.editForm.controls['loan'].get('payoff');
+      last = control.length - 1;
+      control.at(last).patchValue({
+        amount: value,
+        date: null,
+      });
+    }
+  }
+
+  setPayoffs(): void {
+    const control = <FormArray>this.editForm.controls['loan'].get('payoff');
+    this.contract.loan.payoff.forEach(item => {
+      control.push(this.fb.group({
+        amount: [item.amount],
+        date: [item.date]
+      }));
     });
   }
 

@@ -95,25 +95,25 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
-          <div class="col-md-6">
-            <label for="datePayoff">Date de remboursement</label>
-            <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd (en cours de traduction)"
-                id="datePayoff"
-                name="datePayoff"
-                formControlName="datePayoff" ngbDatepicker #d="ngbDatepicker">
-              <button class="input-group-addon" (click)="d.toggle()" type="button">
-                <i class="fa fa-calendar"></i>
-              </button>
+        <div formArrayName="payoff">
+          <div *ngFor="let child of editForm.controls.loan.controls.payoff.controls; let i = index">
+            <div formGroupName="{{i}}" class="from-group row">
+              <div class="col-md-6">
+                <label for="datePayoff-{{i}}">Date de remboursement</label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd (en cours de traduction)"
+                    id="datePayoff-{{i}}" formControlName="date" ngbDatepicker #d="ngbDatepicker">
+                  <button class="input-group-addon" (click)="d.toggle()" type="button">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="amountPayoff-{{i}}">Montant à rembourser</label>
+                <input type="number" class="form-control"
+                  id="amountPayoff-{{i}}" formControlName="amount">
+              </div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <label for="amountPayoff">Montant à rembourser (optionnel)</label>
-            <input type="number" class="form-control" id="amountPayoff"
-              placeholder="{{contract.loan.amount}} par défaut"
-              name="amountPayoff"
-              formControlName="amountPayoff">
           </div>
         </div>
       </div>

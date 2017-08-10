@@ -5,6 +5,10 @@ export interface ILoan {
   currency: string;
   amount: number;
   interest: number;
-  datePayoff: string;
-  amountPayoff: number;
+  payoff: Array<IPayoff>;
+}
+
+export interface IPayoff {
+  date: Date;
+  amount: number;
 }

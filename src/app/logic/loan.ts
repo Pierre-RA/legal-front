@@ -1,4 +1,4 @@
-import { ILoan } from './loan.interface';
+import { ILoan, IPayoff } from './loan.interface';
 import { Serializable } from './serialize';
 import { currencies } from './currencies';
 
@@ -9,8 +9,7 @@ export class Loan implements ILoan, Serializable<Loan> {
   currency: string;
   amount: number;
   interest: number;
-  datePayoff: string;
-  amountPayoff: number;
+  payoff: Array<Payoff>;
 
   constructor() {}
 
@@ -21,8 +20,12 @@ export class Loan implements ILoan, Serializable<Loan> {
     this.hasGoal = input.hasGoal;
     this.goal = input.goal || '';
     this.hasLent = input.hasLent;
-    this.datePayoff = input.datePayoff;
-    this.amountPayoff = input.amountPayoff;
+    this.payoff = [];
+    if (input.payoff) {
+      input.payoff.forEach(item => {
+        this.payoff.push(item);
+      });
+    }
     return this;
   }
 
@@ -41,5 +44,16 @@ export class Loan implements ILoan, Serializable<Loan> {
       }
     });
     return result;
+  }
+}
+
+export class Payoff implements IPayoff, Serializable<Payoff> {
+  date: Date;
+  amount: number;
+
+  deserialize(input: any) {
+    this.date = input.date;
+    this.amount = input.amount;
+    return this;
   }
 }
