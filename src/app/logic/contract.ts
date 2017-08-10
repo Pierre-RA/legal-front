@@ -4,7 +4,7 @@ import { Loan } from './loan';
 import Contact from './contact';
 
 export class Contract implements IContract {
-  id: String;
+  id: string;
   borrower: Contact;
   lender: Contact;
   loan: Loan;
@@ -43,19 +43,19 @@ export class Contract implements IContract {
     return this.loan;
   }
 
-  getType(): String {
-    return this.type == 0 ? 'Prêt' : new String(this.type);
+  getType(): string {
+    return this.type == 0 ? 'Prêt' : '' + this.type;
   }
 
-  getTitle(): String {
+  getTitle(): string {
     return this.title;
   }
 
-  getExportTitle(): String {
+  getExportTitle(): string {
     return this.title + '.docx';
   }
 
-  getId(): String {
+  getId(): string {
     return this.id;
   }
 }
