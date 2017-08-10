@@ -5,6 +5,8 @@ export interface IContract {
   borrower: IContact;
   lender: IContact;
   loan: ILoan;
-  type: Number;
-  title: String;
+  type: number;
+  title: string;
+  date: Date;
+  place: string;
 }
