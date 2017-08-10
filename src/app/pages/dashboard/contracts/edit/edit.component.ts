@@ -69,9 +69,19 @@ export class EditComponent implements OnInit {
       this.id = this.activatedRoute.snapshot.params['id'];
       this.contractsService.findOne(this.id)
         .subscribe(data => {
-          let tmp: any = data;
-          // tmp.loan.datePayoff = this.ngbDateParserFormatter.parse(data.loan.datePayoff);
-          this.editForm.patchValue(tmp);
+          // TODO: remove console.log
+          console.log(data);
+          let payoff = data.loan.payoff;
+          data.loan.payoff = [];
+          this.editForm.patchValue(data);
+          const control = <FormArray>this.editForm.controls['loan'].get('payoff');
+          control.removeAt(0);
+          payoff.forEach(item => {
+            control.push(this.fb.group({
+              date: this.ngbDateParserFormatter.parse(item.date),
+              amount: item.amount
+            }));
+          });
           this.contract.borrower = data.borrower;
           this.contract.lender = data.lender;
           this.contract.loan = data.loan;
@@ -84,12 +94,12 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     // Build form
     this.buildForm();
-    this.editForm.controls['loan']['controls']['amount'].valueChanges.subscribe(value => {
-      this.addOrEdit(value);
-    });
+    // this.editForm.controls['loan']['controls']['amount'].valueChanges.subscribe(value => {
+    //   this.addOrEdit(value);
+    // });
   }
 
-  onSubmit(value) {
+  onSubmit(value: IContract) {
     if (this.edit) {
       this.editContract(value);
     } else {
@@ -97,10 +107,9 @@ export class EditComponent implements OnInit {
     }
   }
 
-  addContract(value) {
+  addContract(value: IContract) {
     value.loan.hasGoal = value.loan.goal ? true : false;
-    value.loan.datePayoff =
-      this.ngbDateParserFormatter.format(value.loan.datePayoff);
+    value = this.formatDates(value);
     this.contractsService
       .create(value)
       .subscribe(data => {
@@ -113,10 +122,9 @@ export class EditComponent implements OnInit {
       });
   }
 
-  editContract(value) {
+  editContract(value: IContract) {
     value.loan.hasGoal = value.loan.goal ? true : false;
-    value.loan.datePayoff =
-      this.ngbDateParserFormatter.format(value.loan.datePayoff);
+    value = this.formatDates(value);
     this.contractsService
       .update(value, this.id)
       .subscribe(data => {
@@ -173,51 +181,49 @@ export class EditComponent implements OnInit {
       borrower: [this.contract.borrower, Validators.required],
       lender: [this.contract.lender, Validators.required],
       loan: this.fb.group({
-        amount: [this.contract.loan.amount, Validators.required],
+        amount: [{value: this.contract.loan.amount, disabled: true}, Validators.required],
         currency: [this.contract.loan.currency, Validators.required],
         interest: [this.contract.loan.interest, Validators.required],
         goal: [this.contract.loan.goal],
         hasGoal: [this.contract.loan.hasGoal],
-        payoff: this.fb.array([]),
-        // datePayoff: [
-        //   this.ngbDateParserFormatter.parse(this.contract.loan.datePayoff)
-        // ],
+        payoff: this.fb.array(
+          this.formatPayoffs(this.contract.loan.payoff)
+        ),
       }),
     });
-    this.setPayoffs();
+    // this.setPayoffs();
   }
 
-  addOrEdit(value): void {
-    if (this.contract.loan.payoff.length == 0) {
-      this.contract.loan.payoff.push({
-        date: null,
-        amount: value
-      });
-      const control = <FormArray>this.editForm.controls['loan'].get('payoff');
-      control.push(this.fb.group({
-        amount: value,
+  formatPayoffs(payoff: Array<IPayoff>) {
+    let result = [];
+    if (payoff.length == 0) {
+      result.push(this.fb.group({
+        amount: null,
         date: null,
       }));
-    } else {
-      let last = this.contract.loan.payoff.length - 1;
-      this.contract.loan.payoff[last].amount = value;
-      const control = <FormArray>this.editForm.controls['loan'].get('payoff');
-      last = control.length - 1;
-      control.at(last).patchValue({
-        amount: value,
-        date: null,
-      });
     }
-  }
-
-  setPayoffs(): void {
-    const control = <FormArray>this.editForm.controls['loan'].get('payoff');
-    this.contract.loan.payoff.forEach(item => {
-      control.push(this.fb.group({
-        amount: [item.amount],
-        date: [item.date]
+    payoff.forEach(item => {
+      result.push(this.fb.group({
+        amount: item.amount,
+        date: this.ngbDateParserFormatter.parse(item.date)
       }));
     });
+    return result;
+  }
+
+  formatDates(value) {
+    value.loan.payoff.forEach(item => {
+      item.date = this.ngbDateParserFormatter.format(item.date);
+    });
+    return value;
+  }
+
+  addDue(): void {
+    const control = <FormArray>this.editForm.controls['loan'].get('payoff');
+    control.push(this.fb.group({
+      date: null,
+      amount: null
+    }));
   }
 
   setMessage(message: string, type: string) {

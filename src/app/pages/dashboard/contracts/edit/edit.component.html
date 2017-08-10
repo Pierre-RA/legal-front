@@ -78,13 +78,6 @@
             </select>
           </div>
           <div class="col-md-4">
-            <label for="amount">Montant</label>
-            <input type="number" class="form-control" id="amount"
-              placeholder="Montant"
-              name="amount"
-              formControlName="amount">
-          </div>
-          <div class="col-md-4">
             <label for="interest">Intérêt</label>
             <div class="input-group">
               <input type="number" class="form-control" id="interest"
@@ -93,6 +86,13 @@
                 formControlName="interest">
               <div class="input-group-addon">%</div>
             </div>
+          </div>
+          <div class="col-md-4">
+            <label for="amount">Montant</label>
+            <input type="number" class="form-control" id="amount"
+              placeholder="calculé automatiquement"
+              name="amount"
+              formControlName="amount">
           </div>
         </div>
         <div formArrayName="payoff">
@@ -115,6 +115,7 @@
               </div>
             </div>
           </div>
+          <button class="btn btn-link" type="button" (click)="addDue()">Ajouter une échéance</button>
         </div>
       </div>
     </div>

@@ -29,13 +29,6 @@ export class Loan implements ILoan, Serializable<Loan> {
     return this;
   }
 
-  // TODO: use moment for dateLent
-  formatDate(key: string) {
-    // if (key == "dateLent") {
-    //   return this.dateLent
-    // }
-  }
-
   getCurrency() {
     let result = 's';
     currencies.forEach(currency => {
@@ -45,10 +38,18 @@ export class Loan implements ILoan, Serializable<Loan> {
     });
     return result;
   }
+
+  getTotalAmount() {
+    let result = 0;
+    this.payoff.forEach(item => {
+      result += item.amount;
+    });
+    return result;
+  }
 }
 
 export class Payoff implements IPayoff, Serializable<Payoff> {
-  date: Date;
+  date: string;
   amount: number;
 
   deserialize(input: any) {

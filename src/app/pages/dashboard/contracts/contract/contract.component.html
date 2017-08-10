@@ -8,15 +8,26 @@
 
 <h2>Prêt</h2>
 <div class="card" *ngIf="contract">
+  <div class="row justify-content-md-center">
+    <div class="col-md-6">
+      <p class="alert alert-warning">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        Dates en cours de traduction.
+      </p>
+    </div>
+  </div>
   <p *ngIf="contract.loan.hasGoal">
     <strong>Objectif du prêt:</strong> {{contract.loan.goal}}
   </p>
   <p>
-    <strong>Montant du prêt:</strong> {{contract.loan.amount}} {{contract.loan.getCurrency()}}
+    <strong>Montant du prêt:</strong> {{contract.loan.getTotalAmount()}} {{contract.loan.getCurrency()}}
     à {{contract.loan.interest}}%
   </p>
-  <p>
-    <strong>Remboursement le:</strong> {{contract.loan.datePayoff | date:['longDate']}}
+  <p *ngFor="let item of contract.loan.payoff, let i = index">
+    <strong *ngIf="i == 0 && contract.loan.payoff.length > 1">{{i + 1}}er remboursement le:</strong>
+    <strong *ngIf="i == 0 && contract.loan.payoff.length == 1">Remboursement le:</strong>
+    <strong *ngIf="i > 0">{{i + 1}}e remboursement le:</strong>
+    {{item.date | date:['longDate']}} <strong>de</strong> {{item.amount}} {{contract.loan.getCurrency()}}.
   </p>
 </div>
 

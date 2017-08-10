@@ -9,6 +9,6 @@ export interface ILoan {
 }
 
 export interface IPayoff {
-  date: Date;
+  date: string;
   amount: number;
 }
