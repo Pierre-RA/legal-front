@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 import { AuthService } from '../../services/auth.service';
 import { mockupUser } from '../../logic/user/mockupuser';
@@ -19,7 +20,12 @@ export class LoginComponent implements OnInit {
   messageType: string;
   url: string;
 
-  constructor(private router: Router, fb: FormBuilder, public authService: AuthService) {
+  constructor(
+    private router: Router,
+    fb: FormBuilder,
+    public authService: AuthService,
+    private slimLoadingBarService: SlimLoadingBarService
+  ) {
     let user = mockupUser;
     this.form = fb.group({
       'email': [user.email, Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -54,15 +60,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.slimLoadingBarService.start();
     this.authService
       .login(this.form.controls['email'].value, this.form.controls['password'].value)
       .subscribe(
         data => {
+          this.slimLoadingBarService.complete();
           this.authService.setToken(data);
           let redirect = this.authService.redirectUrl || '/dashboard';
           this.router.navigate([redirect]);
         },
         err => {
+          this.slimLoadingBarService.complete();
           this.setMessage(
             'Connection to server failed.',
             'danger'

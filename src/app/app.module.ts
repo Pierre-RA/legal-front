@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
 import { routing } from './app.routing';
 
@@ -31,10 +32,12 @@ import { ContactsService } from './services/contacts.service';
     ReactiveFormsModule,
     TemplateModule.forRoot(),
     NgbModule.forRoot(),
+    SlimLoadingBarModule.forRoot(),
     PagesModule,
     routing
   ],
   providers: [AuthGuardService, AuthService, ContractsService, ContactsService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [SlimLoadingBarModule],
 })
 export class AppModule { }

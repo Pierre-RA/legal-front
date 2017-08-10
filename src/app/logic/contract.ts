@@ -8,8 +8,10 @@ export class Contract implements IContract {
   borrower: Contact;
   lender: Contact;
   loan: Loan;
-  type: Number;
-  title: String;
+  type: number;
+  title: string;
+  date: Date;
+  place: string;
 
   constructor() {}
 
