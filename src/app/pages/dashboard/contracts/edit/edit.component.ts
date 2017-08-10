@@ -191,7 +191,6 @@ export class EditComponent implements OnInit {
         ),
       }),
     });
-    // this.setPayoffs();
   }
 
   formatPayoffs(payoff: Array<IPayoff>) {

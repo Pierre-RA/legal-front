@@ -17,6 +17,8 @@ export class OverviewComponent implements OnInit {
   contracts: Number;
   contractsType: Array<Number>;
 
+  warning: boolean;
+
   constructor(
     private contactsService: ContactsService,
     private contractsService: ContractsService
@@ -26,6 +28,7 @@ export class OverviewComponent implements OnInit {
     this.moralContacts = 0;
     this.contracts = 0;
     this.contractsType = [0];
+    this.warning = true;
     this.countContacts();
     this.countContacts('physical');
     this.countContacts('moral');
@@ -66,6 +69,10 @@ export class OverviewComponent implements OnInit {
           console.error(err);
         }
       );
+  }
+
+  closeAlert(): void {
+    this.warning = false;
   }
 
 }

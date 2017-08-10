@@ -1,7 +1,12 @@
 <h1 class="mt-3">Aperçu</h1>
-<p class="alert-danger alert">
-  Dashboard en cours de conception - La plupart des liens sont inactifs.
-</p>
+<div class="row justify-content-md-center">
+  <div class="col-md-6">
+    <ngb-alert [type]="'warning'" *ngIf="warning" (close)="closeAlert()">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+      Dashboard en cours de conception - certains liens sont inactifs.
+    </ngb-alert>
+  </div>
+</div>
 <div class="row bordered">
   <div class="col-md-3">
     <h2 class="text-center">Contrats</h2>
