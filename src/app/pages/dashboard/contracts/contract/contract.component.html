@@ -23,6 +23,20 @@
     <strong>Montant du prêt:</strong> {{contract.loan.getTotalAmount()}} {{contract.loan.getCurrency()}}
     à {{contract.loan.interest}}%
   </p>
+  <div class="row">
+    <div class="col-md-6">
+      <p *ngIf="contract.loan.dateLent">
+        <strong>Date de versement du prêt:</strong>
+        {{contract.loan.dateLent | date:['longDate']}}
+      </p>
+    </div>
+    <div class="col-md-6">
+      <p *ngIf="contract.loan.extendNegotiationDate">
+        <strong>Date de relance:</strong>
+        {{contract.loan.extendNegotiationDate | date:['longDate']}}
+      </p>
+    </div>
+  </div>
   <p *ngFor="let item of contract.loan.payoff, let i = index">
     <strong *ngIf="i == 0 && contract.loan.payoff.length > 1">{{i + 1}}er remboursement le:</strong>
     <strong *ngIf="i == 0 && contract.loan.payoff.length == 1">Remboursement le:</strong>

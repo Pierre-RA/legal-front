@@ -73,7 +73,10 @@ export class EditComponent implements OnInit {
           console.log(data);
           let payoff = data.loan.payoff;
           data.loan.payoff = [];
-          this.editForm.patchValue(data);
+          let tmp: any = data;
+          tmp.loan.dateLent = this.ngbDateParserFormatter.parse(tmp.loan.dateLent);
+          tmp.loan.negotiationDate = this.ngbDateParserFormatter.parse(tmp.loan.extendNegotationDate);
+          this.editForm.patchValue(tmp);
           const control = <FormArray>this.editForm.controls['loan'].get('payoff');
           control.removeAt(0);
           payoff.forEach(item => {
@@ -179,6 +182,8 @@ export class EditComponent implements OnInit {
         hasLent: null,
         interest: null,
         payoff: [],
+        dateLent: null,
+        extendNegotiationDate: null,
       },
     });
   }
@@ -198,6 +203,8 @@ export class EditComponent implements OnInit {
         payoff: this.fb.array(
           this.formatPayoffs(this.contract.loan.payoff)
         ),
+        dateLent: [this.contract.loan.dateLent, Validators.required],
+        extendNegotiationDate: [this.contract.loan.extendNegotiationDate, Validators.required],
       }),
     });
   }
@@ -223,6 +230,8 @@ export class EditComponent implements OnInit {
     value.loan.payoff.forEach(item => {
       item.date = this.ngbDateParserFormatter.format(item.date);
     });
+    value.loan.dateLent = this.ngbDateParserFormatter.format(value.loan.dateLent);
+    value.loan.extendNegotiationDate = this.ngbDateParserFormatter.format(value.loan.extendNegotiationDate);
     return value;
   }
 

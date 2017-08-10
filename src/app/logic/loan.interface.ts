@@ -6,6 +6,10 @@ export interface ILoan {
   amount: number;
   interest: number;
   payoff: Array<IPayoff>;
+  dateLent: Date;
+  length: Date;
+  extendNegotiationDate: Date;
+  silentDate: Date;
 }
 
 export interface IPayoff {

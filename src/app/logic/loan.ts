@@ -10,6 +10,10 @@ export class Loan implements ILoan, Serializable<Loan> {
   amount: number;
   interest: number;
   payoff: Array<Payoff>;
+  length: Date;
+  extendNegotiationDate: Date;
+  silentDate: Date;
+  dateLent: Date;
 
   constructor() {}
 
@@ -26,6 +30,10 @@ export class Loan implements ILoan, Serializable<Loan> {
         this.payoff.push(item);
       });
     }
+    this.length = input.length;
+    this.extendNegotiationDate = input.extendNegotiationDate;
+    this.silentDate = input.silentDate;
+    this.dateLent = input.dateLent;
     return this;
   }
 
