@@ -77,10 +77,11 @@ export class EditComponent implements OnInit {
           const control = <FormArray>this.editForm.controls['loan'].get('payoff');
           control.removeAt(0);
           payoff.forEach(item => {
-            control.push(this.fb.group({
+            let tmp = this.fb.group({
               date: this.ngbDateParserFormatter.parse(item.date),
               amount: item.amount
-            }));
+            });
+            control.push(tmp);
           });
           this.contract.borrower = data.borrower;
           this.contract.lender = data.lender;
@@ -109,6 +110,10 @@ export class EditComponent implements OnInit {
 
   addContract(value: IContract) {
     value.loan.hasGoal = value.loan.goal ? true : false;
+    value.loan.amount = 0;
+    value.loan.payoff.forEach(item => {
+      value.loan.amount += item.amount;
+    });
     value = this.formatDates(value);
     this.contractsService
       .create(value)
@@ -124,6 +129,10 @@ export class EditComponent implements OnInit {
 
   editContract(value: IContract) {
     value.loan.hasGoal = value.loan.goal ? true : false;
+    value.loan.amount = 0;
+    value.loan.payoff.forEach(item => {
+      value.loan.amount += item.amount;
+    });
     value = this.formatDates(value);
     this.contractsService
       .update(value, this.id)

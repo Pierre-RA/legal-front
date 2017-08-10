@@ -96,7 +96,7 @@
           </div>
         </div>
         <div formArrayName="payoff">
-          <div *ngFor="let child of editForm.controls.loan.controls.payoff.controls; let i = index">
+          <div *ngFor="let child of editForm.get('loan').get('payoff')['controls']; let i = index">
             <div formGroupName="{{i}}" class="from-group row">
               <div class="col-md-6">
                 <label for="datePayoff-{{i}}">Date de remboursement</label>
