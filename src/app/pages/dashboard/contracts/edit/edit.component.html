@@ -100,8 +100,8 @@
             <label for="dateLent">Date de versement</label>
             <div class="input-group">
               <input class="form-control" placeholder="(en cours de traduction)"
-                id="dateLent" formControlName="dateLent" ngbDatepicker #d="ngbDatepicker">
-              <button class="input-group-addon" (click)="d.toggle()" type="button">
+                id="dateLent" formControlName="dateLent" ngbDatepicker #d1="ngbDatepicker">
+              <button class="input-group-addon" (click)="d1.toggle()" type="button">
                 <i class="fa fa-calendar"></i>
               </button>
             </div>
@@ -110,22 +110,23 @@
             <label for="dateExtend">Date de relance</label>
             <div class="input-group">
               <input class="form-control" placeholder="(en cours de traduction)"
-                id="dateExtend" formControlName="extendNegotiationDate" ngbDatepicker #d="ngbDatepicker">
-              <button class="input-group-addon" (click)="d.toggle()" type="button">
+                id="dateExtend" formControlName="extendNegotiationDate" ngbDatepicker #d2="ngbDatepicker">
+              <button class="input-group-addon" (click)="d2.toggle()" type="button">
                 <i class="fa fa-calendar"></i>
               </button>
             </div>
           </div>
         </div>
         <div formArrayName="payoff">
+          <h3>Échéancier</h3>
           <div *ngFor="let child of editForm.get('loan').get('payoff')['controls']; let i = index">
             <div formGroupName="{{i}}" class="from-group row">
               <div class="col-md-6">
                 <label for="datePayoff-{{i}}">Date de remboursement</label>
                 <div class="input-group">
                   <input class="form-control" placeholder="(en cours de traduction)"
-                    id="datePayoff-{{i}}" formControlName="date" ngbDatepicker #d="ngbDatepicker">
-                  <button class="input-group-addon" (click)="d.toggle()" type="button">
+                    id="datePayoff-{{i}}" formControlName="date" ngbDatepicker #d3="ngbDatepicker">
+                  <button class="input-group-addon" (click)="d3.toggle()" type="button">
                     <i class="fa fa-calendar"></i>
                   </button>
                 </div>
@@ -138,6 +139,30 @@
             </div>
           </div>
           <button class="btn btn-link" type="button" (click)="addDue()">Ajouter une échéance</button>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label for="silentDate">Date de relance tacite</label>
+            <div class="input-group">
+              <input class="form-control" placeholder="(en cours de traduction)"
+                id="silentDate" formControlName="silentDate" ngbDatepicker #d4="ngbDatepicker">
+              <button class="input-group-addon" (click)="d4.toggle()" type="button">
+                <i class="fa fa-calendar"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <label for="silentDate">&nbsp;</label>
+            <button class="btn btn-link" (click)="removeTacit()" type="button">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <h3>Intérêts</h3>
+        <div class="form-group row">
+          <div class="col-md-12">
+            ...
+          </div>
         </div>
       </div>
     </div>

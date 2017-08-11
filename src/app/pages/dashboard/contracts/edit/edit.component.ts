@@ -75,7 +75,8 @@ export class EditComponent implements OnInit {
           data.loan.payoff = [];
           let tmp: any = data;
           tmp.loan.dateLent = this.ngbDateParserFormatter.parse(tmp.loan.dateLent);
-          tmp.loan.negotiationDate = this.ngbDateParserFormatter.parse(tmp.loan.extendNegotationDate);
+          tmp.loan.extendNegotiationDate = this.ngbDateParserFormatter.parse(tmp.loan.extendNegotiationDate);
+          tmp.loan.silentDate = this.ngbDateParserFormatter.parse(tmp.loan.silentDate);
           this.editForm.patchValue(tmp);
           const control = <FormArray>this.editForm.controls['loan'].get('payoff');
           control.removeAt(0);
@@ -184,6 +185,7 @@ export class EditComponent implements OnInit {
         payoff: [],
         dateLent: null,
         extendNegotiationDate: null,
+        silentDate: null,
       },
     });
   }
@@ -204,7 +206,8 @@ export class EditComponent implements OnInit {
           this.formatPayoffs(this.contract.loan.payoff)
         ),
         dateLent: [this.contract.loan.dateLent, Validators.required],
-        extendNegotiationDate: [this.contract.loan.extendNegotiationDate, Validators.required],
+        extendNegotiationDate: [this.contract.loan.extendNegotiationDate],
+        silentDate: [this.contract.loan.silentDate],
       }),
     });
   }
@@ -232,6 +235,7 @@ export class EditComponent implements OnInit {
     });
     value.loan.dateLent = this.ngbDateParserFormatter.format(value.loan.dateLent);
     value.loan.extendNegotiationDate = this.ngbDateParserFormatter.format(value.loan.extendNegotiationDate);
+    value.loan.silentDate = this.ngbDateParserFormatter.format(value.loan.silentDate);
     return value;
   }
 
@@ -241,6 +245,12 @@ export class EditComponent implements OnInit {
       date: null,
       amount: null
     }));
+  }
+
+  removeTacit(): void {
+    this.editForm.controls['loan'].patchValue({
+      silentDate: null
+    });
   }
 
   setMessage(message: string, type: string) {
