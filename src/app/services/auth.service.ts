@@ -22,7 +22,7 @@ export class AuthService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let user = {
-      name: email,
+      email: email,
       password: password
     };
     return this.http.post(this.url, user, options)
