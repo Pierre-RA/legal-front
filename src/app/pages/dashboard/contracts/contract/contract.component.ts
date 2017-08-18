@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { saveAs as importedSaveAs } from 'file-saver';
 
 import { Contract } from '../../../../logic/contract';
 import { ContractsService } from '../../../../services/contracts.service';
@@ -32,6 +33,19 @@ export class ContractComponent implements OnInit {
   }
 
   ngOnDestroy() {
+  }
+
+  export(id: string, title: string) {
+    this.contractsService
+      .export(id)
+      .subscribe(
+        data => {
+          importedSaveAs(data, title);
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 
 }

@@ -62,8 +62,8 @@
     <i class="fa fa-pencil" aria-hidden="true"></i>
     Modifier
   </a>
-  <a class="btn btn-danger disabled" [routerLink]="['/dashboard/contracts/', contract.getId()]" disabled>
-    <i class="fa fa-times" aria-hidden="true"></i>
-    Effacer
+  <a class="btn btn-primary" [routerLink]="['/dashboard/contracts/', contract.getId()]" (click)="export(contract.getId(), contract.getExportTitle())">
+    <i class="fa fa-file-word-o" aria-hidden="true"></i>
+    Exporter
   </a>
 </div>
