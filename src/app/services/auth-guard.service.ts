@@ -12,7 +12,9 @@ export class AuthGuardService implements CanActivate {
     private authService: AuthService,
     private router: Router
   ) {
-    this.isLogged = this.authService.isLoggedIn();
+    this.authService.getUser().subscribe(user => {
+      this.isLogged = user ? true : false;
+    });
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
@@ -29,13 +31,6 @@ export class AuthGuardService implements CanActivate {
 
   checkLogin(url: string): boolean {
     if (this.isLogged) {
-      return true;
-    }
-
-    // TODO: add server verification
-    if (window.localStorage.getItem('token')) {
-      this.isLogged = true;
-      this.authService.loggedIn = true;
       return true;
     }
 
