@@ -13,6 +13,7 @@ import 'rxjs/Rx';
 export class AuthService {
 
   url = 'https://api-legal.herokuapp.com/login';
+  getOwn = 'https://api-legal.herokuapp.com/users/own';
   redirectUrl: string;
   token: string;
   user: User;
@@ -33,13 +34,38 @@ export class AuthService {
     return this.http.post(this.url, user, options)
       .map((response: Response) => {
         this.setToken(response.json()['token']);
+        this.user = response.json()['user'];
         this.sub.next(response.json()['user']);
         return true;
       })
       .catch(this.handleError);
   }
 
+  isLoggedIn(): Observable<User> {
+    if (!window.localStorage.getItem('token')) {
+      console.log('no token');
+      return null;
+    }
+    if (this.user && this.sub) {
+      return this.sub;
+    }
+    let token = window.localStorage.getItem('token');
+    let headers = new Headers();
+    headers.append('authorization', 'JWT ' + token);
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.getOwn, options)
+      .map((response: Response) => {
+        this.user = response.json();
+        this.sub.next(this.user);
+        return this.user;
+      })
+      .catch(this.handleError);
+  };
+
   getUser(): Observable<User> {
+    if (this.user) {
+      return this.sub;
+    }
     return this.sub;
   }
 
