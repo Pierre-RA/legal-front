@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/fo
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 import { AuthService } from '../../services/auth.service';
-import { mockupUser } from '../../logic/user/mockupuser';
 
 @Component({
   selector: 'login',
@@ -26,9 +25,8 @@ export class LoginComponent implements OnInit {
     public authService: AuthService,
     private slimLoadingBarService: SlimLoadingBarService
   ) {
-    let user = mockupUser;
     this.form = fb.group({
-      'email': [user.email, Validators.compose([Validators.required, Validators.minLength(4)])],
+      'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
     });
     this.email = this.form.controls['email'];
@@ -64,9 +62,8 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(this.form.controls['email'].value, this.form.controls['password'].value)
       .subscribe(
-        data => {
+        (value) => {
           this.slimLoadingBarService.complete();
-          this.authService.setToken(data);
           let redirect = this.authService.redirectUrl || '/dashboard';
           this.router.navigate([redirect]);
         },
