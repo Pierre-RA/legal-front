@@ -8,6 +8,8 @@ import { SideComponent } from './side';
 import { BreadcrumbComponent } from './breadcrumb';
 import { ContactComponent } from './contact';
 
+import { PhonePipe } from './pipes/phone';
+
 const COMPONENTS = [
   TopComponent,
   SideComponent,
@@ -15,9 +17,14 @@ const COMPONENTS = [
   ContactComponent,
 ];
 
+const PIPES = [
+  PhonePipe,
+];
+
 @NgModule({
   declarations: [
     ...COMPONENTS,
+    ...PIPES,
   ],
   imports: [
     RouterModule,
@@ -26,6 +33,7 @@ const COMPONENTS = [
   ],
   exports: [
     ...COMPONENTS,
+    ...PIPES,
   ]
 })
 export class TemplateModule {
