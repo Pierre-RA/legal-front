@@ -29,7 +29,10 @@ export class EditComponent implements OnInit {
       _id: '',
       type: this.activatedRoute.snapshot.queryParams['type'] || 'physical',
       email: '',
-      phone: '',
+      phone: {
+        country: '',
+        phone: '',
+      },
       firstName: '',
       lastName: '',
       reason: '',
@@ -61,7 +64,10 @@ export class EditComponent implements OnInit {
     this.editForm = this.fb.group({
       type: [this.contact.type, Validators.required],
       email: [this.contact.email],
-      phone: [this.contact.phone],
+      phone: this.fb.group({
+        country: [this.contact.phone.country],
+        phone: [this.contact.phone.phone],
+      }),
       firstName: [this.contact.firstName],
       lastName: [this.contact.lastName],
       reason: [this.contact.reason],
