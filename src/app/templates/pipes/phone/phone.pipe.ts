@@ -10,6 +10,9 @@ export class PhonePipe implements PipeTransform {
     if (!value) {
       return value;
     }
+    if (args && args == 'National') {
+      return format(value, args);
+    }
     return format(value, 'International');
   }
 
