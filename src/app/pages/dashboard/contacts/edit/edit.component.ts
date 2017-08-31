@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { format, parse, CountryCode } from 'libphonenumber-js';
 
 import { IContact } from '../../../../logic/contact.interface';
 import { ContactsService } from '../../../../services/contacts.service';
@@ -29,7 +30,10 @@ export class EditComponent implements OnInit {
       _id: '',
       type: this.activatedRoute.snapshot.queryParams['type'] || 'physical',
       email: '',
-      phone: '',
+      phone: {
+        country: '',
+        phone: '',
+      },
       firstName: '',
       lastName: '',
       reason: '',
@@ -49,6 +53,7 @@ export class EditComponent implements OnInit {
       this.id = this.activatedRoute.snapshot.params['id'];
       this.contactsService.findOne(this.id)
         .subscribe(data => {
+          data.phone.phone = format(data.phone.phone, data.phone.country as CountryCode, 'National');
           this.editForm.patchValue(data);
           this.onContactTypeChange(data.type);
         }, err => {
@@ -61,7 +66,10 @@ export class EditComponent implements OnInit {
     this.editForm = this.fb.group({
       type: [this.contact.type, Validators.required],
       email: [this.contact.email],
-      phone: [this.contact.phone],
+      phone: this.fb.group({
+        country: [this.contact.phone.country],
+        phone: [this.contact.phone.phone],
+      }),
       firstName: [this.contact.firstName],
       lastName: [this.contact.lastName],
       reason: [this.contact.reason],
@@ -83,6 +91,7 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit(value) {
+    value.phone = parse(value.phone.phone, value.phone.country);
     if (this.edit) {
       this.editContact(value);
     } else {

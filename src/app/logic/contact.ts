@@ -5,7 +5,7 @@ export default class Contact implements IContact, Serializable<Contact> {
   _id: string;
   type: string;
   email: string;
-  phone: string;
+  phone: Phone;
   firstName: string;
   lastName: string;
   reason: string;
@@ -16,7 +16,7 @@ export default class Contact implements IContact, Serializable<Contact> {
   deserialize(input: any): this {
     this._id = input._id;
     this.address = new Address().deserialize(input.address);
-    this.phone = input.phone;
+    this.phone = new Phone().deserialize(input.phone);
     this.email = input.email;
     this.type = input.type;
     if (this.type === 'physical') {
@@ -59,7 +59,7 @@ export default class Contact implements IContact, Serializable<Contact> {
     return this.type === 'physical' ? this.firstName + ' ' + this.lastName : this.reason;
   }
 
-  getPhone(): String {
+  getPhone(): Phone {
     return this.phone;
   }
 
@@ -73,6 +73,19 @@ export default class Contact implements IContact, Serializable<Contact> {
 
   getId(): String {
     return this._id;
+  }
+}
+
+export class Phone implements Serializable<Phone> {
+  country: string;
+  phone: string;
+
+  constructor() {}
+
+  deserialize(input: any) {
+    this.country = input.country || 'CH';
+    this.phone = input.phone;
+    return this;
   }
 }
 
