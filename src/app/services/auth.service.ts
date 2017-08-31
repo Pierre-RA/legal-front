@@ -43,8 +43,7 @@ export class AuthService {
 
   isLoggedIn(): Observable<User> {
     if (!window.localStorage.getItem('token')) {
-      console.log('no token');
-      return null;
+      return new BehaviorSubject<User>(null);
     }
     if (this.user && this.sub) {
       return this.sub;
