@@ -5,6 +5,10 @@
     <form class="col-md-6" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
       <h1>{{ 'register.title' | translate }}</h1>
 
+      <p class="alert alert-{{messageType}}" role="alert" *ngIf="message">
+        {{message}}
+      </p>
+
       <div class="input-group mb-2 mr-sm-2" [ngClass]="{'has-success': form.controls['name'].valid}">
         <div class="input-group-addon">
           <i class="fa fa-user fa-fw" aria-hidden="true"></i>

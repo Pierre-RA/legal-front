@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private authService: AuthService,
     private validationService: ValidationService,
@@ -52,7 +53,18 @@ export class RegisterComponent implements OnInit {
   }
 
   register(values: Object) {
-    console.log(values);
+    this.slimLoadingBarService.start();
+    let token = this.activatedRoute.snapshot.queryParams['token'];
+    this.authService
+      .register(values, token)
+      .subscribe(value => {
+        this.router.navigate(['/dashboard']);
+      }, err => {
+        this.setMessage(
+          'Connection to server failed.',
+          'danger'
+        );
+      });
   }
 
   setMessage(message: string, type: string) {
