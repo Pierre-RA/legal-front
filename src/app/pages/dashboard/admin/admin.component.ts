@@ -10,7 +10,7 @@ import { UsersService } from '../../../services/users.service';
 })
 export class AdminComponent implements OnInit {
 
-  private users: Array<User>;
+  users: Array<User>;
 
   constructor(
     private usersService: UsersService
