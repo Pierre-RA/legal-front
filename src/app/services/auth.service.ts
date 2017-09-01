@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 
+import { APP_CONFIG } from '../app.config';
 import { User } from '../logic/user/user';
 
 import { Observable } from 'rxjs';
@@ -12,14 +13,21 @@ import 'rxjs/Rx';
 @Injectable()
 export class AuthService {
 
-  url = 'https://api-legal.herokuapp.com/login';
-  getOwn = 'https://api-legal.herokuapp.com/users/own';
+  loginURL: string;
+  registerURL: string;
+  usersOwnURL: string;
   redirectUrl: string;
   token: string;
   user: User;
   sub: Subject<User> = new BehaviorSubject<any>(null);
 
-  constructor(private http: Http) {
+  constructor(
+    private http: Http,
+    @Inject(APP_CONFIG) private config,
+  ) {
+    this.loginURL = config.apiEndpoint + 'login';
+    this.registerURL = config.apiEndpoint + 'signup';
+    this.usersOwnURL = config.apiEndpoint + 'users/own';
     this.token = '';
     this.user = null;
   }
@@ -31,12 +39,38 @@ export class AuthService {
       email: email,
       password: password
     };
-    return this.http.post(this.url, user, options)
+    return this.http.post(this.loginURL, user, options)
       .map((response: Response) => {
         this.setToken(response.json()['token']);
         this.user = response.json()['user'];
         this.sub.next(response.json()['user']);
         return true;
+      })
+      .catch(this.handleError);
+  }
+
+  register(values: any, token?: string): Observable<boolean> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    if (token) {
+      headers.append('authorization', token);
+    }
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.registerURL, values, options)
+      .map((response: Response) => {
+        return response.json();
+      })
+      .flatMap((responseBody) => {
+        let user = {
+          email: values.email,
+          password: values.password,
+        }
+        return this.http.post(this.loginURL, values)
+          .map((response: Response) => {
+            this.setToken(response.json()['token']);
+            this.user = response.json()['user'];
+            this.sub.next(response.json()['user']);
+            return true;
+          });
       })
       .catch(this.handleError);
   }
@@ -52,7 +86,7 @@ export class AuthService {
     let headers = new Headers();
     headers.append('authorization', 'JWT ' + token);
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.getOwn, options)
+    return this.http.get(this.usersOwnURL, options)
       .map((response: Response) => {
         this.user = response.json();
         this.sub.next(this.user);
