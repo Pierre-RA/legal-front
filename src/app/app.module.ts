@@ -18,6 +18,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { ContractsService } from './services/contracts.service';
 import { ContactsService } from './services/contacts.service';
+import { ValidationService } from './services/validation.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,13 @@ import { ContactsService } from './services/contacts.service';
     PagesModule,
     routing
   ],
-  providers: [AuthGuardService, AuthService, ContractsService, ContactsService],
+  providers: [
+    AuthGuardService,
+    AuthService,
+    ContractsService,
+    ContactsService,
+    ValidationService,
+  ],
   bootstrap: [AppComponent],
   exports: [SlimLoadingBarModule],
 })

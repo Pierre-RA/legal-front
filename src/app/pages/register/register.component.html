@@ -1,8 +1,57 @@
+<template-top></template-top>
 <section class="container d-flex align-items-center">
   <div class="row justify-content-center w-100">
-    <p class="alert alert-danger mt-5">
-      <i class="fa fa-exclamation-circle fa-lg" aria-hidden="true"></i>
-      Fonctionnalité non implémentée.
+
+    <form class="col-md-6" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+      <h1>{{ 'register.title' | translate }}</h1>
+
+      <div class="input-group mb-2 mr-sm-2" [ngClass]="{'has-success': form.controls['name'].valid}">
+        <div class="input-group-addon">
+          <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+        </div>
+        <input type="text" class="form-control" [ngClass]="{'form-control-success': form.controls['name'].valid}"
+          placeholder="Nom complet"
+          name="name"
+          formControlName="name">
+      </div>
+
+      <div class="input-group mb-2 mr-sm-2" [ngClass]="{'has-success': form.controls['email'].valid}">
+        <div class="input-group-addon">
+          <i class="fa fa-at fa-fw" aria-hidden="true"></i>
+        </div>
+        <input type="email" class="form-control" [ngClass]="{'form-control-success': form.controls['email'].valid}"
+          placeholder="Email"
+          name="email"
+          formControlName="email">
+      </div>
+
+      <div class="input-group mb-2 mr-sm-2" [ngClass]="{'has-success': form.controls['password'].valid}">
+        <div class="input-group-addon">
+          <i class="fa fa-key fa-fw" aria-hidden="true"></i>
+        </div>
+        <input type="password" class="form-control" [ngClass]="{'form-control-success': form.controls['password'].valid}"
+          placeholder="Mot de passe"
+          name="password"
+          formControlName="password">
+      </div>
+
+      <div class="input-group mb-2 mr-sm-2" [ngClass]="{'has-success': form.controls['repeat'].valid}">
+        <div class="input-group-addon">
+          <i class="fa fa-key fa-fw" aria-hidden="true"></i>
+        </div>
+        <input type="password" class="form-control" [ngClass]="{'form-control-success': form.controls['repeat'].valid}"
+          placeholder="Répéter le mot de passe"
+          name="repeat"
+          formControlName="repeat">
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">S'inscrire</button>
+    </form>
+
+    <p class="alert alert-info mt-5">
+      <i class="fa fa-info fa-lg" aria-hidden="true"></i>
+      Le serveur étant en mode développement,<br />
+      il se peut qu'il y ait un temps de latence lors d'une première connexion.
     </p>
   </div>
 </section>
