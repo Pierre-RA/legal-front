@@ -69,8 +69,6 @@ export class EditComponent implements OnInit {
       this.id = this.activatedRoute.snapshot.params['id'];
       this.contractsService.findOne(this.id)
         .subscribe(data => {
-          // TODO: remove console.log
-          console.log(data);
           let payoff = data.loan.payoff;
           data.loan.payoff = [];
           let tmp: any = data;

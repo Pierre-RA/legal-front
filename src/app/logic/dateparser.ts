@@ -4,7 +4,8 @@ import { Injectable } from "@angular/core";
 
 // @Injectable()
 export class CustomDateParserFormatter extends NgbDateParserFormatter {
-  datePipe = new DatePipe('en-US');
+  datePipe = new DatePipe('fr-FR');
+  // datePipe = new DatePipe('en-US');
 
   format(date: NgbDateStruct): string {
     if (date === null) {
