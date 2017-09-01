@@ -33,4 +33,12 @@
       </a>
     </li>
   </ul>
+  <ul class="nav nav-pills flex-column" *ngIf="user && user.isAdmin">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/dashboard/admin" routerLinkActive="active">
+        <i class="fa fa-user-secret fa-fw" aria-hidden="true"></i>
+        Administration
+      </a>
+    </li>
+  </ul>
 </nav>

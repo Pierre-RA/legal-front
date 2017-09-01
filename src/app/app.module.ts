@@ -16,10 +16,12 @@ import { PagesModule } from './pages/pages.module';
 import { TemplateModule } from './templates/template.module';
 
 import { AuthGuardService } from './services/auth-guard.service';
+import { AdminGuardService } from './services/admin-guard.service';
 import { AuthService } from './services/auth.service';
 import { ContractsService } from './services/contracts.service';
 import { ContactsService } from './services/contacts.service';
 import { ValidationService } from './services/validation.service';
+import { UsersService } from './services/users.service';
 
 @NgModule({
   declarations: [
@@ -41,10 +43,12 @@ import { ValidationService } from './services/validation.service';
   providers: [
     { provide: APP_CONFIG, useValue: AppConfig },
     AuthGuardService,
+    AdminGuardService,
     AuthService,
     ContractsService,
     ContactsService,
     ValidationService,
+    UsersService,
   ],
   bootstrap: [AppComponent],
   exports: [SlimLoadingBarModule],
