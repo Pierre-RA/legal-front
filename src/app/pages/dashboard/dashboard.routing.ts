@@ -1,6 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
+import { AdminGuardService } from '../../services/admin-guard.service';
+
 import { DashboardComponent } from './dashboard.component';
 
 export const routes: Routes = [
@@ -27,6 +29,11 @@ export const routes: Routes = [
       path: 'settings',
       loadChildren: 'app/pages/dashboard/settings/settings.module#SettingsModule',
       data: { breadcrumb: 'Settings' }
+    }, {
+      path: 'admin',
+      loadChildren: 'app/pages/dashboard/admin/admin.module#AdminModule',
+      data: { breadcrumb: 'Admin' },
+      canActivate: [ AdminGuardService ]
     }, {
       path: '',
       redirectTo: 'overview'

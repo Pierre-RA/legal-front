@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { APP_CONFIG } from '../app.config';
 import { User } from '../logic/user/user';
