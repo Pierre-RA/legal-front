@@ -16,44 +16,48 @@ export class ContractsService {
   constructor(private http: Http) { }
 
   findAll(): Observable<Array<IContract>> {
-    return this.http.get(this.url)
+    return this.http.get(this.url, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   findOne(id: string): Observable<Contract> {
-    return this.http.get(this.url + '/' + id)
+    return this.http.get(this.url + '/' + id, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   count(type?: number): Observable<Number> {
     let param = type ? '/' + type : '';
-    return this.http.get(this.url + '/count' + param)
+    return this.http.get(this.url + '/count' + param, this.getOptions())
       .map(this.extractCount)
       .catch(this.handleError);
   }
 
   create(contract: IContract): Observable<Contract> {
-    return this.http.post(this.url, contract)
+    return this.http.post(this.url, contract, this.getOptions())
       .map(this.extractContract)
       .catch(this.handleError);
   }
 
   update(contract: IContract, id: string): Observable<Contract> {
-    return this.http.put(this.url + '/' + id, contract)
+    return this.http.put(this.url + '/' + id, contract, this.getOptions())
       .map(this.extractContract)
       .catch(this.handleError);
   }
 
   delete(id: string): Observable<String> {
-    return this.http.delete(this.url + '/' + id)
+    return this.http.delete(this.url + '/' + id, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   export(id: string): Observable<Blob> {
-    return this.http.get(this.url + '/export/' + id, {responseType: ResponseContentType.Blob})
+    return this.http.get(
+      this.url + '/export/' + id,
+      { 'responseType': ResponseContentType.Blob }
+      // this.getOptions()
+    )
       .map(this.extractFile)
       .catch(this.handleError);
   }
@@ -77,6 +81,17 @@ export class ContractsService {
   handleError(error: any): Promise<any> {
     console.error('An error occured:', error);
     return Promise.reject(error.message || error);
+  }
+
+  getOptions(key?: string, value?: any): RequestOptions {
+    let headers: Headers = new Headers();
+    let token = localStorage.getItem('token');
+    if (token) {
+      headers.append('authorization', 'JWT ' + token);
+    }
+    headers.append('Content-Type', 'application/json');
+    let request = new RequestOptions({ headers: headers });
+    return request;
   }
 
 }
