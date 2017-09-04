@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import { APP_CONFIG } from '../app.config';
+import { environment } from '../../environments/environment';
 import { User } from '../logic/user/user';
 
 import { Observable } from 'rxjs';
@@ -13,15 +13,14 @@ import 'rxjs/Rx';
 export class UsersService {
 
   constructor(
-    private http: Http,
-    @Inject(APP_CONFIG) private config
+    private http: Http
   ) { }
 
   getAll(): Observable<Array<User>> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('authorization', 'JWT ' + localStorage.getItem('token'));
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.config.apiEndpoint + 'users', options)
+    return this.http.get(environment.apiEndpoint + 'users', options)
       .map((response: Response) => {
         return response.json();
       })
