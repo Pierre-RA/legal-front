@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
-import { APP_CONFIG, AppConfig } from './app.config';
 import { routing } from './app.routing';
 
 import { AppComponent } from './app.component';
@@ -41,7 +40,6 @@ import { UsersService } from './services/users.service';
     routing
   ],
   providers: [
-    { provide: APP_CONFIG, useValue: AppConfig },
     AuthGuardService,
     AdminGuardService,
     AuthService,
