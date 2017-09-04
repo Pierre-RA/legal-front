@@ -5,7 +5,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
-import { APP_CONFIG } from '../app.config';
+import { environment } from '../../environments/environment';
 import { IContact } from '../logic/contact.interface';
 import Contact from '../logic/contact';
 
@@ -15,10 +15,9 @@ export class ContactsService {
   contactsURL: string;
 
   constructor(
-    private http: Http,
-    @Inject(APP_CONFIG) private config
+    private http: Http
   ) {
-    this.contactsURL = config.apiEndpoint + 'contacts';
+    this.contactsURL = environment.apiEndpoint + 'contacts';
   }
 
   findAll(): Observable<Array<IContact>> {

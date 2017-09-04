@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
   message: string;
   messageType: string;
+  token: string;
 
   constructor(
     private router: Router,
@@ -36,6 +37,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.token = this.activatedRoute.snapshot.queryParams['token'];
   }
 
   onSubmit(values: Object): void {
@@ -54,9 +56,10 @@ export class RegisterComponent implements OnInit {
 
   register(values: Object) {
     this.slimLoadingBarService.start();
-    let token = this.activatedRoute.snapshot.queryParams['token'];
+    // let token = this.activatedRoute.snapshot.queryParams['token'];
+    console.log(this.token);
     this.authService
-      .register(values, token)
+      .register(values, this.token)
       .subscribe(value => {
         this.router.navigate(['/dashboard']);
       }, err => {

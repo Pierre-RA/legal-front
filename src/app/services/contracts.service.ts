@@ -5,7 +5,7 @@ import { Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
-import { APP_CONFIG } from '../app.config';
+import { environment } from '../../environments/environment';
 import { IContract } from '../logic/contract.interface';
 import { Contract } from '../logic/contract';
 
@@ -15,10 +15,9 @@ export class ContractsService {
   contractsURL: string;
 
   constructor(
-    private http: Http,
-    @Inject(APP_CONFIG) private config
+    private http: Http
   ) {
-    this.contractsURL = config.apiEndpoint + 'contracts';
+    this.contractsURL = environment.apiEndpoint + 'contracts';
   }
 
   findAll(): Observable<Array<IContract>> {

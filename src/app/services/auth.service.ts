@@ -1,9 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
-import { APP_CONFIG } from '../app.config';
 import { User } from '../logic/user/user';
 
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -22,11 +22,10 @@ export class AuthService {
 
   constructor(
     private http: Http,
-    @Inject(APP_CONFIG) private config,
   ) {
-    this.loginURL = config.apiEndpoint + 'login';
-    this.registerURL = config.apiEndpoint + 'signup';
-    this.usersOwnURL = config.apiEndpoint + 'users/own';
+    this.loginURL = environment.apiEndpoint + 'login';
+    this.registerURL = environment.apiEndpoint + 'signup';
+    this.usersOwnURL = environment.apiEndpoint + 'users/own';
     this.token = '';
     this.user = null;
   }
