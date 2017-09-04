@@ -13,41 +13,41 @@ export class ContactsService {
 
   url = 'https://api-legal.herokuapp.com/contacts';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {}
 
   findAll(): Observable<Array<IContact>> {
-    return this.http.get(this.url)
+    return this.http.get(this.url, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   findOne(id: string): Observable<IContact> {
-    return this.http.get(this.url + '/' + id)
+    return this.http.get(this.url + '/' + id, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   count(type?: string): Observable<Number> {
     let param = type ? '/' + type : '';
-    return this.http.get(this.url + '/count' + param)
+    return this.http.get(this.url + '/count' + param, this.getOptions())
       .map(this.extractCount)
       .catch(this.handleError);
   }
 
   create(contact: IContact): Observable<Contact> {
-    return this.http.post(this.url, contact)
+    return this.http.post(this.url, contact, this.getOptions())
       .map(this.extractContact)
       .catch(this.handleError);
   }
 
   update(contact: IContact, id: string): Observable<Contact> {
-    return this.http.put(this.url + '/' + id, contact)
+    return this.http.put(this.url + '/' + id, contact, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   delete(id: string): Observable<String> {
-    return this.http.delete(this.url + '/' + id)
+    return this.http.delete(this.url + '/' + id, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -67,5 +67,14 @@ export class ContactsService {
   handleError(error: any): Promise<any> {
     console.error('An error occured:', error);
     return Promise.reject(error.message || error);
+  }
+
+  getOptions(): RequestOptions {
+    let headers: Headers = new Headers({ 'Content-Type': 'application/json' });
+    let token = localStorage.getItem('token');
+    if (token) {
+      headers.append('authorization', 'JWT ' + token);
+    }
+    return new RequestOptions({ headers: headers });
   }
 }
