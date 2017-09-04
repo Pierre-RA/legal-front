@@ -1,5 +1,6 @@
 <h1>Administration</h1>
 
+<h2>Utilisateurs</h2>
 <table class="table table-striped">
   <thead class="thead-inverse">
     <tr>
@@ -35,3 +36,45 @@
     </tr>
   </tbody>
 </table>
+
+<h2>Invitations</h2>
+<table class="table table-striped">
+  <thead class="thead-inverse">
+    <tr>
+      <th>
+        Email
+      </th>
+      <th>
+        Token
+      </th>
+      <th>
+        Validité
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let token of tokens">
+      <td>
+        {{token.email}}
+      </td>
+      <td>
+        {{token.value}}
+      </td>
+      <td>
+        {{token.date | date:['medium']}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<form class="form-inline row" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+  <div class="form-group col-sm-3">
+    <p class="form-control-static">Inviter une personne</p>
+  </div>
+  <div class="form-group mx-sm-3 col-sm-6">
+    <label for="inputEmail" class="sr-only">Adresse email</label>
+    <input type="email" class="form-control form-control-lg" style="width: 100%" id="inputEmail" placeholder="Adresse email"
+      formControlName="email">
+  </div>
+  <button type="submit" class="btn btn-primary">Inviter</button>
+</form>

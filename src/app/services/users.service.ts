@@ -17,10 +17,23 @@ export class UsersService {
   ) { }
 
   getAll(): Observable<Array<User>> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    headers.append('authorization', 'JWT ' + localStorage.getItem('token'));
-    let options = new RequestOptions({ headers: headers });
-    return this.http.get(environment.apiEndpoint + 'users', options)
+    return this.http.get(environment.apiEndpoint + 'users', this.getHeaders())
+      .map((response: Response) => {
+        return response.json();
+      })
+      .catch(this.handleError);
+  }
+
+  getTokens(): Observable<Array<any>> {
+    return this.http.get(environment.apiEndpoint + 'tokens', this.getHeaders())
+      .map((response: Response) => {
+        return response.json();
+      })
+      .catch(this.handleError);
+  }
+
+  sendInvite(value): Observable<boolean> {
+    return this.http.post(environment.apiEndpoint + 'tokens', value, this.getHeaders())
       .map((response: Response) => {
         return response.json();
       })
@@ -30,6 +43,12 @@ export class UsersService {
   handleError(error: any): Promise<any> {
     console.error('An error occured:', error);
     return Promise.reject(error.message || error);
+  }
+
+  getHeaders(): RequestOptions {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('authorization', 'JWT ' + localStorage.getItem('token'));
+    return new RequestOptions({ headers: headers });
   }
 
 }
