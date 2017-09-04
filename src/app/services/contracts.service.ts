@@ -1,61 +1,68 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions, ResponseContentType } from '@angular/http';
 
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
+import { APP_CONFIG } from '../app.config';
 import { IContract } from '../logic/contract.interface';
 import { Contract } from '../logic/contract';
 
 @Injectable()
 export class ContractsService {
 
-  url = 'https://api-legal.herokuapp.com/contracts';
+  contractsURL: string;
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    @Inject(APP_CONFIG) private config
+  ) {
+    this.contractsURL = config.apiEndpoint + 'contracts';
+  }
 
   findAll(): Observable<Array<IContract>> {
-    return this.http.get(this.url, this.getOptions())
+    return this.http.get(this.contractsURL, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   findOne(id: string): Observable<Contract> {
-    return this.http.get(this.url + '/' + id, this.getOptions())
+    return this.http.get(this.contractsURL + '/' + id, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   count(type?: number): Observable<Number> {
     let param = type ? '/' + type : '';
-    return this.http.get(this.url + '/count' + param, this.getOptions())
+    return this.http.get(this.contractsURL + '/count' + param, this.getOptions())
       .map(this.extractCount)
       .catch(this.handleError);
   }
 
   create(contract: IContract): Observable<Contract> {
-    return this.http.post(this.url, contract, this.getOptions())
+    return this.http.post(this.contractsURL, contract, this.getOptions())
       .map(this.extractContract)
       .catch(this.handleError);
   }
 
   update(contract: IContract, id: string): Observable<Contract> {
-    return this.http.put(this.url + '/' + id, contract, this.getOptions())
+    return this.http.put(this.contractsURL + '/' + id, contract, this.getOptions())
       .map(this.extractContract)
       .catch(this.handleError);
   }
 
   delete(id: string): Observable<String> {
-    return this.http.delete(this.url + '/' + id, this.getOptions())
+    return this.http.delete(this.contractsURL + '/' + id, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   export(id: string): Observable<Blob> {
     return this.http.get(
-      this.url + '/export/' + id,
+      this.contractsURL + '/export/' + id,
       { 'responseType': ResponseContentType.Blob }
+      // TODO: fix authorization + Content-Type Blob
       // this.getOptions()
     )
       .map(this.extractFile)
