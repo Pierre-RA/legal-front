@@ -40,6 +40,14 @@ export class UsersService {
       .catch(this.handleError);
   }
 
+  removeToken(id: string): Observable<boolean> {
+    return this.http.delete(environment.apiEndpoint + 'tokens/' + id, this.getHeaders())
+      .map((response: Response) => {
+        return true;
+      })
+      .catch(this.handleError);
+  }
+
   handleError(error: any): Promise<any> {
     console.error('An error occured:', error);
     return Promise.reject(error.message || error);

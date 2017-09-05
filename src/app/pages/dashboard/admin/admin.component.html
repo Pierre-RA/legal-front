@@ -48,7 +48,10 @@
         Token
       </th>
       <th>
-        Validité
+        Créé
+      </th>
+      <th>
+        Retirer
       </th>
     </tr>
   </thead>
@@ -63,11 +66,16 @@
       <td>
         {{token.date | date:['medium']}}
       </td>
+      <td>
+        <a [routerLink]="['/dashboard/admin']" (click)="open(content, token._id)">
+          <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+        </a>
+      </td>
     </tr>
   </tbody>
 </table>
 
-<form class="form-inline row" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+<form class="form-inline row mb-5" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
   <div class="form-group col-sm-3">
     <p class="form-control-static">Inviter une personne</p>
   </div>
@@ -78,3 +86,17 @@
   </div>
   <button type="submit" class="btn btn-primary">Inviter</button>
 </form>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Souhaitez-vous retirer cette invitation?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="d('Close click')">Annuler</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Retirer</button>
+  </div>
+</ng-template>

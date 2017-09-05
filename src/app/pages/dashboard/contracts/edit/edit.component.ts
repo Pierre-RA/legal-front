@@ -162,9 +162,7 @@ export class EditComponent implements OnInit {
           lender: result,
         });
       }
-    }, (reason) => {
-      console.log('dismissed.');
-    });
+    }, (reason) => {});
   }
 
   getDefaultContract(): Contract {
