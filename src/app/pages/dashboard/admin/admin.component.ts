@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { User } from '../../../logic/user/user';
 import { UsersService } from '../../../services/users.service';
@@ -17,7 +18,8 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private modalService: NgbModal,
   ) {
     this.users = [];
     this.tokens = [];
@@ -47,6 +49,22 @@ export class AdminComponent implements OnInit {
             this.tokens = tokens;
           });
       });
+  }
+
+  onDropToken(id) {
+    this.usersService.removeToken(id)
+      .subscribe(bool => {
+        this.usersService.getTokens()
+          .subscribe(tokens => {
+            this.tokens = tokens;
+          });
+      });
+  }
+
+  open(content, id) {
+    this.modalService.open(content).result.then((result) => {
+      this.onDropToken(id);
+    }, dismissed => {});
   }
 
 }
