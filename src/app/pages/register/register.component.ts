@@ -56,8 +56,6 @@ export class RegisterComponent implements OnInit {
 
   register(values: Object) {
     this.slimLoadingBarService.start();
-    // let token = this.activatedRoute.snapshot.queryParams['token'];
-    console.log(this.token);
     this.authService
       .register(values, this.token)
       .subscribe(value => {

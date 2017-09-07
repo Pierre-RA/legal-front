@@ -6,6 +6,7 @@ export class User implements Serializable<User> {
   name: string;
   id: number;
   isAdmin: boolean;
+  image: string;
 
   constructor() {}
 
@@ -15,6 +16,7 @@ export class User implements Serializable<User> {
     this.name = input.name;
     this.id = input.id;
     this.isAdmin = input.isAdmin || false;
+    this.image = input.image || 'unknown.png';
     return this;
   };
 
