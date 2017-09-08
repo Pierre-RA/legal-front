@@ -7,14 +7,17 @@ import { TopComponent } from './top';
 import { SideComponent } from './side';
 import { BreadcrumbComponent } from './breadcrumb';
 import { ContactComponent } from './contact';
+import { CopyrightSmallComponent } from './copyright-small';
 
 import { PhonePipe } from './pipes/phone';
+
 
 const COMPONENTS = [
   TopComponent,
   SideComponent,
   BreadcrumbComponent,
   ContactComponent,
+  CopyrightSmallComponent,
 ];
 
 const PIPES = [

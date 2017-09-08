@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'welcome',
@@ -7,9 +10,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor() {}
+  private routeFragmentSubscription: Subscription;
 
-  ngOnInit() {
+  constructor(
+    private activatedRoute: ActivatedRoute
+  ) {}
+
+  ngOnInit() {}
+
+  ngAfterViewChecked() {
+    this.routeFragmentSubscription = this.activatedRoute.fragment
+      .subscribe(fragment => {
+        if (fragment) {
+          let element = document.getElementById(fragment);
+          if (element) {
+            element.scrollIntoView();
+          }
+        } else {
+          window.scroll(0,0);
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.routeFragmentSubscription.unsubscribe();
   }
 
 }
