@@ -3,14 +3,16 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { AppTranslationModule } from '../app.translation.module';
+
 import { TopComponent } from './top';
 import { SideComponent } from './side';
 import { BreadcrumbComponent } from './breadcrumb';
 import { ContactComponent } from './contact';
 import { CopyrightSmallComponent } from './copyright-small';
+import { CopyrightBigComponent } from './copyright-big';
 
 import { PhonePipe } from './pipes/phone';
-
 
 const COMPONENTS = [
   TopComponent,
@@ -18,6 +20,7 @@ const COMPONENTS = [
   BreadcrumbComponent,
   ContactComponent,
   CopyrightSmallComponent,
+  CopyrightBigComponent,
 ];
 
 const PIPES = [
@@ -33,6 +36,7 @@ const PIPES = [
     RouterModule,
     CommonModule,
     NgbModule,
+    AppTranslationModule,
   ],
   exports: [
     ...COMPONENTS,

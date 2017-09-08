@@ -26,8 +26,6 @@ export class WelcomeComponent implements OnInit {
           if (element) {
             element.scrollIntoView();
           }
-        } else {
-          window.scroll(0,0);
         }
       });
   }

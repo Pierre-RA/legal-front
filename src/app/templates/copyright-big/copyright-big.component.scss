@@ -1,0 +1,17 @@
+.copyright {
+  background-color: rgb(15,15,15);
+  color: rgba(255,255,255,0.9);
+  padding-top: 40px;
+  padding-bottom: 40px;
+  .title {
+    font-size: 3em;
+    font-family: 'Cinzel', serif;
+  }
+  .title::after {
+    width: 250px;
+    border-bottom: solid 1px grey;
+  }
+  .grey {
+    color: silver;
+  }
+}
