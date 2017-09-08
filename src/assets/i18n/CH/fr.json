@@ -5,7 +5,7 @@
     "overview": "aperçu"
   },
   "login": {
-    "connectMessage": "Se connecter à Legal",
+    "connectMessage": "Se connecter",
     "labelEmail": "Adresse email",
     "placeholderEmail": "Adresse email",
     "labelPassword": "Mot de passe",

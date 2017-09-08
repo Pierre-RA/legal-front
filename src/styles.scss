@@ -1,6 +1,7 @@
 @import 'variables';
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import '../node_modules/font-awesome/scss/font-awesome';
+@import url('https://fonts.googleapis.com/css?family=Cinzel:700');
 
 html, body {
   height: 100%;
@@ -28,4 +29,8 @@ html, body {
   border-radius: 5px;
   border: solid rgb(245,245,245) 1px;
   box-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3 {
+  font-family: 'Cinzel', serif;
 }
