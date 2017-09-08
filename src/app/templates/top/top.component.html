@@ -7,16 +7,16 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav" *ngIf="!user">
       <li class="nav-item">
-        <a class="nav-link" href="#element-1">Automatique</a>
+        <a class="nav-link" [routerLink]="['/']" fragment="element-1">Automatique</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#element-2">Amélioration</a>
+        <a class="nav-link" [routerLink]="['/']" fragment="element-2">Amélioration</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#pricing">Tarifs</a>
+        <a class="nav-link" [routerLink]="['/']" fragment="pricing">Tarifs</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#element-3">Sécurité</a>
+        <a class="nav-link" [routerLink]="['/']" fragment="element-3">Sécurité</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">

@@ -1,27 +1,30 @@
 <template-top></template-top>
-<section class="container d-flex align-items-center">
-  <div class="row justify-content-center w-100">
-    <form class="col-md-6" (ngSubmit)="onSubmit(form.value)">
-      <h1>{{ 'login.connectMessage' | translate }}</h1>
-      <p class="alert alert-{{messageType}}" role="alert" *ngIf="message">
-        {{message}}
+<div class="atop">
+  <section class="container d-flex align-items-center">
+    <div class="row justify-content-center w-100">
+      <form class="col-md-6" (ngSubmit)="onSubmit(form.value)">
+        <h1>{{ 'login.connectMessage' | translate }}</h1>
+        <p class="alert alert-{{messageType}}" role="alert" *ngIf="message">
+          {{message}}
+        </p>
+        <label for="inputEmail" class="sr-only">{{ 'login.labelEmail' | translate }}</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="{{ 'login.placeholderEmail' | translate }}" [formControl]="email" required autofocus />
+        <label for="inputPassword" class="sr-only">{{ 'login.labelPassword' | translate }}</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="{{ 'login.placeholderPassword' | translate }}" [formControl]="password" required />
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me" disabled />
+            Se souvenir de moi
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+      </form>
+      <p class="alert alert-info mt-5">
+        <i class="fa fa-info fa-lg" aria-hidden="true"></i>
+        Le serveur étant en mode développement,<br />
+        il se peut qu'il y ait un temps de latence lors d'une première connexion.
       </p>
-      <label for="inputEmail" class="sr-only">{{ 'login.labelEmail' | translate }}</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="{{ 'login.placeholderEmail' | translate }}" [formControl]="email" required autofocus />
-      <label for="inputPassword" class="sr-only">{{ 'login.labelPassword' | translate }}</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="{{ 'login.placeholderPassword' | translate }}" [formControl]="password" required />
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" value="remember-me" disabled />
-          Se souvenir de moi
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
-    </form>
-    <p class="alert alert-info mt-5">
-      <i class="fa fa-info fa-lg" aria-hidden="true"></i>
-      Le serveur étant en mode développement,<br />
-      il se peut qu'il y ait un temps de latence lors d'une première connexion.
-    </p>
-  </div>
-</section>
+    </div>
+  </section>
+</div>
+<template-copyright-small></template-copyright-small>
