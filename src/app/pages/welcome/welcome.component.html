@@ -2,17 +2,32 @@
 <div class="pad-nav height-100 d-flex atop">
   <section class="container d-flex align-items-center w-100">
     <div class="halo"></div>
-    <div class="row justify-content-center w-100">
-      <div class="col-md-6">
-        <div class="above">
-          <h1 class="text-center"><i class="fa fa-gavel"></i> {{ 'title' | translate }}</h1>
+    <div class="w-100">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="above">
+            <h1 class="text-center"><i class="fa fa-gavel"></i> {{ 'title' | translate }}</h1>
+            <p class="text-center under">
+              Automatisez vos contrats
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center white">
+        <div class="col-sm-2">
           <p class="text-center">
-            Automatisez vos contrats
+            <a [routerLink]="['/']" fragment="element-1">Automatique</a>
           </p>
+        </div>
+        <div class="col-sm-2">
           <p class="text-center">
-            <a href="#element-1" class="btn btn-success">Automatique</a>
-            <a href="#element-2" class="btn btn-success">Amélioration</a>
-            <a href="#element-3" class="btn btn-success">Sécurisé</a>
+            <a [routerLink]="['/']" fragment="element-2">Amélioration</a>
+          </p>
+        </div>
+        <div class="col-sm-2">
+          <p class="text-center">
+            <a [routerLink]="['/']" fragment="element-2">Sécurisé</a>
           </p>
         </div>
       </div>

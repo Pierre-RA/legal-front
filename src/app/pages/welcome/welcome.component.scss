@@ -1,6 +1,27 @@
 @mixin bold {
   font-family: 'Cinzel', serif;
 }
+@mixin blue {
+  background: rgb(68,175,248);
+  background: -moz-linear-gradient(-45deg, rgba(68,175,248,1) 0%, rgba(34,143,216,1) 40%, rgba(0,108,182,1) 100%);
+  background: -webkit-linear-gradient(-45deg, rgba(68,175,248,1) 0%,rgba(34,143,216,1) 40%,rgba(0,108,182,1) 100%);
+  background: linear-gradient(135deg, rgba(68,175,248,1) 0%,rgba(34,143,216,1) 40%,rgba(0,108,182,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#44aff8', endColorstr='#006cb6',GradientType=1 );
+}
+@mixin gold {
+  background: rgb(241,231,103);
+  background: -moz-linear-gradient(-45deg,  rgba(241,231,103,1) 0%, rgba(254,182,69,1) 100%);
+  background: -webkit-linear-gradient(-45deg,  rgba(241,231,103,1) 0%,rgba(254,182,69,1) 100%);
+  background: linear-gradient(135deg,  rgba(241,231,103,1) 0%,rgba(254,182,69,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1e767', endColorstr='#feb645',GradientType=1 );
+}
+@mixin grey {
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
+  background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+  background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 );
+}
 .atop {
   @include bold;
   color: white;
@@ -8,9 +29,29 @@
   background-attachment: fixed;
   background-image: url('/assets/img/office.jpg');
   background-size: cover;
+  .under:after {
+    height: 4px;
+    display: block;
+    width: 40%;
+    margin: 20px auto;
+    background: red;
+    border-radius: 100%;
+    content: '';
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+  }
+  .white {
+    a {
+      color: white;
+      font-size: 1.4em;
+    }
+    a:hover {
+      text-decoration: none;
+      color: gold;
+    }
+  }
 }
 #element-1 {
-  background-color: #006CB6;
+  @include blue;
   color: rgba(255,255,255,0.9);
   p {
     i {
@@ -22,14 +63,14 @@
   }
 }
 #element-2 {
-  background-color: rgba(255, 201, 21, 0.7);
+  @include gold;
   color: rgba(0,0,0,0.7);
   hr {
     border-color: grey;
   }
 }
 #element-3 {
-  background-color: #006CB6;
+  @include blue;
   color: rgba(255,255,255,0.9);
   p {
     i {
@@ -65,6 +106,7 @@
 }
 
 #pricing {
+  @include grey;
   color: rgba(0,0,0,0.5);
   ul {
     list-style: none;
@@ -84,6 +126,7 @@
   .table {
     padding-top: 30px;
     .bordered {
+      background-color: white;
       border: solid 1px silver;
       border-radius: 10px;
       padding: 15px;
