@@ -2,17 +2,32 @@
 <div class="pad-nav height-100 d-flex atop">
   <section class="container d-flex align-items-center w-100">
     <div class="halo"></div>
-    <div class="row justify-content-center w-100">
-      <div class="col-md-6">
-        <div class="above">
-          <h1 class="text-center"><i class="fa fa-gavel"></i> {{ 'title' | translate }}</h1>
+    <div class="w-100">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="above">
+            <h1 class="text-center"><i class="fa fa-gavel"></i> {{ 'title' | translate }}</h1>
+            <p class="text-center under">
+              Automatisez vos contrats
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center white">
+        <div class="col-sm-2">
           <p class="text-center">
-            Automatisez vos contrats
+            <a [routerLink]="['/']" fragment="element-1">Automatique</a>
           </p>
+        </div>
+        <div class="col-sm-2">
           <p class="text-center">
-            <a href="#element-1" class="btn btn-success">Automatique</a>
-            <a href="#element-2" class="btn btn-success">Amélioration</a>
-            <a href="#element-3" class="btn btn-success">Sécurisé</a>
+            <a [routerLink]="['/']" fragment="element-2">Amélioration</a>
+          </p>
+        </div>
+        <div class="col-sm-2">
+          <p class="text-center">
+            <a [routerLink]="['/']" fragment="element-2">Sécurisé</a>
           </p>
         </div>
       </div>
@@ -20,6 +35,9 @@
   </section>
 </div>
 <section id="element-1">
+  <div class="cog">
+    <i class="fa fa-cog fa-5x" aria-hidden="true"></i>
+  </div>
   <div class="container pad-nav">
     <h1>Automatisez vos contrats</h1>
     <p>
@@ -71,70 +89,52 @@
         </p>
       </div>
     </div>
-    <div class="text-center span-up">
-      <p class="alert alert-danger">
-        Page de présentation. Aucun contenu n'est vraiment défini.
-      </p>
-    </div>
   </div>
 </section>
 
-<section id="element-2">
-  <div class="container pad-nav">
-    <h1>Améliorer vos relations clients</h1>
-    <p>
-      Établissez une relation de confiance avec vos clients.
-    </p>
-    <div class="row span-up">
-      <div class="col-md-4">
-        <p class="text-center">
-          <i class="fa fa-user fa-4x"></i>
+<section class="clients" id="element-2">
+  <div class="purple"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7 offset-sm-5">
+        <h1 class="span-up">Améliorer vos relations clients</h1>
+        <p class="after-bar">
+          Établissez une relation de confiance avec vos clients.
         </p>
-        <p class="text-center">
-          D'une relation simple
-        </p>
-      </div>
-      <div class="col-md-4">
-        <p class="text-center">
-          <i class="fa fa-user-plus fa-4x"></i>
-        </p>
-        <p class="text-center">
-          en ajoutant de nouveaux clients
-        </p>
-      </div>
-      <div class="col-md-4">
-        <p class="text-center">
-          <i class="fa fa-users fa-4x"></i>
-        </p>
-        <p class="text-center">
-          Communiquez avec votre base utilisateur
-        </p>
-      </div>
-    </div>
-    <div class="row e">
-      <div class="col-md-6">
+        <div class="row d-flex align-items-center">
+          <div class="col-sm-2">
+            <i class="fa fa-user fa-5x" aria-hidden="true"></i>
+          </div>
+          <div class="col-sm-10">
+            <p class="text-justify">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+        </div>
+        <div class="row d-flex align-items-center">
+          <div class="col-sm-2">
+            <i class="fa fa-user-plus fa-5x" aria-hidden="true"></i>
+          </div>
+          <div class="col-sm-10">
+            <p class="text-justify">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+        </div>
+        <div class="row d-flex align-items-center">
+          <div class="col-sm-2">
+            <i class="fa fa-users fa-5x" aria-hidden="true"></i>
+          </div>
+          <div class="col-sm-10">
+            <p class="text-justify">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+        </div>
         <p class="text-justify">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
       </div>
-      <div class="col-md-6">
-        <p class="text-justify">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-      </div>
-    </div>
-    <hr />
-    <div class="row e">
-      <div class="col-md-12">
-        <p class="text-justify">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-      </div>
-    </div>
-    <div class="text-center span-up">
-      <p class="alert alert-danger">
-        Page de présentation. Aucun contenu n'est vraiment défini.
-      </p>
     </div>
   </div>
 </section>
@@ -232,11 +232,6 @@
     <p class="text-center span-up">
       * L'assistance technique couvre toute utilisation technique sur le site Legal. Elle ne couvre en aucun cas les actions juridiques liées aux contrats générés.
     </p>
-    <div class="text-center span-up">
-      <p class="alert alert-danger">
-        Page de présentation. Aucun contenu n'est vraiment défini.
-      </p>
-    </div>
   </div>
 </section>
 
@@ -273,11 +268,6 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
       </div>
-    </div>
-    <div class="text-center span-up">
-      <p class="alert alert-danger">
-        Page de présentation. Aucun contenu n'est vraiment défini.
-      </p>
     </div>
   </div>
 </section>
