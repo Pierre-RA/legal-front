@@ -15,6 +15,7 @@ export class AuthService {
   loginURL: string;
   registerURL: string;
   usersOwnURL: string;
+  rootURL: string;
   redirectUrl: string;
   token: string;
   user: User;
@@ -26,8 +27,20 @@ export class AuthService {
     this.loginURL = environment.apiEndpoint + 'login';
     this.registerURL = environment.apiEndpoint + 'signup';
     this.usersOwnURL = environment.apiEndpoint + 'users/own';
+    this.rootURL = environment.apiEndpoint;
     this.token = '';
     this.user = null;
+  }
+
+  connect(): Observable<boolean> {
+    return this.http.get(this.rootURL)
+      .map((response: Response) => {
+        return true;
+      })
+      .catch(this.handleError);
+      // .catch((error: any, caught: Observable<boolean>) => {
+      //   return caught;
+      // });
   }
 
   login(email: string, password: string): Observable<boolean> {

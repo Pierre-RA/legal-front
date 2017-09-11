@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'template-copyright-big',
   templateUrl: './copyright-big.component.html',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CopyrightBigComponent implements OnInit {
 
-  constructor() { }
+  appVersion: string;
+
+  constructor() {
+    this.appVersion = environment.version;
+  }
 
   ngOnInit() {
   }

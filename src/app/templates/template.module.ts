@@ -11,6 +11,7 @@ import { BreadcrumbComponent } from './breadcrumb';
 import { ContactComponent } from './contact';
 import { CopyrightSmallComponent } from './copyright-small';
 import { CopyrightBigComponent } from './copyright-big';
+import { ServerLightComponent } from './server-light';
 
 import { PhonePipe } from './pipes/phone';
 
@@ -21,6 +22,7 @@ const COMPONENTS = [
   ContactComponent,
   CopyrightSmallComponent,
   CopyrightBigComponent,
+  ServerLightComponent,
 ];
 
 const PIPES = [
