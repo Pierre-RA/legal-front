@@ -107,7 +107,7 @@ export class AuthService {
     if (this.user) {
       return this.sub;
     }
-    return this.sub;
+    return this.isLoggedIn();
   }
 
   setToken(token: string): void {
