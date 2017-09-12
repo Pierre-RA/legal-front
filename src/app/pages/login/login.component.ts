@@ -68,12 +68,12 @@ export class LoginComponent implements OnInit {
           this.router.navigate([redirect]);
         },
         err => {
+          let message = err.message || 'La connection au serveur a échoué.';
           this.slimLoadingBarService.complete();
           this.setMessage(
-            'Connection to server failed.',
+            message,
             'danger'
           );
-          console.error(err);
         }
       );
   }

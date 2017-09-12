@@ -32,7 +32,7 @@ export class AuthService {
     this.user = null;
   }
 
-  connect(): Observable<boolean> {
+  connect(): Observable<boolean | Object> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(this.rootURL, options)
@@ -42,7 +42,7 @@ export class AuthService {
       .catch(this.handleError);
   }
 
-  login(email: string, password: string): Observable<boolean> {
+  login(email: string, password: string): Observable<Response | Object> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let user = {
@@ -54,12 +54,12 @@ export class AuthService {
         this.setToken(response.json()['token']);
         this.user = response.json()['user'];
         this.sub.next(response.json()['user']);
-        return true;
+        return response;
       })
       .catch(this.handleError);
   }
 
-  register(values: any, token?: string): Observable<boolean> {
+  register(values: any, token?: string): Observable<boolean | Object> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     if (token) {
       headers.append('authorization', token);
@@ -102,7 +102,9 @@ export class AuthService {
         this.sub.next(this.user);
         return this.user;
       })
-      .catch(this.handleError);
+      .catch((error: Response) => {
+        return new BehaviorSubject<User>(null);
+      });
   };
 
   getUser(): Observable<User> {
@@ -117,9 +119,9 @@ export class AuthService {
     window.localStorage.setItem('token', token);
   }
 
-  handleError(error: any): Promise<any> {
-    console.error('An error occured:', error);
-    return Promise.reject(error.message || error);
+  handleError(error: Response): Observable<Object> {
+    console.error('AuthService Error', JSON.parse(error['_body']));
+    return Observable.throw(JSON.parse(error['_body']));
   }
 
   logout(): void {
