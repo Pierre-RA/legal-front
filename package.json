@@ -1,6 +1,6 @@
 {
   "name": "legal-front",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "scripts": {
     "postinstall": "node ./build/build-pre.js && ng build --aot -prod",

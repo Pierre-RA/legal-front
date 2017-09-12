@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
+import { User } from '../../logic/user/user';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -12,8 +13,6 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  email: AbstractControl;
-  password: AbstractControl;
   form: FormGroup;
   message: string;
   messageType: string;
@@ -25,12 +24,14 @@ export class LoginComponent implements OnInit {
     public authService: AuthService,
     private slimLoadingBarService: SlimLoadingBarService
   ) {
+    let email = localStorage.getItem('email') || '';
+    let password = localStorage.getItem('password') || '';
+    let remember = localStorage.getItem('email') ? true : false;
     this.form = fb.group({
-      'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
+      'email': [email, Validators.compose([Validators.required, Validators.minLength(4)])],
+      'password': [password, Validators.compose([Validators.required, Validators.minLength(4)])],
+      'remember': [remember, Validators.required]
     });
-    this.email = this.form.controls['email'];
-    this.password = this.form.controls['password'];
     if (this.authService.redirectUrl) {
       this.setMessage(
         'Connexion requise pour accéder à la page ' + this.authService.redirectUrl,
@@ -53,27 +54,34 @@ export class LoginComponent implements OnInit {
         'En cours de connexion...',
         'success'
       );
-      this.login();
+      this.login(values);
     }
   }
 
-  login() {
+  login(values) {
     this.slimLoadingBarService.start();
     this.authService
-      .login(this.form.controls['email'].value, this.form.controls['password'].value)
+      .login(new User().deserialize(values))
       .subscribe(
         (value) => {
           this.slimLoadingBarService.complete();
+          if (values.remember) {
+            localStorage.setItem('email', values.email);
+            localStorage.setItem('password', values.password);
+          } else {
+            localStorage.removeItem('email');
+            localStorage.removeItem('password');
+          }
           let redirect = this.authService.redirectUrl || '/dashboard';
           this.router.navigate([redirect]);
         },
         err => {
+          let message = err.message || 'La connection au serveur a échoué.';
           this.slimLoadingBarService.complete();
           this.setMessage(
-            'Connection to server failed.',
+            message,
             'danger'
           );
-          console.error(err);
         }
       );
   }
