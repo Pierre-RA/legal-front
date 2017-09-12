@@ -42,14 +42,10 @@ export class AuthService {
       .catch(this.handleError);
   }
 
-  login(email: string, password: string): Observable<Response | Object> {
+  login(user: User): Observable<Response | Object> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let user = {
-      email: email,
-      password: password
-    };
-    return this.http.post(this.loginURL, user, options)
+    return this.http.post(this.loginURL, user.getLoginCredentials(), options)
       .map((response: Response) => {
         this.setToken(response.json()['token']);
         this.user = response.json()['user'];

@@ -2,18 +2,18 @@
 <div class="atop">
   <section class="container d-flex align-items-center">
     <div class="row justify-content-center w-100">
-      <form class="col-md-6" (ngSubmit)="onSubmit(form.value)">
+      <form class="col-md-6" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
         <h1>{{ 'login.connectMessage' | translate }}</h1>
         <p class="alert alert-{{messageType}}" role="alert" *ngIf="message">
           {{message | translate}}
         </p>
         <label for="inputEmail" class="sr-only">{{ 'login.labelEmail' | translate }}</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="{{ 'login.placeholderEmail' | translate }}" [formControl]="email" required autofocus />
+        <input type="email" id="inputEmail" class="form-control" placeholder="{{ 'login.placeholderEmail' | translate }}" formControlName="email" required autofocus />
         <label for="inputPassword" class="sr-only">{{ 'login.labelPassword' | translate }}</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="{{ 'login.placeholderPassword' | translate }}" [formControl]="password" required />
+        <input type="password" id="inputPassword" class="form-control" placeholder="{{ 'login.placeholderPassword' | translate }}" formControlName="password" required />
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me" disabled />
+            <input type="checkbox" value="true" formControlName="remember" />
             Se souvenir de moi
           </label>
         </div>
