@@ -1,91 +1,93 @@
 <h1>Administration</h1>
 
-<h2>Utilisateurs</h2>
-<table class="table table-striped">
-  <thead class="thead-inverse">
-    <tr>
-      <th>
-        Nom
-      </th>
-      <th>
-        Email
-      </th>
-      <th>
-        Type
-      </th>
-      <th>
-        Admin
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>
-        {{user.name}}
-      </td>
-      <td>
-        {{user.email}}
-      </td>
-      <td>
-        -
-      </td>
-      <td>
-        <i class="fa fa-check text-success" aria-hidden="true" *ngIf="user.isAdmin"></i>
-        <i class="fa fa-minus" aria-hidden="true" *ngIf="!user.isAdmin"></i>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="white-background">
+  <h2>Utilisateurs</h2>
+  <table class="table table-striped">
+    <thead class="thead-inverse">
+      <tr>
+        <th>
+          Nom
+        </th>
+        <th>
+          Email
+        </th>
+        <th>
+          Type
+        </th>
+        <th>
+          Admin
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>
+          {{user.name}}
+        </td>
+        <td>
+          {{user.email}}
+        </td>
+        <td>
+          -
+        </td>
+        <td>
+          <i class="fa fa-check text-success" aria-hidden="true" *ngIf="user.isAdmin"></i>
+          <i class="fa fa-minus" aria-hidden="true" *ngIf="!user.isAdmin"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<h2>Invitations</h2>
-<table class="table table-striped">
-  <thead class="thead-inverse">
-    <tr>
-      <th>
-        Email
-      </th>
-      <th>
-        Token
-      </th>
-      <th>
-        Créé
-      </th>
-      <th>
-        Retirer
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let token of tokens">
-      <td>
-        {{token.email}}
-      </td>
-      <td>
-        {{token.value}}
-      </td>
-      <td>
-        {{token.date | date:['medium']}}
-      </td>
-      <td>
-        <a [routerLink]="['/dashboard/admin']" (click)="open(content, token._id)">
-          <i class="fa fa-trash text-danger" aria-hidden="true"></i>
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <h2>Invitations</h2>
+  <table class="table table-striped">
+    <thead class="thead-inverse">
+      <tr>
+        <th>
+          Email
+        </th>
+        <th>
+          Token
+        </th>
+        <th>
+          Créé
+        </th>
+        <th>
+          Retirer
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let token of tokens">
+        <td>
+          {{token.email}}
+        </td>
+        <td>
+          {{token.value}}
+        </td>
+        <td>
+          {{token.date | date:['medium']}}
+        </td>
+        <td>
+          <a [routerLink]="['/dashboard/admin']" (click)="open(content, token._id)">
+            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<form class="form-inline row mb-5" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
-  <div class="form-group col-sm-3">
-    <p class="form-control-static">Inviter une personne</p>
-  </div>
-  <div class="form-group mx-sm-3 col-sm-6">
-    <label for="inputEmail" class="sr-only">Adresse email</label>
-    <input type="email" class="form-control form-control-lg" style="width: 100%" id="inputEmail" placeholder="Adresse email"
-      formControlName="email">
-  </div>
-  <button type="submit" class="btn btn-primary">Inviter</button>
-</form>
+  <form class="form-inline row mb-5" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+    <div class="form-group col-sm-3">
+      <p class="form-control-static">Inviter une personne</p>
+    </div>
+    <div class="form-group mx-sm-3 col-sm-6">
+      <label for="inputEmail" class="sr-only">Adresse email</label>
+      <input type="email" class="form-control form-control-lg" style="width: 100%" id="inputEmail" placeholder="Adresse email"
+        formControlName="email">
+    </div>
+    <button type="submit" class="btn btn-primary">Inviter</button>
+  </form>
+</div>
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">

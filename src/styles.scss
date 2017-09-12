@@ -18,8 +18,14 @@ html, body {
 }
 
 .main {
+  position: relative;
+  overflow: scroll;
+  padding-bottom: 50px;
+  height: 100%;
   h1 {
     padding-bottom: 10px;
+    color: ghostwhite;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.7);
   }
 }
 
@@ -33,4 +39,11 @@ html, body {
 
 h1, h2, h3 {
   font-family: 'Cinzel', serif;
+}
+
+.white-background {
+  background-color: rgba(248, 248, 255, 0.9);
+  padding: 30px 10px;
+  border-radius: 10px;
+  margin-bottom: 50px;
 }
