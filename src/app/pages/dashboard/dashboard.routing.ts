@@ -35,6 +35,12 @@ export const routes: Routes = [
       data: { breadcrumb: 'Admin' },
       canActivate: [ AdminGuardService ]
     }, {
+      path: 'reports',
+      redirectTo: 'overview'
+    }, {
+      path: 'more',
+      redirectTo: 'overview'
+    }, {
       path: '',
       redirectTo: 'overview'
     }]
