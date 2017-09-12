@@ -33,14 +33,13 @@ export class AuthService {
   }
 
   connect(): Observable<boolean> {
-    return this.http.get(this.rootURL)
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.rootURL, options)
       .map((response: Response) => {
         return true;
       })
       .catch(this.handleError);
-      // .catch((error: any, caught: Observable<boolean>) => {
-      //   return caught;
-      // });
   }
 
   login(email: string, password: string): Observable<boolean> {
