@@ -7,7 +7,7 @@
   padding: 20px 0;
   overflow-x: hidden;
   overflow-y: auto;
-  border-right: 1px solid #eee;
+  border-right: 1px solid #222;
   .nav {
     margin-bottom: 20px;
   }
@@ -23,4 +23,8 @@
 
 .sidebar .nav-link {
   border-radius: 0;
+}
+
+.bg-faded {
+  background-color: rgba(0,0,0,0.7);
 }

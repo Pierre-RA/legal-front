@@ -1,130 +1,132 @@
 <h1 *ngIf="!edit">Ajouter un nouveau contact</h1>
 <h1 *ngIf="edit">Édition du contact</h1>
 
-<div class="alert alert-{{messageType}}" *ngIf="message">
-  {{message}}
-</div>
+<div class="white-background">
+  <div class="alert alert-{{messageType}}" *ngIf="message">
+    {{message}}
+  </div>
 
-<form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
-  <fieldset class="form-group">
-    <legend>Type de contact</legend>
-    <div class="form-check">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
+    <fieldset class="form-group">
+      <legend>Type de contact</legend>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input
+            type="radio"
+            class="form-check-input"
+            name="type"
+            formControlName="type"
+            id="physical"
+            value="physical"
+            (change)="onContactTypeChange('physical')"
+            [checked]="contact.type === 'physical'">
+          Personne physique
+        </label>
+      </div>
+      <div class="form-check">
       <label class="form-check-label">
         <input
           type="radio"
           class="form-check-input"
           name="type"
           formControlName="type"
-          id="physical"
-          value="physical"
-          (change)="onContactTypeChange('physical')"
-          [checked]="contact.type === 'physical'">
-        Personne physique
-      </label>
-    </div>
-    <div class="form-check">
-    <label class="form-check-label">
-      <input
-        type="radio"
-        class="form-check-input"
-        name="type"
-        formControlName="type"
-        id="moral"
-        value="moral"
-        (change)="onContactTypeChange('moral')"
-        [checked]="contact.type === 'moral'">
-        Personne morale
-      </label>
-    </div>
-  </fieldset>
+          id="moral"
+          value="moral"
+          (change)="onContactTypeChange('moral')"
+          [checked]="contact.type === 'moral'">
+          Personne morale
+        </label>
+      </div>
+    </fieldset>
 
-  <div *ngIf="contact.type === 'physical'">
-    <div class="form-group row">
-      <div class="col-md-6">
-        <label for="lastName">Nom</label>
-        <input type="text" class="form-control" id="lastName"
-          placeholder="Nom"
-          name="lastName"
-          formControlName="lastName">
+    <div *ngIf="contact.type === 'physical'">
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label for="lastName">Nom</label>
+          <input type="text" class="form-control" id="lastName"
+            placeholder="Nom"
+            name="lastName"
+            formControlName="lastName">
+        </div>
+        <div class="col-md-6">
+          <label for="firstName">Prénom</label>
+          <input type="text" class="form-control" id="firstName"
+            placeholder="Prénom"
+            name="firstName"
+            formControlName="firstName">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label for="firstName">Prénom</label>
-        <input type="text" class="form-control" id="firstName"
-          placeholder="Prénom"
-          name="firstName"
-          formControlName="firstName">
-      </div>
-    </div>
-    <fieldset class="form-group">
-      <div class="form-check form-check-inline">
+      <fieldset class="form-group">
+        <div class="form-check form-check-inline">
+          <label class="form-check-label">
+            <input
+              type="radio"
+              class="form-check-input"
+              name="isMale"
+              formControlName="isMale"
+              id="male"
+              value="true"
+              [checked]="contact.isMale">
+            Homme
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
         <label class="form-check-label">
           <input
             type="radio"
             class="form-check-input"
             name="isMale"
             formControlName="isMale"
-            id="male"
-            value="true"
-            [checked]="contact.isMale">
-          Homme
-        </label>
+            id="female"
+            value="false"
+            [checked]="!contact.isMale">
+            Femme
+          </label>
+        </div>
+      </fieldset>
+    </div>
+    <div *ngIf="contact.type === 'moral'">
+      <div class="form-group">
+        <label for="reason">Raison</label>
+        <input type="text" class="form-control" id="reason" placeholder="Raison"
+          name="reason"
+          formControlName="reason">
       </div>
-      <div class="form-check form-check-inline">
-      <label class="form-check-label">
-        <input
-          type="radio"
-          class="form-check-input"
-          name="isMale"
-          formControlName="isMale"
-          id="female"
-          value="false"
-          [checked]="!contact.isMale">
-          Femme
-        </label>
+      <div class="span-form-name">
       </div>
-    </fieldset>
-  </div>
-  <div *ngIf="contact.type === 'moral'">
+    </div>
+
     <div class="form-group">
-      <label for="reason">Raison</label>
-      <input type="text" class="form-control" id="reason" placeholder="Raison"
-        name="reason"
-        formControlName="reason">
+      <label for="exampleInputEmail1">Adresse</label>
+      <div class="row" formGroupName="address">
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="line1" placeholder="première ligne - e.g. C/O Paul Chappuis" name="line1" formControlName="line1">
+          <input type="text" class="form-control" id="line2" placeholder="seconde ligne - e.g. route de Lancy, 89" name="line2" formControlName="line2">
+          <input type="text" class="form-control" id="line3" placeholder="troisième ligne - e.g. Case postale 3365" name="line3" formControlName="line3">
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control" id="postCode" placeholder="code postal" name="postCode" formControlName="postCode">
+          <input type="text" class="form-control" id="city" placeholder="ville" name="city" formControlName="city">
+          <input type="text" class="form-control" id="province" placeholder="province" name="province" formControlName="province">
+          <input type="text" class="form-control" id="country" placeholder="pays" name="country" formControlName="country">
+        </div>
+      </div>
     </div>
-    <div class="span-form-name">
-    </div>
-  </div>
 
-  <div class="form-group">
-    <label for="exampleInputEmail1">Adresse</label>
-    <div class="row" formGroupName="address">
+    <div class="form-group row">
       <div class="col-md-6">
-        <input type="text" class="form-control" id="line1" placeholder="première ligne - e.g. C/O Paul Chappuis" name="line1" formControlName="line1">
-        <input type="text" class="form-control" id="line2" placeholder="seconde ligne - e.g. route de Lancy, 89" name="line2" formControlName="line2">
-        <input type="text" class="form-control" id="line3" placeholder="troisième ligne - e.g. Case postale 3365" name="line3" formControlName="line3">
+        <label for="phone">Téléphone</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-0" formGroupName="phone">
+          <input type="text" class="form-control" formControlName="country">
+          <input type="phone" class="form-control" id="phone" placeholder="Téléphone" formControlName="phone">
+        </div>
       </div>
       <div class="col-md-6">
-        <input type="text" class="form-control" id="postCode" placeholder="code postal" name="postCode" formControlName="postCode">
-        <input type="text" class="form-control" id="city" placeholder="ville" name="city" formControlName="city">
-        <input type="text" class="form-control" id="province" placeholder="province" name="province" formControlName="province">
-        <input type="text" class="form-control" id="country" placeholder="pays" name="country" formControlName="country">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Email" name="email" formControlName="email">
       </div>
     </div>
-  </div>
-
-  <div class="form-group row">
-    <div class="col-md-6">
-      <label for="phone">Téléphone</label>
-      <div class="input-group mb-2 mr-sm-2 mb-sm-0" formGroupName="phone">
-        <input type="text" class="form-control" formControlName="country">
-        <input type="phone" class="form-control" id="phone" placeholder="Téléphone" name="phone" formControlName="phone">
-      </div>
-    </div>
-    <div class="col-md-6">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" placeholder="Email" name="email" formControlName="email">
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary" *ngIf="!edit" [disabled]="!editForm.valid">Ajouter</button>
-  <button type="submit" class="btn btn-primary" *ngIf="edit" [disabled]="!editForm.valid">Mettre à jour</button>
-</form>
+    <button type="submit" class="btn btn-primary" *ngIf="!edit" [disabled]="!editForm.valid">Ajouter</button>
+    <button type="submit" class="btn btn-primary" *ngIf="edit" [disabled]="!editForm.valid">Mettre à jour</button>
+  </form>
+</div>

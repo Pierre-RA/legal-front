@@ -16,7 +16,7 @@ export default class Contact implements IContact, Serializable<Contact> {
   deserialize(input: any): this {
     this._id = input._id;
     this.address = new Address().deserialize(input.address);
-    this.phone = new Phone().deserialize(input.phone);
+    this.phone = input.phone ? new Phone().deserialize(input.phone) : null;
     this.email = input.email;
     this.type = input.type;
     if (this.type === 'physical') {

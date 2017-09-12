@@ -31,8 +31,8 @@ export class EditComponent implements OnInit {
       type: this.activatedRoute.snapshot.queryParams['type'] || 'physical',
       email: '',
       phone: {
-        country: '',
-        phone: '',
+        country: 'CH',
+        phone: '799646355',
       },
       firstName: '',
       lastName: '',
@@ -75,13 +75,13 @@ export class EditComponent implements OnInit {
       reason: [this.contact.reason],
       isMale: [this.contact.isMale],
       address: this.fb.group({
-        line1: [this.contact.address.line1],
+        line1: [this.contact.address.line1, Validators.required],
         line2: [this.contact.address.line2],
         line3: [this.contact.address.line3],
-        postCode: [this.contact.address.postCode],
-        city: [this.contact.address.city],
+        postCode: [this.contact.address.postCode, Validators.required],
+        city: [this.contact.address.city, Validators.required],
         province: [this.contact.address.province],
-        country: [this.contact.address.country]
+        country: [this.contact.address.country, Validators.required]
       }),
     });
   }
@@ -91,6 +91,7 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit(value) {
+    console.log(value);
     value.phone = parse(value.phone.phone, value.phone.country);
     if (this.edit) {
       this.editContact(value);

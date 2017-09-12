@@ -1,17 +1,19 @@
 <h1>Contact</h1>
 
-<p class="text-center">
-  <a [routerLink]="['/dashboard/contacts/edit', id]">
-    <i class="fa fa-pencil" aria-hidden="true"></i>
-    Éditer le contact
-  </a>
-</p>
+<div class="white-background">
+  <p class="text-center">
+    <a [routerLink]="['/dashboard/contacts/edit', id]">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+      Éditer le contact
+    </a>
+  </p>
 
-<template-contact [contact]="contact" *ngIf="contact"></template-contact>
+  <template-contact [contact]="contact" *ngIf="contact"></template-contact>
 
-<p class="text-center">
-  <a routerLink="/dashboard/contacts" class="btn btn-primary">
-    <i class="fa fa-users" aria-hidden="true"></i>
-    Retour aux contacts
-  </a>
-</p>
+  <p class="text-center">
+    <a routerLink="/dashboard/contacts" class="btn btn-primary">
+      <i class="fa fa-users" aria-hidden="true"></i>
+      Retour aux contacts
+    </a>
+  </p>
+</div>
