@@ -18,7 +18,14 @@ export class User implements Serializable<User> {
     this.isAdmin = input.isAdmin || false;
     this.image = input.image || 'unknown.png';
     return this;
-  };
+  }
+
+  getLoginCredentials() {
+    return {
+      email: this.email,
+      password: this.password
+    }
+  }
 
   isValidEmail(): boolean {
     return true;
