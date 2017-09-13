@@ -1,8 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ViewContainerRef,
+  ComponentFactoryResolver,
+  ComponentFactory,
+  ComponentRef
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { saveAs as importedSaveAs } from 'file-saver';
 
-import { Contract } from '../../../../logic/contract';
+import { LoanSimpleDisplayComponent, LoanSimpleContract } from '../../../../contracts/loan-simple';
+import { AbstractContract } from '../../../../contracts/abstract-contract';
 import { ContractsService } from '../../../../services/contracts.service';
 
 @Component({
@@ -13,16 +23,28 @@ import { ContractsService } from '../../../../services/contracts.service';
 export class ContractComponent implements OnInit {
 
   id: string;
-  contract: Contract;
+  contract: AbstractContract;
+  @ViewChild('contractContainer', { read: ViewContainerRef }) container;
+  componentRef: ComponentRef<any>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private resolver: ComponentFactoryResolver,
     private contractsService: ContractsService
   ) {
     this.id = this.activatedRoute.snapshot.params['id'];
     this.contractsService.findOne(this.id)
       .subscribe(data => {
-        this.contract = new Contract().deserialize(data);
+        switch(data.type) {
+          case 0:
+            this.contract = new LoanSimpleContract().deserialize(data);
+            this.container.clear();
+            const factory =
+              this.resolver.resolveComponentFactory(LoanSimpleDisplayComponent);
+            this.componentRef = this.container.createComponent(factory);
+            this.componentRef.instance.contract = this.contract;
+            break;
+        }
       }, err => {
         console.error(err);
       });
@@ -32,6 +54,7 @@ export class ContractComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    this.componentRef.destroy();
   }
 
   export(id: string, title: string) {

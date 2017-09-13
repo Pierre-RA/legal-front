@@ -1,7 +1,7 @@
 import { Serializable } from './serialize';
 import { IContract } from './contract.interface';
 import { Loan } from './loan';
-import Contact from './contact';
+import { Contact } from './contact';
 
 export class Contract implements IContract {
   id: string;

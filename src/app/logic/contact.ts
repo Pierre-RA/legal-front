@@ -1,7 +1,7 @@
 import { Serializable } from './serialize';
 import { IContact } from './contact.interface';
 
-export default class Contact implements IContact, Serializable<Contact> {
+export class Contact implements IContact, Serializable<Contact> {
   _id: string;
   type: string;
   email: string;
@@ -73,6 +73,14 @@ export default class Contact implements IContact, Serializable<Contact> {
 
   getId(): String {
     return this._id;
+  }
+
+  static getContactList(input: Array<any>): Array<Contact> {
+    let result: Array<Contact> = [];
+    input.forEach(item => {
+      result.push(new Contact().deserialize(item));
+    });
+    return result;
   }
 }
 

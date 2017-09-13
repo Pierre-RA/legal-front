@@ -19,7 +19,6 @@ export class ServerLightComponent implements OnInit {
 
   ngOnInit() {
     this.authService.connect().subscribe(bool => {
-      console.log(bool);
       if (bool) {
         this.hasServerLoaded = true;
       }

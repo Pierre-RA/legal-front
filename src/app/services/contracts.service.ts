@@ -6,8 +6,10 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
 import { environment } from '../../environments/environment';
-import { IContract } from '../logic/contract.interface';
-import { Contract } from '../logic/contract';
+import {
+  AbstractContract,
+  LoanSimpleContract,
+} from '../contracts';
 
 @Injectable()
 export class ContractsService {
@@ -20,15 +22,15 @@ export class ContractsService {
     this.contractsURL = environment.apiEndpoint + 'contracts';
   }
 
-  findAll(): Observable<Array<IContract>> {
+  findAll(): Observable<Array<AbstractContract>> {
     return this.http.get(this.contractsURL, this.getOptions())
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  findOne(id: string): Observable<Contract> {
+  findOne(id: string): Observable<LoanSimpleContract> {
     return this.http.get(this.contractsURL + '/' + id, this.getOptions())
-      .map(this.extractData)
+      .map(this.extractContract)
       .catch(this.handleError);
   }
 
@@ -39,13 +41,13 @@ export class ContractsService {
       .catch(this.handleError);
   }
 
-  create(contract: IContract): Observable<Contract> {
+  create(contract: AbstractContract): Observable<AbstractContract> {
     return this.http.post(this.contractsURL, contract, this.getOptions())
       .map(this.extractContract)
       .catch(this.handleError);
   }
 
-  update(contract: IContract, id: string): Observable<Contract> {
+  update(contract: AbstractContract, id: string): Observable<AbstractContract> {
     return this.http.put(this.contractsURL + '/' + id, contract, this.getOptions())
       .map(this.extractContract)
       .catch(this.handleError);
@@ -72,8 +74,13 @@ export class ContractsService {
     return response.json();
   }
 
-  extractContract(response: Response) {
-    return new Contract().deserialize(response.json());
+  extractContract(response: Response): LoanSimpleContract {
+    let res = response.json();
+    switch(res.type) {
+      case 0:
+        return new LoanSimpleContract().deserialize(res);
+    }
+    return null;
   }
 
   extractCount(response: Response) {
