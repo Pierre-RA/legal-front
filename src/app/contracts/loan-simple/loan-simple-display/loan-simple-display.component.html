@@ -1,0 +1,60 @@
+<h1 *ngIf="contract">{{contract.getTitle()}}</h1>
+
+<div class="white-background">
+  <h2>Emprunteur</h2>
+  <template-contact [contact]="contract.getBorrower()" *ngIf="contract"></template-contact>
+
+  <h2>Prêteur</h2>
+  <template-contact [contact]="contract.getLender()" *ngIf="contract"></template-contact>
+
+  <h2>Prêt</h2>
+  <div class="card" *ngIf="contract">
+    <div class="row justify-content-md-center">
+      <div class="col-md-6">
+        <p class="alert alert-warning">
+          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+          Contrat en cours de développement.
+        </p>
+      </div>
+    </div>
+    <p *ngIf="contract.loan.hasGoal">
+      <strong>Objectif du prêt:</strong> {{contract.loan.goal}}
+    </p>
+    <p>
+      <strong>Montant du prêt:</strong> {{contract.loan.getTotalAmount()}} {{contract.loan.getCurrency()}}
+      à {{contract.loan.interest}}%
+    </p>
+    <div class="row">
+      <div class="col-md-6">
+        <p *ngIf="contract.loan.dateLent">
+          <strong>Date de versement du prêt:</strong>
+          {{contract.loan.dateLent | date:['longDate']}}
+        </p>
+      </div>
+      <div class="col-md-6">
+        <p *ngIf="contract.loan.extendNegotiationDate">
+          <strong>Date de relance:</strong>
+          {{contract.loan.extendNegotiationDate | date:['longDate']}}
+        </p>
+      </div>
+    </div>
+    <p *ngFor="let item of contract.loan.payoff, let i = index">
+      <strong *ngIf="i == 0 && contract.loan.payoff.length > 1">{{i + 1}}er remboursement le:</strong>
+      <strong *ngIf="i == 0 && contract.loan.payoff.length == 1">Remboursement le:</strong>
+      <strong *ngIf="i > 0">{{i + 1}}e remboursement le:</strong>
+      {{item.date | date:['longDate']}} <strong>de</strong> {{item.amount}} {{contract.loan.getCurrency()}}.
+    </p>
+  </div>
+
+  <div *ngIf="contract && contract.place && contract.date">
+    <h2>Lieu et date</h2>
+    <div class="card" *ngIf="contract">
+      <p *ngIf="contract.place">
+        <strong>Lieu:</strong> {{contract.place}}
+      </p>
+      <p *ngIf="contract.date">
+        <strong>Date:</strong> {{contract.date}}
+      </p>
+    </div>
+  </div>
+</div>

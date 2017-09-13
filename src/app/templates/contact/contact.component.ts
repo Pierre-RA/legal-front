@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core
 import { Router } from '@angular/router';
 
 import { IContact } from '../../logic/contact.interface';
-import Contact from '../../logic/contact';
+import { Contact } from '../../logic/contact';
 
 @Component({
   selector: 'template-contact',

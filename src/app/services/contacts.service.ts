@@ -7,7 +7,7 @@ import 'rxjs/Rx';
 
 import { environment } from '../../environments/environment';
 import { IContact } from '../logic/contact.interface';
-import Contact from '../logic/contact';
+import { Contact } from '../logic/contact';
 
 @Injectable()
 export class ContactsService {
@@ -20,9 +20,9 @@ export class ContactsService {
     this.contactsURL = environment.apiEndpoint + 'contacts';
   }
 
-  findAll(): Observable<Array<IContact>> {
+  findAll(): Observable<Array<Contact>> {
     return this.http.get(this.contactsURL, this.getOptions())
-      .map(this.extractData)
+      .map(this.extractContactList)
       .catch(this.handleError);
   }
 
@@ -63,6 +63,10 @@ export class ContactsService {
 
   extractContact(response: Response) {
     return new Contact().deserialize(response.json());
+  }
+
+  extractContactList(response: Response) {
+    return Contact.getContactList(response.json());
   }
 
   extractCount(response: Response) {
