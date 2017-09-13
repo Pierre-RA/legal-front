@@ -1,8 +1,4 @@
 <div class="white-background">
-  <div class="alert alert-{{messageType}}" *ngIf="message">
-    {{message}}
-  </div>
-
   <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="mb-5">
     <div class="row justify-content-md-center">
       <div class="col-md-10">
