@@ -25,4 +25,29 @@ export class ValidationService {
     }
   }
 
+  static contactValidator(control) {
+    let errors = {};
+    if (control.get('type').value == 'moral') {
+      if (!control.get('reason').value) {
+        control.get('reason').setErrors({ noReason: true });
+        errors['noReason'] = true;
+      }
+    }
+    if (control.get('type').value == 'physical') {
+      if (!control.get('gender').value) {
+        control.get('gender').setErrors({ noGender: true });
+        errors['genderNotTicked'] = true;
+      }
+      if (!control.get('firstName').value) {
+        control.get('firstName').setErrors({ noFirstName: true });
+        errors['noFirstName'] = true;
+      }
+      if (!control.get('lastName').value) {
+        control.get('lastName').setErrors({ noLastName: true });
+        errors['noLastName'] = true;
+      }
+    }
+    return errors;
+  }
+
 }
