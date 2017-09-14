@@ -24,9 +24,15 @@ export class LoginComponent implements OnInit {
     public authService: AuthService,
     private slimLoadingBarService: SlimLoadingBarService
   ) {
-    let email = localStorage.getItem('email') || '';
-    let password = localStorage.getItem('password') || '';
-    let remember = localStorage.getItem('email') ? true : false;
+    let email = '';
+    let password = '';
+    let remember = false;
+    if (localStorage.getItem('registration')) {
+      let registration = User.decode(localStorage.getItem('registration'));
+      email = registration.email;
+      password = registration.password;
+      remember = true;
+    }
     this.form = fb.group({
       'email': [email, Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': [password, Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -66,11 +72,9 @@ export class LoginComponent implements OnInit {
         (value) => {
           this.slimLoadingBarService.complete();
           if (values.remember) {
-            localStorage.setItem('email', values.email);
-            localStorage.setItem('password', values.password);
+            localStorage.setItem('registration', User.getScramble(values.email, values.password));
           } else {
-            localStorage.removeItem('email');
-            localStorage.removeItem('password');
+            localStorage.removeItem('registration');
           }
           let redirect = this.authService.redirectUrl || '/dashboard';
           this.authService.redirectUrl = null;

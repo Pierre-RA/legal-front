@@ -1,3 +1,5 @@
+import * as base64 from 'base-64';
+
 import { Serializable } from '../serialize';
 
 export class User implements Serializable<User> {
@@ -27,7 +29,15 @@ export class User implements Serializable<User> {
     }
   }
 
-  isValidEmail(): boolean {
-    return true;
+  static getScramble(email: string, password: string) {
+    return base64.encode(email) + '#' + base64.encode(password);
+  }
+
+  static decode(text: string) {
+    let array = text.split('#');
+    return {
+      email: base64.decode(array[0]),
+      password: base64.decode(array[1])
+    };
   }
 }
