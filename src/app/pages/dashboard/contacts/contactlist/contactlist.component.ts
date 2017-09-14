@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { IContact } from '../../../../logic/contact.interface';
+import { Contact } from '../../../../logic/contact';
 import { ContactsService } from '../../../../services/contacts.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { ContactsService } from '../../../../services/contacts.service';
 })
 export class ContactlistComponent implements OnInit {
 
-  list: Array<IContact>;
+  list: Array<Contact>;
   load: boolean;
   noList: boolean;
 

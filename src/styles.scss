@@ -3,6 +3,10 @@
 @import '../node_modules/font-awesome/scss/font-awesome';
 @import url('https://fonts.googleapis.com/css?family=Cinzel:700');
 
+/* flags */
+$flag-icon-css-path: '~flag-icon-css/flags' !default;
+@import '~flag-icon-css/sass/flag-icon';
+
 html, body {
   height: 100%;
   background-color: rgb(250,250,250);
