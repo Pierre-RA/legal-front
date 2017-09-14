@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
             localStorage.removeItem('password');
           }
           let redirect = this.authService.redirectUrl || '/dashboard';
+          this.authService.redirectUrl = null;
           this.router.navigate([redirect]);
         },
         err => {

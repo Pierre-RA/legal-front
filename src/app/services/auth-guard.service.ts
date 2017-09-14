@@ -16,30 +16,26 @@ export class AuthGuardService implements CanActivate {
   canActivate(
     router: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Promise<boolean> {
-    return new Promise(resolve => {
-      this.authService.isLoggedIn().subscribe(user => {
-        if (!user) {
-          this.authService.redirectUrl = state.url;
-          this.router.navigate(['/login']);
-        }
-        resolve(!!user);
-      });
+  ): Observable<boolean> {
+    return this.authService.isLoggedIn().map(user => {
+      if (!user) {
+        this.authService.redirectUrl = state.url;
+        this.router.navigate(['/login']);
+      }
+      return !!user;
     });
   }
 
   canActivateChild(
     router: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Promise<boolean> {
-    return new Promise(resolve => {
-      this.authService.isLoggedIn().subscribe(user => {
-        if (!user) {
-          this.authService.redirectUrl = state.url;
-          this.router.navigate(['/login']);
-        }
-        resolve(!!user);
-      });
+  ): Observable<boolean> {
+    return this.authService.isLoggedIn().map(user => {
+      if (!user) {
+        this.authService.redirectUrl = state.url;
+        this.router.navigate(['/login']);
+      }
+      return !!user;
     });
   }
 
