@@ -24,7 +24,7 @@ export class ContractsService {
 
   findAll(): Observable<Array<AbstractContract>> {
     return this.http.get(this.contractsURL, this.getOptions())
-      .map(this.extractData)
+      .map(this.extractContractList)
       .catch(this.handleError);
   }
 
@@ -81,6 +81,18 @@ export class ContractsService {
         return new LoanSimpleContract().deserialize(res);
     }
     return null;
+  }
+
+  extractContractList(response: Response): Array<AbstractContract> {
+    let result = [];
+    let data = response.json();
+    data.forEach(contract => {
+      switch(contract.type) {
+        case 0:
+          result.push(new LoanSimpleContract().deserialize(contract));
+      }
+    });
+    return result;
   }
 
   extractCount(response: Response) {
