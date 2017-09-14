@@ -1,0 +1,43 @@
+.card {
+  .top {
+    text-align: center;
+    font-size: 1.8em;
+  }
+  .title {
+    font-size: 1.5em;
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    color: rgba(0,0,0,0.7);
+  }
+  .fa,
+  .fa-gavel {
+    color: rgba(0,0,0,0.7);
+  }
+  .badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.1em;
+  }
+  margin-bottom: 10px;
+  position: relative;
+  cursor: pointer;
+}
+.all {
+  .card:hover {
+    background-color: rgb(250,250,250);
+    .fa,
+    .fa-gavel {
+      color: sienna;
+    }
+  }
+}
+.other {
+  .card:hover {
+    background-color: silver;
+    .fa,
+    .fa-gavel {
+      color: black;
+    }
+  }
+}

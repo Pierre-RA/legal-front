@@ -1,42 +1,167 @@
 <div class="white-background">
-  <div class="row">
-    <div class="col-sm-4">
-      <p>
-        1
-      </p>
+  <h2 *ngIf="all">Types de contrat</h2>
+  <div class="row all" *ngIf="all">
+    <div class="col-md-6 col-lg-4">
+      <div class="card" (click)="onTypeSelect(0)">
+        <p class="top">
+          <i class="fa fa-shield fa-4x" aria-hidden="true"></i>
+        </p>
+        <p class="title">
+          Droit criminel
+        </p>
+        <p class="badge badge-pill badge-primary">
+          0
+        </p>
+      </div>
     </div>
-    <div class="col-sm-4">
-      <p>
-        2
-      </p>
+    <div class="col-md-6 col-lg-4">
+      <div class="card" (click)="onTypeSelect(1)">
+        <p class="top">
+          <i class="fa fa-users fa-4x" aria-hidden="true"></i>
+        </p>
+        <p class="title">
+          Droit familial
+        </p>
+        <p class="badge badge-pill badge-primary">
+          0
+        </p>
+      </div>
     </div>
-    <div class="col-sm-4">
-      <p>
-        3
-      </p>
+    <div class="col-md-6 col-lg-4">
+      <div class="card" (click)="onTypeSelect(2)">
+        <p class="top">
+          <i class="fa fa-suitcase fa-4x" aria-hidden="true"></i>
+        </p>
+        <p class="title">
+          Droit industriel
+        </p>
+        <p class="badge badge-pill badge-primary">
+          0
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card" (click)="onTypeSelect(3)">
+        <p class="top">
+          <i class="fa fa-files-o fa-4x" aria-hidden="true"></i>
+        </p>
+        <p class="title">
+          Droit d'entreprise
+        </p>
+        <p class="badge badge-pill badge-primary">
+          1
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card" (click)="onTypeSelect(4)">
+        <p class="top">
+          <i class="fa fa-money fa-4x" aria-hidden="true"></i>
+        </p>
+        <p class="title">
+          Droit financier
+        </p>
+        <p class="badge badge-pill badge-primary">
+          0
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card" (click)="onTypeSelect(5)">
+        <p class="top">
+          <i class="fa fa-gavel fa-4x" aria-hidden="true"></i>
+        </p>
+        <p class="title">
+          Droit pénal
+        </p>
+        <p class="badge badge-pill badge-primary">
+          0
+        </p>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <p>
-        4
-      </p>
-    </div>
-    <div class="col-sm-4">
-      <p>
-        5
-      </p>
-    </div>
-    <div class="col-sm-4">
-      <p>
-        6
-      </p>
+
+  <div *ngIf="laws[0]">
+    <h2>Droit criminel</h2>
+    <p class="alert alert-danger text-center">
+      Aucun template trouvé
+    </p>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="onBack(0)">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Changer de type de contrats
+      </button>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-4 offset-sm-4">
-      <button class="btn btn-primary" (click)="onSelect(0)">
-        Contrat de prêt
+
+  <div *ngIf="laws[1]">
+    <h2>Droit familial</h2>
+    <p class="alert alert-danger text-center">
+      Aucun template trouvé
+    </p>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="onBack(1)">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Changer de type de contrats
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="laws[2]">
+    <h2>Droit industriel</h2>
+    <p class="alert alert-danger text-center">
+      Aucun template trouvé
+    </p>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="onBack(2)">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Changer de type de contrats
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="laws[3]">
+    <h2>Droit d'entreprise</h2>
+    <div class="row other">
+      <div class="col-md-6">
+        <div class="card" (click)="onSelect(0)">
+          <p class="title">
+            <i class="fa fa-files-o" aria-hidden="true"></i>
+            Contrat de prêt
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="onBack(3)">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Changer de type de contrats
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="laws[4]">
+    <h2>Droit financier</h2>
+    <p class="alert alert-danger text-center">
+      Aucun template trouvé
+    </p>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="onBack(4)">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Changer de type de contrats
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="laws[5]">
+    <h2>Droit pénal</h2>
+    <p class="alert alert-danger text-center">
+      Aucun template trouvé
+    </p>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="onBack(5)">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Changer de type de contrats
       </button>
     </div>
   </div>

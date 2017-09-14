@@ -8,10 +8,25 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class MenuComponent implements OnInit {
 
   @Output() selected: EventEmitter<number> = new EventEmitter();
+  all: boolean;
+  laws: Array<boolean>;
 
-  constructor() { }
+  constructor() {
+    this.all = true;
+    this.laws = [false, false, false, false, false, false];
+  }
 
   ngOnInit() {
+  }
+
+  onTypeSelect(item: number): void {
+    this.all = false;
+    this.laws[item] = true;
+  }
+
+  onBack(item: number): void {
+    this.all = true;
+    this.laws[item] = false;
   }
 
   onSelect(item: number): void {
