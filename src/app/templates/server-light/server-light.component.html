@@ -1,4 +1,8 @@
 <div class="led-box">
-  <div class="led-green" *ngIf="hasServerLoaded"></div>
-  <div class="led-red" *ngIf="!hasServerLoaded"></div>
+  <div class="led-green" *ngIf="hasServerLoaded">
+    <i class="fa fa-check-circle" aria-hidden="true"></i>
+  </div>
+  <div class="led-red" *ngIf="!hasServerLoaded">
+    <i class="fa fa-times-circle" aria-hidden="true"></i>
+  </div>
 </div>
