@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { saveAs as importedSaveAs } from 'file-saver';
 
-import { IContract } from '../../../../logic/contract.interface';
-import { Contract } from '../../../../logic/contract';
+import { AbstractContract } from '../../../../contracts/';
 import { ContractsService } from '../../../../services/contracts.service';
 
 @Component({
@@ -12,7 +11,7 @@ import { ContractsService } from '../../../../services/contracts.service';
 })
 export class ContractlistComponent implements OnInit {
 
-  contracts: Array<Contract>;
+  contracts: Array<AbstractContract>;
   load: boolean;
   noList: boolean;
 
@@ -25,9 +24,7 @@ export class ContractlistComponent implements OnInit {
       .subscribe(
         data => {
           this.load = false;
-          data.forEach(contract => {
-            this.contracts.push(new Contract().deserialize(contract));
-          });
+          this.contracts = data;
           this.noList = this.contracts.length == 0;
         },
         err => {
