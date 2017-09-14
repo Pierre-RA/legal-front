@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { format, parse, CountryCode } from 'libphonenumber-js';
 
-import { IContact } from '../../../../logic/contact.interface';
+import { countries, Country } from '../../../../logic/countries';
+import { Contact, Phone } from '../../../../logic/contact';
 import { ContactsService } from '../../../../services/contacts.service';
 
 @Component({
@@ -13,12 +14,13 @@ import { ContactsService } from '../../../../services/contacts.service';
 })
 export class EditComponent implements OnInit {
 
-  editForm: FormGroup;
-  contact: IContact;
+  form: FormGroup;
+  contact: Contact;
   edit: boolean;
   message: string;
   messageType: string;
   id: string;
+  countries: Array<Country>;
 
   constructor(
     private fb: FormBuilder,
@@ -26,35 +28,21 @@ export class EditComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.contact = {
-      _id: '',
-      type: this.activatedRoute.snapshot.queryParams['type'] || 'physical',
-      email: '',
-      phone: {
-        country: 'CH',
-        phone: '799646355',
-      },
-      firstName: '',
-      lastName: '',
-      reason: '',
-      isMale: false,
-      address: {
-        line1: '',
-        line2: '',
-        line3: '',
-        postCode: '',
-        city: '',
-        province: '',
-        country: ''
-      }
-    };
+    let type = this.activatedRoute.snapshot.queryParams['type'] || 'physical';
+    this.contact = Contact.getDefaultContact(type);
     this.edit = this.activatedRoute.snapshot.data['edit'] == 'true';
+    this.countries = countries;
+  }
+
+  ngOnInit() {
+    this.buildForm();
+    this.fillForm();
     if (this.edit) {
       this.id = this.activatedRoute.snapshot.params['id'];
       this.contactsService.findOne(this.id)
         .subscribe(data => {
-          data.phone.phone = format(data.phone.phone, data.phone.country as CountryCode, 'National');
-          this.editForm.patchValue(data);
+          this.contact = data;
+          this.fillForm();
           this.onContactTypeChange(data.type);
         }, err => {
           console.error(err);
@@ -62,8 +50,12 @@ export class EditComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.editForm = this.fb.group({
+  onContactTypeChange(entry): void {
+    this.contact.type = entry;
+  }
+
+  buildForm(): void {
+    this.form = this.fb.group({
       type: [this.contact.type, Validators.required],
       email: [this.contact.email],
       phone: this.fb.group({
@@ -73,7 +65,7 @@ export class EditComponent implements OnInit {
       firstName: [this.contact.firstName],
       lastName: [this.contact.lastName],
       reason: [this.contact.reason],
-      isMale: [this.contact.isMale],
+      gender: [this.contact.gender],
       address: this.fb.group({
         line1: [this.contact.address.line1, Validators.required],
         line2: [this.contact.address.line2],
@@ -86,12 +78,19 @@ export class EditComponent implements OnInit {
     });
   }
 
-  onContactTypeChange(entry): void {
-    this.contact.type = entry;
+  fillForm(): void {
+    if (this.contact.phone) {
+      this.contact.phone.phone = format(this.contact.phone.phone, this.contact.phone.country as CountryCode, 'National');
+    } else {
+      this.contact.phone = new Phone().deserialize({
+        country: '',
+        phone: ''
+      });
+    }
+    this.form.patchValue(this.contact);
   }
 
   onSubmit(value) {
-    console.log(value);
     value.phone = parse(value.phone.phone, value.phone.country);
     if (this.edit) {
       this.editContact(value);

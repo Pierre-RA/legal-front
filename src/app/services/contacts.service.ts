@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 
 import { environment } from '../../environments/environment';
-import { IContact } from '../logic/contact.interface';
 import { Contact } from '../logic/contact';
 
 @Injectable()
@@ -26,9 +25,9 @@ export class ContactsService {
       .catch(this.handleError);
   }
 
-  findOne(id: string): Observable<IContact> {
+  findOne(id: string): Observable<Contact> {
     return this.http.get(this.contactsURL + '/' + id, this.getOptions())
-      .map(this.extractData)
+      .map(this.extractContact)
       .catch(this.handleError);
   }
 
@@ -39,15 +38,15 @@ export class ContactsService {
       .catch(this.handleError);
   }
 
-  create(contact: IContact): Observable<Contact> {
+  create(contact: Contact): Observable<Contact> {
     return this.http.post(this.contactsURL, contact, this.getOptions())
       .map(this.extractContact)
       .catch(this.handleError);
   }
 
-  update(contact: IContact, id: string): Observable<Contact> {
+  update(contact: Contact, id: string): Observable<Contact> {
     return this.http.put(this.contactsURL + '/' + id, contact, this.getOptions())
-      .map(this.extractData)
+      .map(this.extractContact)
       .catch(this.handleError);
   }
 

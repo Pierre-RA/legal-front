@@ -6,7 +6,7 @@
     {{message}}
   </div>
 
-  <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
     <fieldset class="form-group">
       <legend>Type de contact</legend>
       <div class="form-check">
@@ -62,11 +62,10 @@
             <input
               type="radio"
               class="form-check-input"
-              name="isMale"
-              formControlName="isMale"
+              formControlName="gender"
               id="male"
-              value="true"
-              [checked]="contact.isMale">
+              value="male"
+              [checked]="contact.gender == 'male'">
             Homme
           </label>
         </div>
@@ -75,11 +74,10 @@
           <input
             type="radio"
             class="form-check-input"
-            name="isMale"
-            formControlName="isMale"
+            formControlName="gender"
             id="female"
-            value="false"
-            [checked]="!contact.isMale">
+            value="female"
+            [checked]="contact.gender == 'female'">
             Femme
           </label>
         </div>
@@ -117,8 +115,15 @@
       <div class="col-md-6">
         <label for="phone">Téléphone</label>
         <div class="input-group mb-2 mr-sm-2 mb-sm-0" formGroupName="phone">
-          <input type="text" class="form-control" formControlName="country">
-          <input type="phone" class="form-control" id="phone" placeholder="Téléphone" formControlName="phone">
+          <select formControlName="country">
+            <option value="">-- pays --</option>
+            <option *ngFor="let c of countries"
+              [value]="c.code"
+              [selected]="c.code == form.get('phone.country').value">
+              {{c.name}}
+            </option>
+          </select>
+          <input type="phone" class="form-control col-sm-10" id="phone" placeholder="Téléphone" formControlName="phone">
         </div>
       </div>
       <div class="col-md-6">
@@ -126,7 +131,7 @@
         <input type="email" class="form-control" id="email" placeholder="Email" name="email" formControlName="email">
       </div>
     </div>
-    <button type="submit" class="btn btn-primary" *ngIf="!edit" [disabled]="!editForm.valid">Ajouter</button>
-    <button type="submit" class="btn btn-primary" *ngIf="edit" [disabled]="!editForm.valid">Mettre à jour</button>
+    <button type="submit" class="btn btn-primary" *ngIf="!edit" [disabled]="!form.valid">Ajouter</button>
+    <button type="submit" class="btn btn-primary" *ngIf="edit" [disabled]="!form.valid">Mettre à jour</button>
   </form>
 </div>

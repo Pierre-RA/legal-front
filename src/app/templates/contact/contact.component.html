@@ -1,31 +1,33 @@
-<div class="contact {{ contactExtended.getType()}} {{selectedClass}}" (click)="onClick()">
+<div class="contact {{ contact.getType()}} {{selectedClass}}" (click)="onClick()">
   <div class="row">
     <div class="col-sm-12">
       <h4>
-        <i class="fa fa-user-circle" aria-hidden="true"></i> {{ contactExtended.getName() }}
+        <i class="fa fa-user-circle {{contact.getGender()}}" aria-hidden="true"></i> {{ contact.getName() }}
       </h4>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-6">
       <i class="fa fa-fw fa-phone" aria-hidden="true"></i>
-      <span *ngIf="contactExtended.getPhone()">{{ contactExtended.getPhone() | phone }}</span><br />
-      <i class="fa fa-fw fa-at" aria-hidden="true"></i> {{ contactExtended.getEmail() }}<br />
-      <span *ngIf="contactExtended.getType() === 'physical'">
+      <span *ngIf="contact.getPhone()">{{ contact.getPhone() | phone }}</span><br />
+      <i class="fa fa-fw fa-at" aria-hidden="true"></i> {{ contact.getEmail() }}<br />
+      <span *ngIf="contact.getType() === 'physical'">
         <i class="fa fa-fw fa-user" aria-hidden="true"></i>
         Personne physique
       </span>
-      <span *ngIf="contactExtended.getType() === 'moral'">
+      <span *ngIf="contact.getType() === 'moral'">
         <i class="fa fa-fw fa-university" aria-hidden="true"></i>
         Personne morale
-      </span>
+      </span><br />
+      &nbsp;<br />
+      &nbsp;<br />
     </div>
     <div class="col-sm-6">
-      <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contactExtended.getAddress().getLine1() }}<br />
-      <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contactExtended.getAddress().getLine2() }}<br />
-      <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contactExtended.getAddress().getLine3() }}<br />
-      <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contactExtended.getAddress().getPlace() }}<br />
-      <i class="fa fa-globe" aria-hidden="true"></i> {{ contactExtended.getAddress().getCountry() }}
+      <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contact.getAddress().getLine1() }}<br />
+      <span *ngIf="contact.getAddress().getLine2()"><i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contact.getAddress().getLine2() }}<br /></span>
+      <span *ngIf="contact.getAddress().getLine3()"><i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contact.getAddress().getLine3() }}<br /></span>
+      <i class="fa fa-address-book-o" aria-hidden="true"></i> {{ contact.getAddress().getPlace() }}<br />
+      <i class="fa fa-globe" aria-hidden="true"></i> {{ contact.getAddress().getCountry() }}
     </div>
   </div>
   <div class="ribbon"></div>

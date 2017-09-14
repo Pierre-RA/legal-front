@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { IContact } from '../../../../logic/contact.interface';
+import { Contact } from '../../../../logic/contact';
 import { ContactsService } from '../../../../services/contacts.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { ContactsService } from '../../../../services/contacts.service';
 })
 export class ContactComponent implements OnInit {
 
-  contact: IContact;
+  contact: Contact;
   id: string;
 
   constructor(
