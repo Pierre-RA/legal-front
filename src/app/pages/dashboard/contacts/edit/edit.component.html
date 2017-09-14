@@ -42,18 +42,24 @@
     <div *ngIf="contact.type === 'physical'">
       <div class="form-group row">
         <div class="col-md-6">
-          <label for="lastName">Nom</label>
-          <input type="text" class="form-control" id="lastName"
-            placeholder="Nom"
-            name="lastName"
-            formControlName="lastName">
+          <label for="firstName">Prénom</label>
+          <div class="input-group" [ngClass]="{'has-success': form.get('firstName').valid,'has-warning': !form.get('firstName').valid}">
+            <input type="text" class="form-control" id="firstName"
+              placeholder="Prénom"
+              name="firstName"
+              formControlName="firstName"
+              [ngClass]="{'form-control-success': form.get('firstName').valid}">
+          </div>
         </div>
         <div class="col-md-6">
-          <label for="firstName">Prénom</label>
-          <input type="text" class="form-control" id="firstName"
-            placeholder="Prénom"
-            name="firstName"
-            formControlName="firstName">
+          <label for="lastName">Nom</label>
+          <div class="input-group" [ngClass]="{'has-success': form.get('lastName').valid,'has-warning': !form.get('lastName').valid}">
+            <input type="text" class="form-control" id="lastName"
+              placeholder="Nom"
+              name="lastName"
+              formControlName="lastName"
+              [ngClass]="{'form-control-success': form.get('lastName').valid}">
+          </div>
         </div>
       </div>
       <fieldset class="form-group">
@@ -81,14 +87,27 @@
             Femme
           </label>
         </div>
+        <span class="has-warning" *ngIf="!form.get('gender').valid">
+          <span class="form-control-feedback">
+            <i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"></i>
+          </span>
+        </span>
+        <span class="has-success" *ngIf="form.get('gender').valid">
+          <span class="form-control-feedback">
+            <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+          </span>
+        </span>
       </fieldset>
     </div>
     <div *ngIf="contact.type === 'moral'">
       <div class="form-group">
         <label for="reason">Raison</label>
-        <input type="text" class="form-control" id="reason" placeholder="Raison"
-          name="reason"
-          formControlName="reason">
+        <div class="input-group" [ngClass]="{'has-success': form.get('reason').valid,'has-warning': !form.get('reason').valid}">
+          <input type="text" class="form-control" id="reason" placeholder="Raison"
+            name="reason"
+            formControlName="reason"
+            [ngClass]="{'form-control-success': form.get('reason').valid}">
+        </div>
       </div>
       <div class="span-form-name">
       </div>
@@ -96,17 +115,48 @@
 
     <div class="form-group">
       <label for="exampleInputEmail1">Adresse</label>
-      <div class="row" formGroupName="address">
+      <div class="row address" formGroupName="address">
         <div class="col-md-6">
-          <input type="text" class="form-control" id="line1" placeholder="première ligne - e.g. C/O Paul Chappuis" name="line1" formControlName="line1">
-          <input type="text" class="form-control" id="line2" placeholder="seconde ligne - e.g. route de Lancy, 89" name="line2" formControlName="line2">
-          <input type="text" class="form-control" id="line3" placeholder="troisième ligne - e.g. Case postale 3365" name="line3" formControlName="line3">
+          <div class="input-group" [ngClass]="{'has-success': form.get('address.line1').valid,'has-warning': !form.get('address.line1').valid}">
+            <input type="text" class="form-control"
+              placeholder="première ligne - e.g. C/O Paul Chappuis"
+              formControlName="line1"
+              [ngClass]="{'form-control-success': form.get('address.line1').valid}">
+          </div>
+
+          <div class="input-group">
+            <input type="text" class="form-control" id="line2" placeholder="seconde ligne - e.g. route de Lancy, 89" name="line2" formControlName="line2">
+          </div>
+
+          <div class="input-group">
+            <input type="text" class="form-control" id="line3" placeholder="troisième ligne - e.g. Case postale 3365" name="line3" formControlName="line3">
+          </div>
         </div>
+
         <div class="col-md-6">
-          <input type="text" class="form-control" id="postCode" placeholder="code postal" name="postCode" formControlName="postCode">
-          <input type="text" class="form-control" id="city" placeholder="ville" name="city" formControlName="city">
-          <input type="text" class="form-control" id="province" placeholder="province" name="province" formControlName="province">
-          <input type="text" class="form-control" id="country" placeholder="pays" name="country" formControlName="country">
+          <div class="input-group" [ngClass]="{'has-success': form.get('address.postCode').valid,'has-warning': !form.get('address.postCode').valid}">
+            <input type="text" class="form-control"
+              placeholder="code postal" name="postCode" formControlName="postCode"
+              [ngClass]="{'form-control-success': form.get('address.postCode').valid}">
+          </div>
+
+          <div class="input-group" [ngClass]="{'has-success': form.get('address.city').valid,'has-warning': !form.get('address.city').valid}">
+            <input type="text" class="form-control"
+              placeholder="ville" name="city" formControlName="city"
+              [ngClass]="{'form-control-success': form.get('address.city').valid}">
+          </div>
+
+          <div class="input-group">
+            <input type="text" class="form-control"
+            placeholder="province" name="province" formControlName="province"
+            [ngClass]="{'form-control-success': form.get('address.province').valid}">
+          </div>
+
+          <div class="input-group" [ngClass]="{'has-success': form.get('address.country').valid,'has-warning': !form.get('address.country').valid}">
+            <input type="text" class="form-control"
+            placeholder="pays" name="country" formControlName="country"
+            [ngClass]="{'form-control-success': form.get('address.country').valid}">
+          </div>
         </div>
       </div>
     </div>
@@ -133,5 +183,11 @@
     </div>
     <button type="submit" class="btn btn-primary" *ngIf="!edit" [disabled]="!form.valid">Ajouter</button>
     <button type="submit" class="btn btn-primary" *ngIf="edit" [disabled]="!form.valid">Mettre à jour</button>
+    <span class="has-warning" *ngIf="!form.valid">
+      <span class="form-control-feedback">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        Veuillez remplir tous les champs en jaune.
+      </span>
+    </span>
   </form>
 </div>

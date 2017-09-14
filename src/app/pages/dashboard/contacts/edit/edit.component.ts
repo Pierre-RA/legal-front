@@ -6,6 +6,7 @@ import { format, parse, CountryCode } from 'libphonenumber-js';
 import { countries, Country } from '../../../../logic/countries';
 import { Contact, Phone } from '../../../../logic/contact';
 import { ContactsService } from '../../../../services/contacts.service';
+import { ValidationService } from '../../../../services/validation.service';
 
 @Component({
   selector: 'contact-edit',
@@ -75,6 +76,8 @@ export class EditComponent implements OnInit {
         province: [this.contact.address.province],
         country: [this.contact.address.country, Validators.required]
       }),
+    }, {
+      validator: ValidationService.contactValidator
     });
   }
 
