@@ -1,21 +1,27 @@
 <div class="white-background">
   <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="mb-5">
-  <ngb-tabset justify="justified">
+  <ngb-tabset justify="justified" #t="ngbTabset">
 
-  <ngb-tab title="Préambule">
+  <ngb-tab id="preambule" title="Préambule">
     <ng-template ngbTabContent>
+      <div class="header">
+        <h2>Préambule</h2>
+      </div>
+
       <div class="row justify-content-md-center">
         <div class="col-md-10">
-          <label for="title">Nom du dossier</label>
-          <input type="text" class="form-control" id="title"
-            placeholder="Nom du dossier"
-            name="title"
-            formControlName="title">
+          <div class="card">
+            <h3>Nom du dossier</h3>
+            <input type="text" class="form-control" id="title"
+              placeholder="Nom du dossier"
+              name="title"
+              formControlName="title">
+          </div>
         </div>
       </div>
-      <div class="row mt-3">
-        <div class="col-xl-6">
-          <div class="card">
+      <div class="row mt-3 justify-content-md-center">
+        <div class="col-sm-10 col-xl-5">
+          <div class="card mt-3">
             <h2 class="text-center">Prêteur</h2>
             <template-contact [(contact)]="contract.lender" *ngIf="contract.lender"></template-contact>
             <p *ngIf="!contract.lender" class="text-center">
@@ -32,8 +38,8 @@
             </p>
           </div>
         </div>
-        <div class="col-xl-6">
-          <div class="card">
+        <div class="col-sm-10 col-xl-5">
+          <div class="card mt-3">
             <h2 class="text-center">Emprunteur</h2>
             <template-contact [(contact)]="contract.borrower" *ngIf="contract.borrower"></template-contact>
             <p *ngIf="!contract.borrower" class="text-center">
@@ -51,11 +57,20 @@
           </div>
         </div>
       </div>
+      <div class="footer">
+        <button class="btn btn-danger">
+          Annuler
+        </button>
+      </div>
     </ng-template>
   </ngb-tab>
 
-  <ngb-tab title="Article 1 & 2">
+  <ngb-tab title="Article 1, 2 & 3" id="article-1-2">
     <ng-template ngbTabContent>
+      <div class="header">
+        <h2>Article 1, 2 & 3</h2>
+      </div>
+
       <div class="row mt-3">
         <div class="col-md-12">
           <div class="card" formGroupName="loan">
@@ -175,63 +190,144 @@
           <button type="submit" class="btn btn-primary" *ngIf="isEditing()" [disabled]="!form.valid">Mettre à jour</button>
         </div>
       </div>
+
+      <div class="footer">
+        <button class="btn btn-danger">
+          Annuler
+        </button>
+      </div>
     </ng-template>
   </ngb-tab>
 
-  <ngb-tab title="Article 3">
+  <ngb-tab title="Article 4" id="article-4">
     <ng-template ngbTabContent>
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+      <div class="header">
+        <h2>Article 4</h2>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-sm-8">
+          <p class="alert alert-danger">
+            Article pas encore fonctionnel
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button class="btn btn-danger">
+          Annuler
+        </button>
+      </div>
     </ng-template>
   </ngb-tab>
-  <ngb-tab title="Article 4">
+
+  <ngb-tab title="Article 5" id="article-5">
     <ng-template ngbTabContent>
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+      <div class="header">
+        <h2>Article 5</h2>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-sm-8">
+          <p class="alert alert-danger">
+            Article pas encore fonctionnel
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button class="btn btn-danger">
+          Annuler
+        </button>
+      </div>
     </ng-template>
   </ngb-tab>
-  <ngb-tab title="Article 5">
+
+  <ngb-tab title="Article 6" id="article-6">
     <ng-template ngbTabContent>
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+      <div class="header">
+        <h2>Article 6</h2>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-sm-8">
+          <p class="alert alert-danger">
+            Article pas encore fonctionnel
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button class="btn btn-danger">
+          Annuler
+        </button>
+      </div>
     </ng-template>
   </ngb-tab>
-  <ngb-tab title="Article 6">
+
+  <ngb-tab title="Article 7" id="article-7">
     <ng-template ngbTabContent>
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+      <div class="header">
+        <h2>Article 7</h2>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-sm-8">
+          <p class="alert alert-danger">
+            Article pas encore fonctionnel
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button class="btn btn-danger">
+          Annuler
+        </button>
+      </div>
     </ng-template>
   </ngb-tab>
-  <ngb-tab title="Article 7">
+
+  <ngb-tab title="Article 8" id="article-8">
     <ng-template ngbTabContent>
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+      <div class="header">
+        <h2>Article 8</h2>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-sm-8">
+          <p class="alert alert-danger">
+            Article pas encore fonctionnel
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button class="btn btn-danger">
+          Annuler
+        </button>
+      </div>
     </ng-template>
   </ngb-tab>
-  <ngb-tab title="Article 8">
+
+  <ngb-tab title="Signature" id="signature">
     <ng-template ngbTabContent>
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-    </ng-template>
-  </ngb-tab>
-  <ngb-tab title="Signature">
-    <ng-template ngbTabContent>
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+      <div class="header">
+        <h2>Signature</h2>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="col-sm-8">
+          <p class="alert alert-danger">
+            Article pas encore fonctionnel
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button class="btn btn-danger">
+          Annuler
+        </button>
+      </div>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>
