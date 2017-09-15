@@ -14,6 +14,10 @@ export class MenuComponent implements OnInit {
   constructor() {
     this.all = true;
     this.laws = [false, false, false, false, false, false];
+    if (localStorage.getItem('menuItem')) {
+      this.all = false;
+      this.laws[Number.parseInt(localStorage.getItem('menuItem'))] = true;
+    }
   }
 
   ngOnInit() {
@@ -22,14 +26,17 @@ export class MenuComponent implements OnInit {
   onTypeSelect(item: number): void {
     this.all = false;
     this.laws[item] = true;
+    localStorage.setItem('menuItem', item + '');
   }
 
   onBack(item: number): void {
     this.all = true;
     this.laws[item] = false;
+    localStorage.removeItem('menuItem');
   }
 
   onSelect(item: number): void {
+    localStorage.removeItem('menuItem');
     this.selected.emit(item);
   }
 
