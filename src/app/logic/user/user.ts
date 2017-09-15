@@ -9,6 +9,7 @@ export class User implements Serializable<User> {
   id: number;
   isAdmin: boolean;
   image: string;
+  subscription: Subscription;
 
   constructor() {}
 
@@ -40,4 +41,15 @@ export class User implements Serializable<User> {
       password: base64.decode(array[1])
     };
   }
+}
+
+export class Subscription implements Serializable<Subscription> {
+
+  plan: string;
+
+  deserialize(input: any): this {
+    this.plan = input.plan;
+    return this;
+  }
+
 }
