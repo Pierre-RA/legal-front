@@ -2,6 +2,8 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
+import { Subscription } from "rxjs/Subscription";
+
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../logic/user/user';
 
@@ -13,8 +15,9 @@ import { User } from '../../logic/user/user';
 })
 export class TopComponent implements OnInit {
 
-  title: string = 'Legal';
+  title: string;
   user: User;
+  subscription: Subscription;
 
   constructor(
     public authService: AuthService,
@@ -24,17 +27,21 @@ export class TopComponent implements OnInit {
   ) {
     this.title = 'Legal';
     this.user = null;
-    this.authService.getUser().subscribe(user => {
-      this.user = user;
-    });
   }
 
   ngOnInit() {
+    this.subscription = this.authService.getUser().subscribe(user => {
+      this.user = user;
+    });
   }
 
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

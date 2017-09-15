@@ -1,0 +1,84 @@
+export interface Canton {
+  name: string;
+  code: string;
+}
+
+export const cantons: Array<Canton> = [{
+  name: 'Appenzel Rhodes-Extérieures',
+  code: 'AR'
+}, {
+  name: 'Appenzel Rhodes-Intérieures',
+  code: 'AI'
+}, {
+  name: 'Argovie',
+  code: 'AG'
+}, {
+  name: 'Bâle-Campagne',
+  code: 'BL'
+}, {
+  name: 'Bâle-Ville',
+  code: 'BS'
+}, {
+  name: 'Berne',
+  code: 'BE'
+}, {
+  name: 'Fribourg',
+  code: 'FR'
+}, {
+  name: 'Genève',
+  code: 'GE'
+}, {
+  name: 'Glaris',
+  code: 'GL'
+}, {
+  name: 'Grisons',
+  code: 'GR'
+}, {
+  name: 'Jura',
+  code: 'JU'
+}, {
+  name: 'Lucerne',
+  code: 'LU'
+}, {
+  name: 'Neuchâtel',
+  code: 'NE'
+}, {
+  name: 'Nidwald',
+  code: 'NW'
+}, {
+  name: 'Obwald',
+  code: 'OW'
+}, {
+  name: 'Saint-Gall',
+  code: 'SG'
+}, {
+  name: 'Schaffhouse',
+  code: 'SH'
+}, {
+  name: 'Schwytz',
+  code: 'SZ'
+}, {
+  name: 'Soleure',
+  code: 'SO'
+}, {
+  name: 'Tessin',
+  code: 'TI'
+}, {
+  name: 'Thurgovie',
+  code: 'TG'
+}, {
+  name: 'Uri',
+  code: 'UR'
+}, {
+  name: 'Valais',
+  code: 'VS'
+}, {
+  name: 'Vaud',
+  code: 'VD'
+}, {
+  name: 'Zoug',
+  code: 'ZG'
+}, {
+  name: 'Zurich',
+  code: 'ZH'
+}];

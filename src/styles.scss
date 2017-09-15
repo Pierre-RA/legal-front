@@ -3,6 +3,10 @@
 @import '../node_modules/font-awesome/scss/font-awesome';
 @import url('https://fonts.googleapis.com/css?family=Cinzel:700');
 
+/* flags */
+$flag-icon-css-path: '~flag-icon-css/flags' !default;
+@import '~flag-icon-css/sass/flag-icon';
+
 html, body {
   height: 100%;
   background-color: rgb(250,250,250);
@@ -46,4 +50,33 @@ h1, h2, h3 {
   padding: 30px 10px;
   border-radius: 10px;
   margin-bottom: 50px;
+}
+
+.nav-tabs {
+  a {
+    margin-right: 0.25em;
+    color: #fff;
+    background-color: #18BC9C;
+    border-color: #18BC9C;
+    &.active {
+      border-color: #18BC9C;
+      color: #18BC9C;
+      background-color: #fff;
+    }
+  }
+  .nav-link.disabled {
+    background-color: rgba(24,188,156,0.7);
+    border-color: #18BC9C;
+  }
+}
+.tab-content {
+  border: #ddd solid 1px;
+  border-radius: 0 10px 10px 10px;
+  background: #eee;
+}
+
+@media (min-width: 776px) {
+  .modal-dialog {
+    max-width: 700px;
+  }
 }

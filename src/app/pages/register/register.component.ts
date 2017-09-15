@@ -61,8 +61,9 @@ export class RegisterComponent implements OnInit {
       .subscribe(value => {
         this.router.navigate(['/dashboard']);
       }, err => {
+        let message = err.message || 'La connection au serveur a échoué.';
         this.setMessage(
-          'Connection to server failed.',
+          message,
           'danger'
         );
       });

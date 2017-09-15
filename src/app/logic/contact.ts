@@ -1,7 +1,6 @@
 import { Serializable } from './serialize';
-import { IContact } from './contact.interface';
 
-export default class Contact implements IContact, Serializable<Contact> {
+export class Contact implements Serializable<Contact> {
   _id: string;
   type: string;
   email: string;
@@ -9,7 +8,7 @@ export default class Contact implements IContact, Serializable<Contact> {
   firstName: string;
   lastName: string;
   reason: string;
-  isMale: boolean;
+  gender: string;
   address: Address;
   constructor() {}
 
@@ -22,7 +21,7 @@ export default class Contact implements IContact, Serializable<Contact> {
     if (this.type === 'physical') {
       this.lastName = input.lastName;
       this.firstName = input.firstName;
-      this.isMale = input.isMale;
+      this.gender = input.gender;
     } else {
       this.reason = input.reason;
     }
@@ -48,14 +47,26 @@ export default class Contact implements IContact, Serializable<Contact> {
   }
 
   getCivility(): string {
-    return this.isMale ? 'Monsieur' : 'Madame';
+    if (this.gender == 'male') {
+      return 'Monsieur';
+    }
+    if (this.gender == 'female') {
+      return 'Madame';
+    }
+    return 'N/A';
   }
 
-  getAddressPrefix(): String {
-    return this.isMale ? 'domicilié' : 'domiciliée';
+  getAddressPrefix(): string {
+    if (this.gender == 'male') {
+      return 'domicilié';
+    }
+    if (this.gender == 'female') {
+      return 'domiciliée';
+    }
+    return 'N/A';
   }
 
-  getName(): String {
+  getName(): string {
     return this.type === 'physical' ? this.firstName + ' ' + this.lastName : this.reason;
   }
 
@@ -63,16 +74,53 @@ export default class Contact implements IContact, Serializable<Contact> {
     return this.phone;
   }
 
-  getEmail(): String {
+  getEmail(): string {
     return this.email;
   }
 
-  getType(): String {
+  getType(): string {
     return this.type;
   }
 
-  getId(): String {
+  getId(): string {
     return this._id;
+  }
+
+  getGender(): string {
+    return this.gender;
+  }
+
+  static getDefaultContact(type: string): Contact {
+    return new Contact().deserialize({
+      _id: '',
+      type: type,
+      email: '',
+      phone: {
+        country: '',
+        phone: '',
+      },
+      isMale: null,
+      firstName: '',
+      lastName: '',
+      reason: '',
+      address: {
+        line1: '',
+        line2: '',
+        line3: '',
+        postCode: '',
+        city: '',
+        province: '',
+        country: ''
+      }
+    });
+  }
+
+  static getContactList(input: Array<any>): Array<Contact> {
+    let result: Array<Contact> = [];
+    input.forEach(item => {
+      result.push(new Contact().deserialize(item));
+    });
+    return result;
   }
 }
 
@@ -83,7 +131,7 @@ export class Phone implements Serializable<Phone> {
   constructor() {}
 
   deserialize(input: any) {
-    this.country = input.country || 'CH';
+    this.country = input.country || '';
     this.phone = input.phone;
     return this;
   }

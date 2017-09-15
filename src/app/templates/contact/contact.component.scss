@@ -21,6 +21,12 @@
   }
 }
 
+.contact:hover {
+  border-color: gold;
+  background-color: rgb(250,250,250);
+  cursor: pointer;
+}
+
 .moral {
   .fa-university {
     color: goldenrod;
@@ -41,4 +47,12 @@
 
 .selected-grey {
   background-color: rgba(50,50,150,0.1);
+}
+
+.male {
+  color: skyblue;
+}
+
+.female {
+  color: pink;
 }

@@ -1,11 +1,15 @@
 <h1>Contact</h1>
 
 <div class="white-background">
-  <p class="text-center">
-    <a [routerLink]="['/dashboard/contacts/edit', id]">
+  <p class="text-right">
+    <a [routerLink]="['/dashboard/contacts/edit', id]" class="btn btn-warning">
       <i class="fa fa-pencil" aria-hidden="true"></i>
-      Éditer le contact
+      Éditer
     </a>
+    <button class="btn btn-danger" (click)="open(content)">
+      <i class="fa fa-trash" aria-hidden="true"></i>
+      Supprimer
+    </button>
   </p>
 
   <template-contact [contact]="contact" *ngIf="contact"></template-contact>
@@ -17,3 +21,17 @@
     </a>
   </p>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Souhaitez-vous retirer ce contact</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="d('Close click')">Annuler</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Retirer</button>
+  </div>
+</ng-template>

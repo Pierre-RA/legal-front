@@ -3,3 +3,14 @@
   width: 70px;
   clear: both;
 }
+
+.address {
+  input {
+    margin-bottom: 4px;
+  }
+}
+
+.form-control-feedback {
+  margin-left: 20px;
+  text-shadow: 1px 1px 10px rgba(255,255,255,1);
+}
