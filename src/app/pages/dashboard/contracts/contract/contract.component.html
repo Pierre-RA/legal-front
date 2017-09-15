@@ -1,12 +1,30 @@
 <ng-template #contractContainer></ng-template>
 
 <div class="top-bar" *ngIf="contract">
-  <a class="btn btn-warning" [routerLink]="['/dashboard/contracts/edit', id]">
-    <i class="fa fa-pencil" aria-hidden="true"></i>
-    Modifier
-  </a>
   <a class="btn btn-primary" [routerLink]="['/dashboard/contracts/', id]" (click)="export(contract.getId(), contract.getExportTitle())">
     <i class="fa fa-file-word-o" aria-hidden="true"></i>
     Exporter
   </a>
+  <a class="btn btn-warning" [routerLink]="['/dashboard/contracts/edit', id]">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+    Modifier
+  </a>
+  <button class="btn btn-danger" (click)="open(content)">
+    <i class="fa fa-trash" aria-hidden="true"></i>
+    Supprimer
+  </button>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Souhaitez-vous supprimer ce contrat</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="d('Close click')">Annuler</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Supprimer</button>
+  </div>
+</ng-template>

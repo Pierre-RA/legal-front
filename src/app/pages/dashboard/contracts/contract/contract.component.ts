@@ -8,7 +8,8 @@ import {
   ComponentFactory,
   ComponentRef
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { saveAs as importedSaveAs } from 'file-saver';
 
 import { LoanSimpleDisplayComponent, LoanSimpleContract } from '../../../../contracts/loan-simple';
@@ -28,9 +29,11 @@ export class ContractComponent implements OnInit {
   componentRef: ComponentRef<any>;
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private resolver: ComponentFactoryResolver,
-    private contractsService: ContractsService
+    private contractsService: ContractsService,
+    private modalService: NgbModal
   ) {
     this.id = this.activatedRoute.snapshot.params['id'];
     this.contractsService.findOne(this.id)
@@ -55,6 +58,19 @@ export class ContractComponent implements OnInit {
 
   ngOnDestroy() {
     this.componentRef.destroy();
+  }
+
+  onDrop() {
+    this.contractsService.delete(this.id)
+      .subscribe(data => {
+        this.router.navigate(['/dashboard/contracts']);
+      });
+  }
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.onDrop();
+    }, dismissed => {});
   }
 
   export(id: string, title: string) {
