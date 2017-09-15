@@ -117,7 +117,7 @@ export class LoanSimpleFormComponent implements OnInit {
         amount: [this.contract.loan.amount, Validators.required],
         totalAmount: [0],
         currency: [this.contract.loan.currency, Validators.required],
-        interest: [this.contract.loan.interest, Validators.required],
+        interest: [this.contract.loan.interest],
         goal: [this.contract.loan.goal],
         hasGoal: [this.contract.loan.hasGoal],
         payoff: this.fb.array(
