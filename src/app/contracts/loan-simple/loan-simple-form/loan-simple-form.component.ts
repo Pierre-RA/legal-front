@@ -21,6 +21,7 @@ export class LoanSimpleFormComponent implements OnInit {
   form: FormGroup;
   contactList: Array<Contact>;
   currencies: Array<any>;
+  contactType: string;
   @Input('contract') contract: LoanSimpleContract;
   @Input('id') id: string;
   @Output() filled: EventEmitter<LoanSimpleContract> = new EventEmitter();
@@ -33,6 +34,7 @@ export class LoanSimpleFormComponent implements OnInit {
     private modalService: NgbModal,
     private ngbDateParserFormatter: NgbDateParserFormatter
   ) {
+    this.contactType = '';
     this.currencies = currencies;
     this.contactList = [];
 
@@ -130,6 +132,7 @@ export class LoanSimpleFormComponent implements OnInit {
    * Open modal function
    */
   open(content, type) {
+    this.contactType = type == 'borrower' ? 'Ajouter un emprunteur' : 'Ajouter un prêteur';
     this.modalService.open(content).result.then((result) => {
       if (type == 'borrower') {
         this.contract.borrower = result;

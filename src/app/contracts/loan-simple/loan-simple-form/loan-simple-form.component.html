@@ -335,7 +335,7 @@
 
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title">Ajouter un prêteur</h4>
+      <h4 class="modal-title">{{contactType}}</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -346,7 +346,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Fermer</button>
     </div>
   </ng-template>
 </div>
