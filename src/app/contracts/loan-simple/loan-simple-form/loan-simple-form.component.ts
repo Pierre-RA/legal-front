@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbDatepickerI18n, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 import { CustomDateParserFormatter } from '../../../logic/dateparser';
 import { Contact } from '../../../logic/contact';
@@ -113,16 +114,19 @@ export class LoanSimpleFormComponent implements OnInit {
       canton: [this.contract.canton, Validators.required],
       place: [this.contract.place],
       date: [this.contract.date],
+      copiesNumber: ['', Validators.required],
       loan: this.fb.group({
         amount: [this.contract.loan.amount, Validators.required],
-        totalAmount: [0],
+        totalAmount: [{ value: 0, disabled: true }],
+        duration: [{ value: '', disabled: true }],
         currency: [this.contract.loan.currency, Validators.required],
-        interest: [this.contract.loan.interest, Validators.required],
+        interest: [this.contract.loan.interest],
         goal: [this.contract.loan.goal],
         hasGoal: [this.contract.loan.hasGoal],
         payoff: this.fb.array(
           this.formatPayoffs(this.contract.loan.payoff)
         ),
+        datePayback: [null, Validators.required],
         dateLent: [this.contract.loan.dateLent, Validators.required],
         extendNegotiationDate: [this.contract.loan.extendNegotiationDate],
         silentDate: [this.contract.loan.silentDate],
@@ -208,13 +212,33 @@ export class LoanSimpleFormComponent implements OnInit {
 
   computeTotalAmount(): void {
     if (
-      this.form.get('loan.amount').value &&
-      this.form.get('loan.interest').value
+      this.form.get('loan.amount').value
     ) {
+      let interest = this.form.get('loan.interest').value || 0;
       this.form.get('loan.totalAmount').setValue(
-        this.form.get('loan.amount').value *
-        (1 + (this.form.get('loan.interest').value / 100))
+        this.roundFinancial(
+          this.form.get('loan.amount').value *
+          (1 + (interest / 100))
+        )
       );
     }
+  }
+
+  computeDuration(): void {
+    console.log('compute');
+    if (
+      this.form.get('loan.dateLent').value &&
+      this.form.get('loan.datePayback').value
+    ) {
+      console.log(this.form.get('loan.dateLent').value);
+      let before = moment();
+      this.form.get('loan.duration').setValue(
+        'quelques jours'
+      );
+    }
+  }
+
+  roundFinancial(value: number): number {
+    return Math.round(value * 100) / 100;
   }
 }
