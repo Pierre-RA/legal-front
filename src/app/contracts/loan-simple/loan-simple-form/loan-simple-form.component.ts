@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbDatepickerI18n, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 import { CustomDateParserFormatter } from '../../../logic/dateparser';
 import { Contact } from '../../../logic/contact';
@@ -224,10 +225,13 @@ export class LoanSimpleFormComponent implements OnInit {
   }
 
   computeDuration(): void {
+    console.log('compute');
     if (
-      this.form.get('loan.dateLent') &&
-      this.form.get('loan.datePayback')
+      this.form.get('loan.dateLent').value &&
+      this.form.get('loan.datePayback').value
     ) {
+      console.log(this.form.get('loan.dateLent').value);
+      let before = moment();
       this.form.get('loan.duration').setValue(
         'quelques jours'
       );

@@ -29,10 +29,13 @@ const PIPES = [
   PhonePipe,
 ];
 
+const DIRECTIVES = [];
+
 @NgModule({
   declarations: [
     ...COMPONENTS,
     ...PIPES,
+    ...DIRECTIVES,
   ],
   imports: [
     RouterModule,
@@ -43,6 +46,7 @@ const PIPES = [
   exports: [
     ...COMPONENTS,
     ...PIPES,
+    ...DIRECTIVES,
   ]
 })
 export class TemplateModule {

@@ -140,8 +140,7 @@
                 <div class="input-group" [ngClass]="{'has-success': form.get('loan.dateLent').valid, 'has-warning': !form.get('loan.dateLent').valid}">
                   <input class="form-control" placeholder=""
                     id="dateLent" formControlName="dateLent"
-                    ngbDatepicker #d1="ngbDatepicker"
-                    (change)="computeDuration()">
+                    ngbDatepicker #d1="ngbDatepicker">
                   <button class="input-group-addon" (click)="d1.toggle()" type="button">
                     <i class="fa fa-calendar"></i>
                   </button>
@@ -152,8 +151,7 @@
                 <div class="input-group" [ngClass]="{'has-success': form.get('loan.datePayback').valid, 'has-warning': !form.get('loan.datePayback').valid}">
                   <input class="form-control" placeholder=""
                     id="datePayback" formControlName="datePayback"
-                    ngbDatepicker #d2="ngbDatepicker"
-                    (change)="computeDuration()">
+                    ngbDatepicker #d2="ngbDatepicker">
                   <button class="input-group-addon" (click)="d2.toggle()" type="button">
                     <i class="fa fa-calendar"></i>
                   </button>
