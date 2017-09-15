@@ -36,6 +36,10 @@ export class ContractlistComponent implements OnInit {
   ngOnInit() {
   }
 
+  unsetType() {
+    localStorage.removeItem('type');
+  }
+
   export(id: string, title: string) {
     this.contractsService
       .export(id)

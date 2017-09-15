@@ -8,6 +8,7 @@
     </ngb-alert>
   </div>
 </div>
+
 <div class="row bordered">
   <div class="col-md-3">
     <h2 class="text-center">Contrats</h2>
@@ -35,104 +36,115 @@
   </div>
 </div>
 
-<div class="bordered">
-  <h2>Contrats</h2>
-  <table class="table table-striped">
-    <thead class="thead-inverse">
-      <tr>
-        <th class="col-md-9">
-          Type
-        </th>
-        <th class="col-md-1">
-          Nombre
-        </th>
-        <th class="col-md-1">
-          Voir
-        </th>
-        <th class="col-md-1">
-          Créér
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          Contrat de Prêt
-        </td>
-        <td class="text-right">
-          {{contractsType[0]}}
-        </td>
-        <td class="text-center">
-          <a routerLink="/dashboard/contracts/" [queryParams]="{type: 0}">
-            <i class="fa fa-eye" aria-hidden="true"></i>
-          </a>
-        </td>
-        <td class="text-center">
-          <a routerLink="/dashboard/contracts/add" [queryParams]="{type: 0}">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div class="row mb-5 mt-3">
+  <div class="col-md-6">
+    <div class="bordered">
+      <h2>Contrats</h2>
+      <table class="table table-striped">
+        <thead class="thead-inverse">
+          <tr>
+            <th class="col-md-9">
+              Type
+            </th>
+            <th class="col-md-1">
+              Nombre
+            </th>
+            <th class="col-md-1">
+              Voir
+            </th>
+            <th class="col-md-1">
+              Créér
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="thead-inverse">
+            <th colspan="4" class="text-center">
+              Droit d'entreprise
+            </th>
+          </tr>
+          <tr>
+            <td>
+              Contrat de Prêt
+            </td>
+            <td class="text-right">
+              {{contractsType[0]}}
+            </td>
+            <td class="text-center">
+              <a routerLink="/dashboard/contracts/" [queryParams]="{type: 0}">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </a>
+            </td>
+            <td class="text-center">
+              <a routerLink="/dashboard/contracts/add" [queryParams]="{type: 0}">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<div class="bordered">
-  <h2>Contacts</h2>
-  <table class="table table-striped">
-    <thead class="thead-inverse">
-      <tr>
-        <th class="col-md-9">
-          Type
-        </th>
-        <th class="col-md-1">
-          Nombre
-        </th>
-        <th class="col-md-1">
-          Voir
-        </th>
-        <th class="col-md-1">
-          Créér
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          Personne physique
-        </td>
-        <td class="text-right">
-          {{physicalContacts}}
-        </td>
-        <td class="text-center">
-          <a routerLink="/dashboard/contacts" [queryParams]="{type: 'physical'}">
-            <i class="fa fa-eye" aria-hidden="true"></i>
-          </a>
-        </td>
-        <td class="text-center">
-          <a routerLink="/dashboard/contacts/add" [queryParams]="{type: 'physical'}">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Personne moral
-        </td>
-        <td class="text-right">
-          {{moralContacts}}
-        </td>
-        <td class="text-center">
-          <a routerLink="/dashboard/contacts" [queryParams]="{type: 'moral'}">
-            <i class="fa fa-eye" aria-hidden="true"></i>
-          </a>
-        </td>
-        <td class="text-center">
-          <a [routerLink]="['/dashboard/contacts/add']" [queryParams]="{type: 'moral'}">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="col-md-6">
+    <div class="bordered">
+      <h2>Contacts</h2>
+      <table class="table table-striped">
+        <thead class="thead-inverse">
+          <tr>
+            <th class="col-md-9">
+              Type
+            </th>
+            <th class="col-md-1">
+              Nombre
+            </th>
+            <th class="col-md-1">
+              Voir
+            </th>
+            <th class="col-md-1">
+              Créér
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Personne physique
+            </td>
+            <td class="text-right">
+              {{physicalContacts}}
+            </td>
+            <td class="text-center">
+              <a routerLink="/dashboard/contacts" [queryParams]="{type: 'physical'}">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </a>
+            </td>
+            <td class="text-center">
+              <a routerLink="/dashboard/contacts/add" [queryParams]="{type: 'physical'}">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Personne moral
+            </td>
+            <td class="text-right">
+              {{moralContacts}}
+            </td>
+            <td class="text-center">
+              <a routerLink="/dashboard/contacts" [queryParams]="{type: 'moral'}">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </a>
+            </td>
+            <td class="text-center">
+              <a [routerLink]="['/dashboard/contacts/add']" [queryParams]="{type: 'moral'}">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

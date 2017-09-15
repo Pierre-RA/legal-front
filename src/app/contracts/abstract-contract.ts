@@ -8,9 +8,13 @@ export abstract class AbstractContract implements Serializable<AbstractContract>
   owner: string;
   date: Date;
   place: string;
+  country: string;
+  canton: string;
 
   constructor(type: number) {
     this.type = type;
+    this.country = 'CH';
+    this.canton = '';
   }
 
   deserialize(input: any): this {
@@ -19,6 +23,8 @@ export abstract class AbstractContract implements Serializable<AbstractContract>
     this.owner = input.owner;
     this.date = input.date;
     this.place = input.place;
+    this.country = input.country;
+    this.canton = input.canton;
     return this;
   }
 

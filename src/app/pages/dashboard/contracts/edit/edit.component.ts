@@ -43,6 +43,8 @@ export class EditComponent implements OnInit {
         .subscribe(data => {
           this.createComponent(data);
         });
+    } else if (localStorage.getItem('type')) {
+      this.onSelect(Number.parseInt(localStorage.getItem('type')));
     } else {
       this.createMenuComponent();
     }
@@ -115,6 +117,7 @@ export class EditComponent implements OnInit {
   onSelect(item: number): void {
     switch(item) {
       case 0:
+        localStorage.setItem('type', '0');
         this.createComponent(LoanSimpleContract.getDefaultContract());
         break;
     }
