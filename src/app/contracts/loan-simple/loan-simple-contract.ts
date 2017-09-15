@@ -50,6 +50,8 @@ export class LoanSimpleContract
   static getDefaultContract(): LoanSimpleContract {
     return new LoanSimpleContract().deserialize({
       title: '',
+      country: 'CH',
+      canton: '',
       borrower: null,
       lender: null,
       loan: {

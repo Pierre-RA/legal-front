@@ -9,6 +9,7 @@ import { ContactsService } from '../../../services/contacts.service';
 import { AbstractContract } from '../../abstract-contract';
 import { LoanSimpleContract, Payoff } from '../loan-simple-contract';
 import { currencies } from '../../../logic/currencies';
+import { cantons, Canton } from '../../../logic/cantons/cantons';
 
 @Component({
   selector: 'form-loan-simple',
@@ -21,6 +22,7 @@ export class LoanSimpleFormComponent implements OnInit {
   form: FormGroup;
   contactList: Array<Contact>;
   currencies: Array<any>;
+  cantons: Array<Canton>;
   contactType: string;
   @Input('contract') contract: LoanSimpleContract;
   @Input('id') id: string;
@@ -36,6 +38,7 @@ export class LoanSimpleFormComponent implements OnInit {
   ) {
     this.contactType = '';
     this.currencies = currencies;
+    this.cantons = cantons;
     this.contactList = [];
 
     // Fetch contact list
@@ -76,6 +79,7 @@ export class LoanSimpleFormComponent implements OnInit {
     this.contract.borrower = data.borrower;
     this.contract.lender = data.lender;
     this.contract.loan = data.loan;
+    this.computeTotalAmount();
   }
 
   /**
@@ -105,8 +109,13 @@ export class LoanSimpleFormComponent implements OnInit {
       title: [this.contract.title, Validators.required],
       borrower: [this.contract.borrower, Validators.required],
       lender: [this.contract.lender, Validators.required],
+      country: [{ value: this.contract.country, disabled: true }],
+      canton: [this.contract.canton, Validators.required],
+      place: [this.contract.place],
+      date: [this.contract.date],
       loan: this.fb.group({
-        amount: [{value: this.contract.loan.amount, disabled: true}, Validators.required],
+        amount: [this.contract.loan.amount, Validators.required],
+        totalAmount: [0],
         currency: [this.contract.loan.currency, Validators.required],
         interest: [this.contract.loan.interest, Validators.required],
         goal: [this.contract.loan.goal],
@@ -119,6 +128,7 @@ export class LoanSimpleFormComponent implements OnInit {
         silentDate: [this.contract.loan.silentDate],
       }),
     });
+    console.log(this.form);
   }
 
   /**
@@ -194,5 +204,17 @@ export class LoanSimpleFormComponent implements OnInit {
     this.form.controls['loan'].patchValue({
       silentDate: null
     });
+  }
+
+  computeTotalAmount(): void {
+    if (
+      this.form.get('loan.amount').value &&
+      this.form.get('loan.interest').value
+    ) {
+      this.form.get('loan.totalAmount').setValue(
+        this.form.get('loan.amount').value *
+        (1 + (this.form.get('loan.interest').value / 100))
+      );
+    }
   }
 }

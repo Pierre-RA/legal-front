@@ -64,6 +64,10 @@ h1, h2, h3 {
       background-color: #fff;
     }
   }
+  .nav-link.disabled {
+    background-color: rgba(24,188,156,0.7);
+    border-color: #18BC9C;
+  }
 }
 .tab-content {
   border: #ddd solid 1px;

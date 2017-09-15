@@ -22,7 +22,7 @@
       <div class="row mt-3 justify-content-md-center">
         <div class="col-sm-10 col-xl-5">
           <div class="card mt-3">
-            <h2 class="text-center">Prêteur</h2>
+            <h3 class="text-center">Prêteur</h3>
             <template-contact [(contact)]="contract.lender" *ngIf="contract.lender"></template-contact>
             <p *ngIf="!contract.lender" class="text-center">
               <button class="btn btn-primary" type="button" (click)="open(content, 'lender')">
@@ -40,7 +40,7 @@
         </div>
         <div class="col-sm-10 col-xl-5">
           <div class="card mt-3">
-            <h2 class="text-center">Emprunteur</h2>
+            <h3 class="text-center">Emprunteur</h3>
             <template-contact [(contact)]="contract.borrower" *ngIf="contract.borrower"></template-contact>
             <p *ngIf="!contract.borrower" class="text-center">
               <button class="btn btn-primary" type="button" (click)="open(content, 'borrower')">
@@ -58,6 +58,9 @@
         </div>
       </div>
       <div class="footer">
+        <button type="submit" class="btn btn-success" *ngIf="isEditing()" [disabled]="!form.valid">
+          Mettre à jour
+        </button>
         <button class="btn btn-danger">
           Annuler
         </button>
@@ -65,16 +68,16 @@
     </ng-template>
   </ngb-tab>
 
-  <ngb-tab title="Article 1, 2 & 3" id="article-1-2">
+  <ngb-tab title="Art. 1, 2 & 3" id="article-1-2">
     <ng-template ngbTabContent>
       <div class="header">
-        <h2>Article 1, 2 & 3</h2>
+        <h2>Articles 1, 2 & 3</h2>
       </div>
 
-      <div class="row mt-3">
-        <div class="col-md-12">
+      <div class="row justify-content-md-center">
+        <div class="col-md-10">
           <div class="card" formGroupName="loan">
-            <h2>Prêt</h2>
+            <h2>Article 1. Prêt</h2>
             <div class="form-group row">
               <div class="col-md-12">
                 <label for="amount">But du prêt</label>
@@ -94,28 +97,63 @@
                 </select>
               </div>
               <div class="col-md-4">
-                <label for="interest">Intérêt</label>
+                <label for="amount">Montant à prêter</label>
+                <input type="number" class="form-control" id="amount"
+                  placeholder="eg. 12000"
+                  name="amount"
+                  formControlName="amount">
+              </div>
+              <div class="col-md-4">
+                <label for="totalAmount">Montant à rembourser</label>
+                <input type="text" class="form-control" id="totalAmount"
+                  placeholder="calculé automatiquement"
+                  formControlName="totalAmount">
+              </div>
+            </div>
+            <div class="form-group justify-content-md-center row">
+              Nombre d'échéances
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3 justify-content-md-center">
+        <div class="col-md-10" formGroupName="loan">
+          <div class="card">
+            <h2>Article 2. Durée</h2>
+            <div class="form-group row">
+              <div class="col-md-4">
+                <label for="dateLent">Date de versement</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" id="interest"
-                    placeholder="Intérêt"
-                    name="interest"
-                    formControlName="interest">
-                  <div class="input-group-addon">%</div>
+                  <input class="form-control" placeholder=""
+                    id="dateLent" formControlName="dateLent" ngbDatepicker #d1="ngbDatepicker">
+                  <button class="input-group-addon" (click)="d1.toggle()" type="button">
+                    <i class="fa fa-calendar"></i>
+                  </button>
                 </div>
               </div>
               <div class="col-md-4">
-                <label for="amount">Montant</label>
-                <input type="number" class="form-control" id="amount"
+                <label for="dateLent">Date de remboursement</label>
+                <div class="input-group">
+                  <input class="form-control" placeholder=""
+                    id="dateLent" formControlName="dateLent" ngbDatepicker #d1="ngbDatepicker">
+                  <button class="input-group-addon" (click)="d1.toggle()" type="button">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="totalAmount">Durée</label>
+                <input type="text" class="form-control" id="totalAmount"
                   placeholder="calculé automatiquement"
-                  name="amount"
-                  formControlName="amount">
+                  formControlName="totalAmount">
               </div>
             </div>
             <div class="form-group row">
               <div class="col-md-6">
-                <label for="dateLent">Date de versement</label>
+                <label for="dateLent">Date de relance</label>
                 <div class="input-group">
-                  <input class="form-control" placeholder="(en cours de traduction)"
+                  <input class="form-control" placeholder=""
                     id="dateLent" formControlName="dateLent" ngbDatepicker #d1="ngbDatepicker">
                   <button class="input-group-addon" (click)="d1.toggle()" type="button">
                     <i class="fa fa-calendar"></i>
@@ -123,18 +161,19 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="dateExtend">Date de relance</label>
+                <label for="dateLent">Date de relance tacite</label>
                 <div class="input-group">
-                  <input class="form-control" placeholder="(en cours de traduction)"
-                    id="dateExtend" formControlName="extendNegotiationDate" ngbDatepicker #d2="ngbDatepicker">
-                  <button class="input-group-addon" (click)="d2.toggle()" type="button">
+                  <input class="form-control" placeholder=""
+                    id="dateLent" formControlName="dateLent" ngbDatepicker #d1="ngbDatepicker">
+                  <button class="input-group-addon" (click)="d1.toggle()" type="button">
                     <i class="fa fa-calendar"></i>
                   </button>
                 </div>
               </div>
             </div>
+
             <div formArrayName="payoff">
-              <h3>Échéancier</h3>
+              <h4>Échéancier</h4>
               <div *ngFor="let child of form.get('loan').get('payoff')['controls']; let i = index">
                 <div formGroupName="{{i}}" class="from-group row">
                   <div class="col-md-6">
@@ -156,42 +195,34 @@
               </div>
               <button class="btn btn-link" type="button" (click)="addDue()">Ajouter une échéance</button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3 justify-content-md-center">
+        <div class="col-md-10" formGroupName="loan">
+          <div class="card">
+            <h2>Article 3. Intérêts</h2>
             <div class="form-group row">
-              <div class="col-md-6">
-                <label for="silentDate">Date de relance tacite</label>
+              <div class="col-md-4">
+                <label for="interest">Intérêt annuel</label>
                 <div class="input-group">
-                  <input class="form-control" placeholder="(en cours de traduction)"
-                    id="silentDate" formControlName="silentDate" ngbDatepicker #d4="ngbDatepicker">
-                  <button class="input-group-addon" (click)="d4.toggle()" type="button">
-                    <i class="fa fa-calendar"></i>
-                  </button>
+                  <input type="number" class="form-control" id="interest"
+                    placeholder="Intérêt"
+                    name="interest"
+                    formControlName="interest">
+                  <div class="input-group-addon">%</div>
                 </div>
-              </div>
-              <div class="col-md-1">
-                <label for="silentDate">&nbsp;</label>
-                <button class="btn btn-link" (click)="removeTacit()" type="button">
-                  <i class="fa fa-times"></i>
-                </button>
-              </div>
-            </div>
-            <h3>Intérêts</h3>
-            <div class="form-group row">
-              <div class="col-md-12">
-                ...
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row mt-3">
-        <div class="col-md-12">
-          <button type="submit" class="btn btn-primary" *ngIf="!isEditing()" [disabled]="!form.valid">Ajouter</button>
-          <button type="submit" class="btn btn-primary" *ngIf="isEditing()" [disabled]="!form.valid">Mettre à jour</button>
-        </div>
-      </div>
-
       <div class="footer">
+        <button type="submit" class="btn btn-success" *ngIf="isEditing()" [disabled]="!form.valid">
+          Mettre à jour
+        </button>
         <button class="btn btn-danger">
           Annuler
         </button>
@@ -199,17 +230,35 @@
     </ng-template>
   </ngb-tab>
 
-  <ngb-tab title="Article 4" id="article-4">
+  <ngb-tab title="Art. 4 & 5" id="article-4">
     <ng-template ngbTabContent>
       <div class="header">
-        <h2>Article 4</h2>
+        <h2>Articles 4 & 5</h2>
       </div>
 
-      <div class="row justify-content-md-center">
-        <div class="col-sm-8">
-          <p class="alert alert-danger">
-            Article pas encore fonctionnel
-          </p>
+      <div class="row mt-3 justify-content-md-center">
+        <div class="col-md-10">
+          <div class="card">
+            <h2>Article 4. Remboursement du prêt</h2>
+            <div class="form-group row">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3 justify-content-md-center">
+        <div class="col-md-10">
+          <div class="card">
+            <h2>Article 5. remboursement anticipé</h2>
+            <div class="form-group row">
+              <div class="col-sm-8">
+                <p class="alert alert-danger">
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                  Article pas encore fonctionnel
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -221,39 +270,25 @@
     </ng-template>
   </ngb-tab>
 
-  <ngb-tab title="Article 5" id="article-5">
-    <ng-template ngbTabContent>
-      <div class="header">
-        <h2>Article 5</h2>
-      </div>
-
-      <div class="row justify-content-md-center">
-        <div class="col-sm-8">
-          <p class="alert alert-danger">
-            Article pas encore fonctionnel
-          </p>
-        </div>
-      </div>
-
-      <div class="footer">
-        <button class="btn btn-danger">
-          Annuler
-        </button>
-      </div>
-    </ng-template>
-  </ngb-tab>
-
-  <ngb-tab title="Article 6" id="article-6">
+  <ngb-tab title="Art. 6" id="article-6">
     <ng-template ngbTabContent>
       <div class="header">
         <h2>Article 6</h2>
       </div>
 
-      <div class="row justify-content-md-center">
-        <div class="col-sm-8">
-          <p class="alert alert-danger">
-            Article pas encore fonctionnel
-          </p>
+      <div class="row mt-3 justify-content-md-center">
+        <div class="col-md-10">
+          <div class="card">
+            <h2>Article 6. sûretés</h2>
+            <div class="form-group row">
+              <div class="col-sm-8">
+                <p class="alert alert-danger">
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                  Article pas encore fonctionnel
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -265,39 +300,41 @@
     </ng-template>
   </ngb-tab>
 
-  <ngb-tab title="Article 7" id="article-7">
+  <ngb-tab title="Art. 7 & 8" id="article-8">
     <ng-template ngbTabContent>
       <div class="header">
-        <h2>Article 7</h2>
+        <h2>Articles 7 & 8</h2>
       </div>
 
-      <div class="row justify-content-md-center">
-        <div class="col-sm-8">
-          <p class="alert alert-danger">
-            Article pas encore fonctionnel
-          </p>
+      <div class="row mt-3 justify-content-md-center">
+        <div class="col-md-10">
+          <div class="card">
+            <h2>Article 7. Restitution immédiate du prêt</h2>
+            <div class="form-group row justify-content-md-center">
+              <div class="col-sm-8">
+                <p class="alert alert-danger">
+                  <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                  Article pas encore fonctionnel
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="footer">
-        <button class="btn btn-danger">
-          Annuler
-        </button>
-      </div>
-    </ng-template>
-  </ngb-tab>
-
-  <ngb-tab title="Article 8" id="article-8">
-    <ng-template ngbTabContent>
-      <div class="header">
-        <h2>Article 8</h2>
-      </div>
-
-      <div class="row justify-content-md-center">
-        <div class="col-sm-8">
-          <p class="alert alert-danger">
-            Article pas encore fonctionnel
-          </p>
+      <div class="row mt-3 justify-content-md-center">
+        <div class="col-md-10">
+          <div class="card">
+            <h2>Article 8. Divers</h2>
+            <div class="form-group row justify-content-md-center">
+              <div class="col-sm-8">
+                <p class="alert alert-success">
+                  <i class="fa fa-smile-o" aria-hidden="true"></i>
+                  Pas d'éléments à modifier
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -315,15 +352,53 @@
         <h2>Signature</h2>
       </div>
 
-      <div class="row justify-content-md-center">
-        <div class="col-sm-8">
-          <p class="alert alert-danger">
-            Article pas encore fonctionnel
-          </p>
+      <div class="row mt-3 justify-content-md-center">
+        <div class="col-md-10">
+          <div class="card">
+            <h2>Droit et for</h2>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label for="country">Pays</label>
+                <select class="form-control" id="country"
+                  name="country"
+                  formControlName="country">
+                  <option value="CH">Suisse</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="canton">Canton</label>
+                <select class="form-control" id="canton"
+                  name="canton"
+                  formControlName="canton">
+                  <option value="">
+                    -- choisir un canton --
+                  </option>
+                  <option *ngFor="let canton of cantons" [value]="canton.code">{{canton.name}} ({{canton.code}})</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3 justify-content-md-center">
+        <div class="col-md-10">
+          <div class="card">
+            <h2>Signature</h2>
+            <div class="form-group row">
+
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="footer">
+        <button type="submit" class="btn btn-success" *ngIf="isEditing()" [disabled]="!form.valid">
+          Mettre à jour
+        </button>
+        <button type="submit" class="btn btn-success" *ngIf="!isEditing()" [disabled]="!form.valid">
+          Ajouter
+        </button>
         <button class="btn btn-danger">
           Annuler
         </button>
