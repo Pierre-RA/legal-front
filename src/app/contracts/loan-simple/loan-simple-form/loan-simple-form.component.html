@@ -57,12 +57,10 @@
           </div>
         </div>
       </div>
-      <div class="footer">
-        <button type="submit" class="btn btn-success" *ngIf="isEditing()" [disabled]="!form.valid">
-          Mettre à jour
-        </button>
-        <button class="btn btn-danger">
-          Annuler
+      <div class="footer text-right">
+        <button class="btn btn-success" (click)="t.select('article-1-2')">
+          Art. 1, 2 & 3
+          <i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i>
         </button>
       </div>
     </ng-template>
@@ -220,12 +218,20 @@
       </div>
 
       <div class="footer">
-        <button type="submit" class="btn btn-success" *ngIf="isEditing()" [disabled]="!form.valid">
-          Mettre à jour
-        </button>
-        <button class="btn btn-danger">
-          Annuler
-        </button>
+        <div class="row">
+          <div class="col-sm-6">
+            <button class="btn btn-secondary" (click)="t.select('preambule')">
+              <i class="fa fa-lg fa-chevron-left" aria-hidden="true"></i>
+              Préambule
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button class="btn btn-success float-right" (click)="t.select('article-4')">
+              Art. 4 & 5
+              <i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </ng-template>
   </ngb-tab>
@@ -269,9 +275,20 @@
       </div>
 
       <div class="footer">
-        <button class="btn btn-danger">
-          Annuler
-        </button>
+        <div class="row">
+          <div class="col-sm-6">
+            <button class="btn btn-secondary" (click)="t.select('article-1-2')">
+              <i class="fa fa-lg fa-chevron-left" aria-hidden="true"></i>
+              Art. 1, 2 & 3
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button class="btn btn-success float-right" (click)="t.select('article-6')">
+              Art. 6
+              <i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </ng-template>
   </ngb-tab>
@@ -299,9 +316,20 @@
       </div>
 
       <div class="footer">
-        <button class="btn btn-danger">
-          Annuler
-        </button>
+        <div class="row">
+          <div class="col-sm-6">
+            <button class="btn btn-secondary" (click)="t.select('article-4')">
+              <i class="fa fa-lg fa-chevron-left" aria-hidden="true"></i>
+              Art. 4 & 5
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button class="btn btn-success float-right" (click)="t.select('article-8')">
+              Art. 7 & 8
+              <i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </ng-template>
   </ngb-tab>
@@ -345,9 +373,20 @@
       </div>
 
       <div class="footer">
-        <button class="btn btn-danger">
-          Annuler
-        </button>
+        <div class="row">
+          <div class="col-sm-6">
+            <button class="btn btn-secondary" (click)="t.select('article-6')">
+              <i class="fa fa-lg fa-chevron-left" aria-hidden="true"></i>
+              Art. 6
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button class="btn btn-success float-right" (click)="t.select('signature')">
+              Signature
+              <i class="fa fa-lg fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </ng-template>
   </ngb-tab>
@@ -390,28 +429,63 @@
       <div class="row mt-3 justify-content-md-center">
         <div class="col-md-10">
           <div class="card">
-            <h2>Signature</h2>
+            <h2>Page de signature</h2>
             <div class="form-group row">
-
+              <div class="col-md-4">
+                <label for="copiesNumber">Nombre de copies</label>
+                <input type="number" class="form-control" id="copiesNumber"
+                  placeholder="Nombre de copies"
+                  formControlName="copiesNumber">
+              </div>
+              <div class="col-md-4">
+                <label for="date">Date</label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="___________"
+                    id="date" formControlName="date" ngbDatepicker #d7="ngbDatepicker">
+                  <button class="input-group-addon" (click)="d7.toggle()" type="button">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="place">Lieu</label>
+                <input type="text" class="form-control" id="place"
+                  placeholder="___________"
+                  formControlName="place">
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="footer">
-        <button type="submit" class="btn btn-success" *ngIf="isEditing()" [disabled]="!form.valid">
-          Mettre à jour
-        </button>
-        <button type="submit" class="btn btn-success" *ngIf="!isEditing()" [disabled]="!form.valid">
-          Ajouter
-        </button>
-        <button class="btn btn-danger">
-          Annuler
-        </button>
+        <div class="row">
+          <div class="col-sm-6">
+            <button class="btn btn-secondary" (click)="t.select('article-8')">
+              <i class="fa fa-lg fa-chevron-left" aria-hidden="true"></i>
+              Art. 7 & 8
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button type="submit" class="btn btn-success float-right" [disabled]="!form.valid">
+              <i class="fa fa-lg fa-plus" aria-hidden="true"></i>
+              Ajouter
+            </button>
+          </div>
+        </div>
       </div>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>
+<div class="text-center mt-3">
+  <button class="btn btn-secondary">
+    <i class="fa fa-files-o" aria-hidden="true"></i>
+    Retour aux contrats
+  </button>
+  <button type="submit" class="btn btn-success" *ngIf="isEditing()" [disabled]="!form.valid">
+    Mettre à jour
+  </button>
+</div>
 </form>
 
   <ng-template #content let-c="close" let-d="dismiss">

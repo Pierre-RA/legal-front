@@ -2,13 +2,13 @@
 
 <div class="white-background">
   <h2>Emprunteur</h2>
-  <template-contact [contact]="contract.getBorrower()" *ngIf="contract"></template-contact>
+  <template-contact [contact]="contract.getBorrower()" *ngIf="contract && contract.getBorrower()"></template-contact>
 
   <h2>Prêteur</h2>
-  <template-contact [contact]="contract.getLender()" *ngIf="contract"></template-contact>
+  <template-contact [contact]="contract.getLender()" *ngIf="contract && contract.getLender()"></template-contact>
 
   <h2>Prêt</h2>
-  <div class="card" *ngIf="contract">
+  <div class="card" *ngIf="contract && contract.loan">
     <div class="row justify-content-md-center">
       <div class="col-md-6">
         <p class="alert alert-warning">

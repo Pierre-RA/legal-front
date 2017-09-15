@@ -113,6 +113,7 @@ export class LoanSimpleFormComponent implements OnInit {
       canton: [this.contract.canton, Validators.required],
       place: [this.contract.place],
       date: [this.contract.date],
+      copiesNumber: ['', Validators.required],
       loan: this.fb.group({
         amount: [this.contract.loan.amount, Validators.required],
         totalAmount: [0],
